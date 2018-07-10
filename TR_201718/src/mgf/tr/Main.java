@@ -8,6 +8,7 @@ package mgf.tr;
 import java.awt.Color;
 import kp.jngg.Display;
 import kp.jngg.DisplayMode;
+import kp.jngg.input.Keyboard;
 
 /**
  *
@@ -21,15 +22,27 @@ public class Main {
     public static void main(String[] args) {
         
         
-        Display win = Display.create("Título", DisplayMode.getDisplayMode(800, 600));
-        System.out.println(DisplayMode.getAllDisplayModes());
+        Display ventana = Display.create("Práctica", DisplayMode.getDisplayMode(1280, 720));
+    
+        GmLoopClass gl = new GmLoopClass();
         
-        win.setGameLoop(new Prueba());
+        ventana.addInput(new Keyboard());
+        ventana.addInputListener(gl);
+        
+        ventana.setGameLoop(gl);
+        ventana.start();
+        
+        
+        
+        //Display win = Display.create("Título", DisplayMode.getDisplayMode(1280, 720));
+        //System.out.println(DisplayMode.getAllDisplayModes());
+        
+        /*win.setGameLoop(new Prueba());
         win.getDebugInfo().setEnabled(true);
         win.getDebugInfo().setColor(Color.white);
         win.getDebugInfo().setExactFps(true);
-        win.getDebugInfo().setShowMemory(true);
-        win.start();
+        win.getDebugInfo().setShowMemory(true);*/
+        //win.start();
         
     }
     
