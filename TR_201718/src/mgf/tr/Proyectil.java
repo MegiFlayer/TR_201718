@@ -5,8 +5,6 @@
  */
 package mgf.tr;
 
-import kp.jngg.math.Vector2;
-
 import java.awt.Color;
 import java.awt.Graphics2D;
 import kp.jngg.input.InputEvent;
@@ -32,6 +30,7 @@ public class Proyectil {
         position = new Vector2();
         size = new Vector2();
         speed = new Vector2();
+        showAble = false;
         sprite1 = null;
         
     }
@@ -71,6 +70,28 @@ public class Proyectil {
 
     }
     
+    public void switchShow(){
+    
+        if (showAble == false){
+            showAble = true;
+        }else{
+            showAble = false;
+        }
+        
+    }
+    
+    public void offShow(){
+    
+            showAble = false;
+
+    }
+    
+    public void onShow(){
+    
+            showAble = true;
+        
+    }
+    
     public void draw(Graphics2D g) {
         if (sprite1 != null && showAble == true) {
             sprite1.draw(g, position.x, position.y, size.x, size.y);
@@ -87,26 +108,15 @@ public class Proyectil {
     }
 
     public void update(double delta) {
-
         
-        if (position.y <= 0) {
-    
-            showAble = false;
         
-        }
-
+        
     }
     
     public void dispatch(InputEvent event) {
         if (event.getIdType() == InputId.KEYBOARD_TYPE) {
 
             int code = event.getCode();
-
-            if (code == Keycode.VK_SPACE) {
-                position.y = size.y  /*+ la posicion y de la nave*/;
-                position.x = /*position.x de la nave + size.x/2 de la nave - */(size.x/2);
-                showAble = true;
-            }
             
         }
     }

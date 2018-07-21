@@ -32,8 +32,11 @@ public class Nave {
     private Sprite sprite1;
     private Sprite sprite2;
     private Sprite sprite3;
+    private Proyectil shoot;
 
     private int moveX;
+    
+    Proyectil shooot = new Proyectil();
 
     public Nave() {
         position = new Vector2();
@@ -141,6 +144,11 @@ public class Nave {
             }
             if (code == Keycode.VK_RIGHT) {
                 moveX += event.isPressed() ? 1 : -1;
+            }
+            if (code == Keycode.VK_SPACE) {
+                position.y = size.y  /*+ la posicion y de la nave*/;
+                position.x = /*position.x de la nave + size.x/2 de la nave - */(size.x/2);
+                shoot.onShow();
             }
         }
     }
