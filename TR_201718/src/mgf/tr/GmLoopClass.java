@@ -75,6 +75,7 @@ public class GmLoopClass implements GameLoop, InputListener{
     public void update(double d) {
         
         ship.update(d);
+        laser.update(d);
         
     }
 
@@ -82,6 +83,7 @@ public class GmLoopClass implements GameLoop, InputListener{
     public void dispatchEvent(InputEvent ie) {
         
         ship.dispatch(ie);
+        laser.dispatch(ie);
         
     }
            

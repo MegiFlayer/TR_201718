@@ -7,11 +7,15 @@ package mgf.tr;
 
 import java.awt.Color;
 import java.awt.Graphics2D;
+import java.io.File;
+import java.io.IOException;
 import kp.jngg.input.InputEvent;
 import kp.jngg.input.InputId;
 import kp.jngg.input.Keycode;
 import kp.jngg.math.Vector2;
+import kp.jngg.sprite.AnimatedSprite;
 import kp.jngg.sprite.Sprite;
+import kp.jngg.sprite.SpriteLoader;
 
 /**
  *
@@ -26,17 +30,18 @@ public class Nave {
     private static final double X_SPEED = 6.5;
     private static final double FRICTION = 0.75;
 
+    private SpriteLoader spritesNave;
     private final Vector2 position;
     private final Vector2 size;
     private final Vector2 speed;
     private Sprite sprite1;
     private Sprite sprite2;
     private Sprite sprite3;
+    private Sprite sprite4;
     private Proyectil shoot;
 
     private int moveX;
     
-    Proyectil shooot = new Proyectil();
 
     public Nave() {
         position = new Vector2();
@@ -84,6 +89,28 @@ public class Nave {
 
     }
 
+    public void init () {
+    
+        spritesNave = new SpriteLoader(new File("sprites"));
+        try {
+            
+            sprite4 = (AnimatedSprite) spritesNave.loadAnimatedSprite("laser", "Proyectil64x29_FSanz.png", 64, 0, 64, 29, 1).buildSprite();
+            
+        }
+        catch(IOException ex) {
+            ex.printStackTrace(System.err);
+        }
+        
+        
+        Proyectil shooot = new Proyectil();
+        shoot.setSize(100, 100);
+        shoot.setSprite(sprite4);
+        shoot.chooseShow(true);
+        shoot.setPosition(100, 100);
+        shoot.sprite1 = sprite4;
+    
+    }
+    
     public void draw(Graphics2D g) {
         if (sprite1 != null && moveX < 0) {
             sprite1.draw(g, position.x, position.y, size.x, size.y);
@@ -93,6 +120,9 @@ public class Nave {
         }
         if (sprite3 != null && moveX > 0) {
             sprite3.draw(g, position.x, position.y, size.x, size.y);
+        }
+        if (sprite4 != null) {
+            shoot.sprite1.draw(g, (shoot.getPosX()), (shoot.getPosY()), (shoot.getSizeX()), (shoot.getSizeY()));
         }
         drawSpecs(g);
     }
@@ -146,8 +176,8 @@ public class Nave {
                 moveX += event.isPressed() ? 1 : -1;
             }
             if (code == Keycode.VK_SPACE) {
-                position.y = size.y  /*+ la posicion y de la nave*/;
-                position.x = /*position.x de la nave + size.x/2 de la nave - */(size.x/2);
+                shoot.setPosY(position.y - shoot.getSizeY());
+                shoot.setPosX(position.x + (size.x/2) - (shoot.getSizeX()/2));
                 shoot.onShow();
             }
         }

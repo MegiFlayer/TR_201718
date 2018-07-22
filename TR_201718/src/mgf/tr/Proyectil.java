@@ -22,7 +22,7 @@ public class Proyectil {
     private final Vector2 position;
     private final Vector2 size;
     private final Vector2 speed;
-    private Sprite sprite1;
+    protected Sprite sprite1;
     private boolean showAble;
     
     public Proyectil() {
@@ -80,6 +80,52 @@ public class Proyectil {
         
     }
     
+    public double getPosX(){
+    
+        return position.x;
+    
+    }
+    
+    public double getPosY(){
+    
+        return position.y;
+    
+    }
+    
+    public void setPosX(double pX){
+    
+        position.x = pX;
+    
+    }
+    
+    public void setPosY(double pY){
+    
+        position.y = pY;
+    
+    }
+    
+    public double getSizeX(){
+    
+        return size.x;
+    
+    }
+    
+    public double getSizeY(){
+    
+        return size.y;
+    
+    }
+    
+    public void chooseShow (boolean show){
+    
+        if (show == true){
+            showAble = true;
+        }else{
+            showAble = false;
+        }
+    
+    }
+    
     public void offShow(){
     
             showAble = false;
@@ -117,6 +163,11 @@ public class Proyectil {
         if (event.getIdType() == InputId.KEYBOARD_TYPE) {
 
             int code = event.getCode();
+            
+            if(code == Keycode.VK_SPACE){
+                showAble = true;
+            }
+                
             
         }
     }
