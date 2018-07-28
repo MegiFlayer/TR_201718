@@ -24,6 +24,7 @@ public class Proyectil {
     private final Vector2 speed;
     protected Sprite sprite1;
     private boolean showAble;
+    private boolean moveAble;
     
     public Proyectil() {
         
@@ -76,6 +77,16 @@ public class Proyectil {
             showAble = true;
         }else{
             showAble = false;
+        }
+        
+    }
+    
+    public void switchMove(){
+    
+        if (moveAble == false){
+            moveAble = true;
+        }else{
+            moveAble = false;
         }
         
     }
@@ -138,6 +149,28 @@ public class Proyectil {
         
     }
     
+    public void chooseMove (boolean move){
+    
+        if (move == true){
+            moveAble = true;
+        }else{
+            moveAble = false;
+        }
+    
+    }
+    
+    public void offMove(){
+    
+            moveAble = false;
+
+    }
+    
+    public void onMove(){
+    
+            moveAble = true;
+        
+    }
+    
     public void draw(Graphics2D g) {
         if (sprite1 != null && showAble == true) {
             sprite1.draw(g, position.x, position.y, size.x, size.y);
@@ -155,7 +188,11 @@ public class Proyectil {
 
     public void update(double delta) {
         
+        if (moveAble == true){
         
+            position.y -= 15 * 60 * delta;
+        
+        }
         
     }
     
@@ -164,9 +201,9 @@ public class Proyectil {
 
             int code = event.getCode();
             
-            if(code == Keycode.VK_SPACE){
+            /*if(code == Keycode.VK_SPACE){
                 showAble = true;
-            }
+            }*/
                 
             
         }

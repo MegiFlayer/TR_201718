@@ -43,7 +43,10 @@ public class GmLoopClass implements GameLoop, InputListener{
             sprite1 = (AnimatedSprite) sprites.loadAnimatedSprite("shipLeft", "Nave25x30_FSanz.png", 0, 0, 25, 30, 1).buildSprite();
             sprite2 = (AnimatedSprite) sprites.loadAnimatedSprite("shipMiddle", "Nave25x30_FSanz.png", 25, 0, 25, 30, 1).buildSprite();
             sprite3 = (AnimatedSprite) sprites.loadAnimatedSprite("shipRight", "Nave25x30_FSanz.png", 50, 0, 25, 30, 1).buildSprite();
-            sprite4 = (AnimatedSprite) sprites.loadAnimatedSprite("laser", "Proyectil64x29_FSanz.png", 64, 0, 64, 29, 1).buildSprite();
+            sprite4 = (AnimatedSprite) sprites.loadAnimatedSprite("laser", "ProyectilVertical29x64_FSanz.png", 0, 0, 29, 64, 3).buildSprite();
+            sprite4.setLoopMode();
+            sprite4.setSpeed(2);
+            sprite4.start();
             
         }
         catch(IOException ex) {
@@ -57,7 +60,7 @@ public class GmLoopClass implements GameLoop, InputListener{
         
         laser = new Proyectil();
         laser.setPosition(100, 100);
-        laser.setSize(100, 200);
+        laser.setSize(11.5, 40);
         laser.setSprite(sprite4);
         
         
@@ -77,6 +80,14 @@ public class GmLoopClass implements GameLoop, InputListener{
         ship.update(d);
         laser.update(d);
         
+        if (laser.getPosY()<= 0){
+        
+            laser.setPosY(0);
+            laser.offMove();
+            laser.offShow();
+        
+        }
+        
     }
 
     @Override
@@ -89,10 +100,11 @@ public class GmLoopClass implements GameLoop, InputListener{
 
         if (ie.getIdType() == InputId.KEYBOARD_TYPE) {
             int code = ie.getCode();
-            if (code == Keycode.VK_SPACE) {
+            if (code == Keycode.VK_SPACE && ie.isPressed()) {
                 laser.setPosY(ship.getPosY() - laser.getSizeY());
-                laser.setPosX(ship.getPosY() + (ship.getSizeX()/2) - (laser.getSizeX()/2));
+                laser.setPosX(ship.getPosX() + ship.getSizeX()/2 - laser.getSizeX()/2);
                 laser.onShow();
+                laser.onMove();
             }
         }
         }
