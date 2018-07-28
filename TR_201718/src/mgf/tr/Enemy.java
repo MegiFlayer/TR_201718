@@ -21,7 +21,7 @@ import kp.jngg.sprite.SpriteLoader;
  *
  * @author ferna
  */
-public class Nave {
+public class Enemy {
 
     /**
      * Funciones recomendadas: draw: Para dibujar update: Actualizar valores
@@ -30,10 +30,10 @@ public class Nave {
     private static final double X_SPEED = 6.5;
     private static final double FRICTION = 0.75;
 
-    private SpriteLoader spritesNave;
-    private final Vector2 position;
-    private final Vector2 size;
-    private final Vector2 speed;
+    private SpriteLoader spritesEnemy;
+    private Vector2 position;
+    private Vector2 size;
+    private Vector2 speed;
     private Sprite sprite1;
     private Sprite sprite2;
     private Sprite sprite3;
@@ -43,7 +43,7 @@ public class Nave {
     private int moveX;
     
 
-    public Nave() {
+    public void Enemy() {
         position = new Vector2();
         size = new Vector2();
         speed = new Vector2();
@@ -71,42 +71,6 @@ public class Nave {
         return speed.copy();
     }
 
-        public double getPosX(){
-    
-        return position.x;
-    
-    }
-    
-    public double getPosY(){
-    
-        return position.y;
-    
-    }
-    
-    public void setPosX(double pX){
-    
-        position.x = pX;
-    
-    }
-    
-    public void setPosY(double pY){
-    
-        position.y = pY;
-    
-    }
-    
-    public double getSizeX(){
-    
-        return size.x;
-    
-    }
-    
-    public double getSizeY(){
-    
-        return size.y;
-    
-    }
-    
     public void setSize(double width, double height) {
         if (width < 1) {
             width = 1;
@@ -127,10 +91,10 @@ public class Nave {
 
     public void init () {
     
-        spritesNave = new SpriteLoader(new File("sprites"));
+        spritesEnemy = new SpriteLoader(new File("sprites"));
         try {
             
-            sprite4 = (AnimatedSprite) spritesNave.loadAnimatedSprite("laser", "Proyectil64x29_FSanz.png", 64, 0, 64, 29, 1).buildSprite();
+            sprite4 = (AnimatedSprite) spritesEnemy.loadAnimatedSprite("laser", "Proyectil64x29_FSanz.png", 64, 0, 64, 29, 1).buildSprite();
             
         }
         catch(IOException ex) {
@@ -211,11 +175,11 @@ public class Nave {
             if (code == Keycode.VK_RIGHT) {
                 moveX += event.isPressed() ? 1 : -1;
             }
-            /*if (code == Keycode.VK_SPACE) {
+            if (code == Keycode.VK_SPACE) {
                 shoot.setPosY(position.y - shoot.getSizeY());
                 shoot.setPosX(position.x + (size.x/2) - (shoot.getSizeX()/2));
                 shoot.onShow();
-            }*/
+            }
         }
     }
 }

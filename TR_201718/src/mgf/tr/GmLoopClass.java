@@ -85,6 +85,18 @@ public class GmLoopClass implements GameLoop, InputListener{
         ship.dispatch(ie);
         laser.dispatch(ie);
         
+        if (ie.getIdType() == InputId.KEYBOARD_TYPE) {
+
+        if (ie.getIdType() == InputId.KEYBOARD_TYPE) {
+            int code = ie.getCode();
+            if (code == Keycode.VK_SPACE) {
+                laser.setPosY(ship.getPosY() - laser.getSizeY());
+                laser.setPosX(ship.getPosY() + (ship.getSizeX()/2) - (laser.getSizeX()/2));
+                laser.onShow();
+            }
+        }
+        }
+        
     }
            
 }
