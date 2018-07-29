@@ -91,47 +91,23 @@ public class Enemy {
 
     public void init () {
     
-        spritesEnemy = new SpriteLoader(new File("sprites"));
-        try {
-            
-            sprite4 = (AnimatedSprite) spritesEnemy.loadAnimatedSprite("laser", "Proyectil64x29_FSanz.png", 64, 0, 64, 29, 1).buildSprite();
-            
-        }
-        catch(IOException ex) {
-            ex.printStackTrace(System.err);
-        }
         
-        
-        Proyectil shooot = new Proyectil();
-        shoot.setSize(100, 100);
-        shoot.setSprite(sprite4);
-        shoot.chooseShow(true);
-        shoot.setPosition(100, 100);
-        shoot.sprite1 = sprite4;
     
     }
     
     public void draw(Graphics2D g) {
-        if (sprite1 != null && moveX < 0) {
+        if (sprite1 != null) {
             sprite1.draw(g, position.x, position.y, size.x, size.y);
         }
-        if (sprite2 != null && moveX == 0) {
-            sprite2.draw(g, position.x, position.y, size.x, size.y);
-        }
-        if (sprite3 != null && moveX > 0) {
-            sprite3.draw(g, position.x, position.y, size.x, size.y);
-        }
-        if (sprite4 != null) {
-            shoot.sprite1.draw(g, (shoot.getPosX()), (shoot.getPosY()), (shoot.getSizeX()), (shoot.getSizeY()));
-        }
+        
         drawSpecs(g);
     }
 
     private void drawSpecs(Graphics2D g) {
         Color old = g.getColor();
-        g.setColor(Color.GREEN);
-        g.drawString("Position = " + position, 12, 12);
-        g.drawString("Speed = " + speed, 12, 24);
+        g.setColor(Color.ORANGE);
+        g.drawString("Position = " + position, 12, 60);
+        g.drawString("Speed = " + speed, 12, 72);
         g.setColor(old);
     }
 
@@ -142,22 +118,25 @@ public class Enemy {
         } else if ((position.x + size.x) > 1280) {
             position.x = 1280 - size.x;
         }
-
+        
+        if (position.x <= 100){
+        
+            position.x = 100;
+            moveX = 1;
+        
+        }
+        
+        if (position.x >= 1180){
+        
+            position.x = 1180;
+            moveX = -1;
+        
+        }
+        
         if (moveX != 0) {
             speed.x = X_SPEED * moveX;
-        } else {
-            if (speed.x > 0) {
-                speed.x -= FRICTION;
-                if (speed.x < 0) {
-                    speed.x = 0;
-                }
-            } else if (speed.x < 0) {
-                speed.x += FRICTION;
-                if (speed.x > 0) {
-                    speed.x = 0;
-                }
-            }
         }
+        
         speed.ensureRangeLocal(10, 10);
 
         position.add(speed);
@@ -169,17 +148,7 @@ public class Enemy {
 
             int code = event.getCode();
 
-            if (code == Keycode.VK_LEFT) {
-                moveX += event.isPressed() ? -1 : 1;
-            }
-            if (code == Keycode.VK_RIGHT) {
-                moveX += event.isPressed() ? 1 : -1;
-            }
-            if (code == Keycode.VK_SPACE) {
-                shoot.setPosY(position.y - shoot.getSizeY());
-                shoot.setPosX(position.x + (size.x/2) - (shoot.getSizeX()/2));
-                shoot.onShow();
             }
         }
     }
-}
+

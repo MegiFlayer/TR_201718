@@ -33,6 +33,7 @@ public class GmLoopClass implements GameLoop, InputListener{
     
     private Nave ship;
     private Proyectil laser;
+    private Enemy enm1;
     
     
     @Override
@@ -63,6 +64,10 @@ public class GmLoopClass implements GameLoop, InputListener{
         laser.setSize(11.5, 40);
         laser.setSprite(sprite4);
         
+        enm1 = new Enemy();
+        enm1.setPosition(100, 200);
+        enm1.setSize(100, 100);
+        enm1.setSprite(sprite1, sprite1, sprite1);
         
     }
 
@@ -71,6 +76,7 @@ public class GmLoopClass implements GameLoop, InputListener{
         
         ship.draw(gd);
         laser.draw(gd);
+        enm1.draw(gd);
         
     }
 
@@ -79,6 +85,7 @@ public class GmLoopClass implements GameLoop, InputListener{
         
         ship.update(d);
         laser.update(d);
+        enm1.update(d);
         
         if (laser.getPosY()<= 0){
         
@@ -95,8 +102,7 @@ public class GmLoopClass implements GameLoop, InputListener{
         
         ship.dispatch(ie);
         laser.dispatch(ie);
-        
-        if (ie.getIdType() == InputId.KEYBOARD_TYPE) {
+        enm1.dispatch(ie);
 
         if (ie.getIdType() == InputId.KEYBOARD_TYPE) {
             int code = ie.getCode();
@@ -107,7 +113,7 @@ public class GmLoopClass implements GameLoop, InputListener{
                 laser.onMove();
             }
         }
-        }
+        
         
     }
            
