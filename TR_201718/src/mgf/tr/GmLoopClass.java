@@ -30,6 +30,7 @@ public class GmLoopClass implements GameLoop, InputListener{
     private AnimatedSprite sprite2;
     private AnimatedSprite sprite3;
     private AnimatedSprite sprite4;
+    private AnimatedSprite sprite5;
     
     private Nave ship;
     private Proyectil laser;
@@ -45,6 +46,7 @@ public class GmLoopClass implements GameLoop, InputListener{
             sprite2 = (AnimatedSprite) sprites.loadAnimatedSprite("shipMiddle", "Nave25x30_FSanz.png", 25, 0, 25, 30, 1).buildSprite();
             sprite3 = (AnimatedSprite) sprites.loadAnimatedSprite("shipRight", "Nave25x30_FSanz.png", 50, 0, 25, 30, 1).buildSprite();
             sprite4 = (AnimatedSprite) sprites.loadAnimatedSprite("laser", "ProyectilVertical29x64_FSanz.png", 0, 0, 29, 64, 3).buildSprite();
+            sprite5 = (AnimatedSprite) sprites.loadAnimatedSprite("enemy", "Enemigo30x25_FSanz.png", 0, 0, 30, 25, 1).buildSprite();
             sprite4.setLoopMode();
             sprite4.setSpeed(2);
             sprite4.start();
@@ -65,9 +67,9 @@ public class GmLoopClass implements GameLoop, InputListener{
         laser.setSprite(sprite4);
         
         enm1 = new Enemy();
+        enm1.setSize(120, 100);
         enm1.setPosition(100, 200);
-        enm1.setSize(100, 100);
-        enm1.setSprite(sprite1, sprite1, sprite1);
+        enm1.setSprite(sprite5);
         
     }
 

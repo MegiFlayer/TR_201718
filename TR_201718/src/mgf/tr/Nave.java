@@ -71,7 +71,7 @@ public class Nave {
         return speed.copy();
     }
 
-        public double getPosX(){
+    public double getPosX(){
     
         return position.x;
     
