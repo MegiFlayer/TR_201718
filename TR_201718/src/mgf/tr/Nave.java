@@ -9,6 +9,7 @@ import java.awt.Color;
 import java.awt.Graphics2D;
 import java.io.File;
 import java.io.IOException;
+import java.util.Objects;
 import kp.jngg.input.InputEvent;
 import kp.jngg.input.InputId;
 import kp.jngg.input.Keycode;
@@ -31,6 +32,7 @@ public class Nave {
     private static final double FRICTION = 0.75;
 
     private SpriteLoader spritesNave;
+    private BulletManager bullets;
     private final Vector2 position;
     private final Vector2 size;
     private final Vector2 speed;
@@ -39,11 +41,14 @@ public class Nave {
     private Sprite sprite3;
     private Sprite sprite4;
     private Proyectil shoot;
+    private double fireCoolDown;
+    private boolean fireEnabled;
 
     private int moveX;
     
 
-    public Nave() {
+    public Nave(BulletManager bullets) {
+        this.bullets = Objects.requireNonNull(bullets);
         position = new Vector2();
         size = new Vector2();
         speed = new Vector2();
@@ -209,7 +214,21 @@ public class Nave {
         speed.ensureRangeLocal(10, 10);
 
         position.add(speed);
-
+        
+        if(fireCoolDown < 0)
+            fireCoolDown = 0;
+        else if(fireCoolDown > 0)
+            fireCoolDown -= delta;
+        
+        if(fireEnabled && fireCoolDown == 0)
+        {
+            fireCoolDown = 0.25;
+            bullets.createShipBullet(new Vector2(
+                    position.x + size.x / 2 - Constants.BULLET_SHIP_WIDTH / 2,
+                    position.y - Constants.BULLET_SHIP_HEIGHT
+            ));
+        }
+            
     }
 
     public void dispatch(InputEvent event) {
@@ -223,6 +242,15 @@ public class Nave {
             if (code == Keycode.VK_RIGHT) {
                 moveX += event.isPressed() ? 1 : -1;
             }
+            if(code == Keycode.VK_SPACE)
+            {
+                fireEnabled = event.isPressed();
+            }
+            
+            /*
+                laser.setPosY(ship.getPosY() - laser.getSizeY());
+                laser.setPosX(ship.getPosX() + ship.getSizeX()/2 - laser.getSizeX()/2);
+            */
             /*if (code == Keycode.VK_SPACE) {
                 shoot.setPosY(position.y - shoot.getSizeY());
                 shoot.setPosX(position.x + (size.x/2) - (shoot.getSizeX()/2));

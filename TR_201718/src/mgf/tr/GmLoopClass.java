@@ -6,17 +6,15 @@
 package mgf.tr;
 
 
-import java.awt.Color;
 import java.awt.Graphics2D;
 import java.io.File;
 import java.io.IOException;
+import java.util.Objects;
+import kp.jngg.Display;
 import kp.jngg.GameLoop;
-import kp.jngg.math.Vector2;
 import kp.jngg.input.InputEvent;
-import kp.jngg.input.InputId;
 import kp.jngg.input.InputListener;
-import kp.jngg.input.Keycode;
-import kp.jngg.math.BoundingBox;
+import kp.jngg.math.Vector2;
 import kp.jngg.sprite.AnimatedSprite;
 import kp.jngg.sprite.Sprite;
 import kp.jngg.sprite.SpriteLoader;
@@ -26,23 +24,30 @@ import kp.jngg.sprite.SpriteLoader;
  */
 public class GmLoopClass implements GameLoop, InputListener{
     
+    private final Display display;
     private SpriteLoader sprites;
     private Sprite sprite1;
     private AnimatedSprite sprite2;
     private AnimatedSprite sprite3;
     private AnimatedSprite sprite4;
     private AnimatedSprite sprite5;
+    private BulletManager bullets;
     
     private Nave ship;
-    private Proyectil laser;
     private Enemy enm1;
-    private BoundingBox bbShip;
-    private BoundingBox bbEnemy;
+    
+    public GmLoopClass(Display display)
+    {
+        this.display = Objects.requireNonNull(display);
+    }
     
     
     @Override
     public void init() {
         sprites = new SpriteLoader(new File("sprites"));
+        bullets = new BulletManager(sprites,
+                new Vector2(display.getWidth() / 2, display.getHeight() / 2),
+                new Vector2(display.getWidth(), display.getHeight()));
         try {
             
             sprite1 = (AnimatedSprite) sprites.loadAnimatedSprite("shipLeft", "Nave25x30_FSanz.png", 0, 0, 25, 30, 1).buildSprite();
@@ -59,65 +64,33 @@ public class GmLoopClass implements GameLoop, InputListener{
             ex.printStackTrace(System.err);
         }
         
-        ship = new Nave();
+        ship = new Nave(bullets);
         ship.setPosition(100, 620);
         ship.setSize(75, 90);
         ship.setSprite(sprite1, sprite2, sprite3);
-        
-        laser = new Proyectil();
-        laser.setPosition(100, 100);
-        laser.setSize(11.5, 40);
-        laser.setSprite(sprite4);
         
         enm1 = new Enemy();
         enm1.setSize(120, 100);
         enm1.setPosition(100, 200);
         enm1.setSprite(sprite5);
         
-        bbShip = new BoundingBox(ship.getPosX(), ship.getPosY(), ship.getSizeX(), ship.getSizeY());
-        bbEnemy = new BoundingBox(enm1.getPosX(), enm1.getPosY(), enm1.getSizeX(), enm1.getSizeY());
-        
     }
 
     @Override
     public void draw(Graphics2D gd){
         
+        bullets.draw(gd);
         ship.draw(gd);
-        laser.draw(gd);
         enm1.draw(gd);
         
-        drawSpecs(gd);
-        
-    }
-    
-    private void drawSpecs(Graphics2D g) {
-        Color old = g.getColor();
-        g.setColor(Color.ORANGE);
-        g.drawString("Position bbShip = " + bbShip.getPoint0() + ", " + bbShip.getPoint1(), 12, 60);
-        g.setColor(Color.RED);
-        g.drawString("Position Enemy = " + enm1.getPos(), 12, 72);
-        g.setColor(Color.ORANGE);
-        g.drawString("Position bbEnemy = " + bbEnemy.getPoint0() + ", " + bbEnemy.getPoint1(), 12, 84);
-        g.setColor(old);
     }
 
     @Override
     public void update(double d) {
         
+        bullets.update(d);
         ship.update(d);
-        laser.update(d);
         enm1.update(d);
-        
-        bbShip.resituateLeftTopPoint(ship.getPos(), ship.getSize());
-        bbEnemy.resituateLeftTopPoint(enm1.getPos(), enm1.getSize());
-        
-        if (laser.getPosY()<= 0){
-        
-            laser.setPosY(0);
-            laser.offMove();
-            laser.offShow();
-        
-        }
         
     }
 
@@ -125,20 +98,7 @@ public class GmLoopClass implements GameLoop, InputListener{
     public void dispatchEvent(InputEvent ie) {
         
         ship.dispatch(ie);
-        laser.dispatch(ie);
         enm1.dispatch(ie);
-
-        if (ie.getIdType() == InputId.KEYBOARD_TYPE) {
-            int code = ie.getCode();
-            if (code == Keycode.VK_SPACE && ie.isPressed()) {
-                laser.setPosY(ship.getPosY() - laser.getSizeY());
-                laser.setPosX(ship.getPosX() + ship.getSizeX()/2 - laser.getSizeX()/2);
-                laser.onShow();
-                laser.onMove();
-            }
-        }
-        
-        
     }
            
 }

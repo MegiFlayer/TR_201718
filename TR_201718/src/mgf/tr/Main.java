@@ -5,7 +5,6 @@
  */
 package mgf.tr;
 
-import java.awt.Color;
 import kp.jngg.Display;
 import kp.jngg.DisplayMode;
 import kp.jngg.input.Keyboard;
@@ -24,7 +23,7 @@ public class Main {
         
         Display ventana = Display.create("Práctica", DisplayMode.getDisplayMode(1280, 720));
     
-        GmLoopClass gl = new GmLoopClass();
+        GmLoopClass gl = new GmLoopClass(ventana);
         
         ventana.addInput(new Keyboard());
         ventana.addInputListener(gl);
