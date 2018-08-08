@@ -64,7 +64,7 @@ public class GmLoopClass implements GameLoop, InputListener{
             ex.printStackTrace(System.err);
         }
         
-        ship = new Nave(bullets);
+        ship = new Nave(sprites, bullets);
         ship.setPosition(100, 620);
         ship.setSize(75, 90);
         ship.setSprite(sprite1, sprite2, sprite3);

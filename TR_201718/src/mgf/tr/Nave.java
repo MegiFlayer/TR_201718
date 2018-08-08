@@ -7,14 +7,10 @@ package mgf.tr;
 
 import java.awt.Color;
 import java.awt.Graphics2D;
-import java.io.File;
-import java.io.IOException;
-import java.util.Objects;
 import kp.jngg.input.InputEvent;
 import kp.jngg.input.InputId;
 import kp.jngg.input.Keycode;
 import kp.jngg.math.Vector2;
-import kp.jngg.sprite.AnimatedSprite;
 import kp.jngg.sprite.Sprite;
 import kp.jngg.sprite.SpriteLoader;
 
@@ -22,116 +18,29 @@ import kp.jngg.sprite.SpriteLoader;
  *
  * @author ferna
  */
-public class Nave {
+public class Nave extends Entity
+{
 
     /**
      * Funciones recomendadas: draw: Para dibujar update: Actualizar valores
      * dispatchEvents: capturar eventos de inputs
      */
-    private static final double X_SPEED = 6.5;
-    private static final double FRICTION = 0.75;
-
-    private SpriteLoader spritesNave;
-    private BulletManager bullets;
-    private final Vector2 position;
-    private final Vector2 size;
-    private final Vector2 speed;
+    private static final double X_SPEED = 400;
+    private static final double FRICTION = 22.5;
     private Sprite sprite1;
     private Sprite sprite2;
     private Sprite sprite3;
-    private Sprite sprite4;
-    private Proyectil shoot;
     private double fireCoolDown;
     private boolean fireEnabled;
 
     private int moveX;
     
 
-    public Nave(BulletManager bullets) {
-        this.bullets = Objects.requireNonNull(bullets);
-        position = new Vector2();
-        size = new Vector2();
-        speed = new Vector2();
+    public Nave(SpriteLoader sprites, BulletManager bullets) {
+        super(sprites, bullets);
         sprite1 = null;
         sprite2 = null;
         sprite3 = null;
-    }
-
-    public void setPosition(double x, double y) {
-        if (x < 0) {
-            x = 0;
-        }
-        if (y < 0) {
-            y = 0;
-        }
-        position.set(x, y);
-    }
-
-    public void setSpeed(double x, double y) {
-        speed.x = x;
-        speed.y = y;
-    }
-
-    public Vector2 getSpeed() {
-        return speed.copy();
-    }
-
-    public double getPosX(){
-    
-        return position.x;
-    
-    }
-    
-    public double getPosY(){
-    
-        return position.y;
-    
-    }
-    
-    public Vector2 getPos(){
-    
-        return position;
-    
-    }
-    
-    public void setPosX(double pX){
-    
-        position.x = pX;
-    
-    }
-    
-    public void setPosY(double pY){
-    
-        position.y = pY;
-    
-    }
-    
-    public double getSizeX(){
-    
-        return size.x;
-    
-    }
-    
-    public double getSizeY(){
-    
-        return size.y;
-    
-    }
-    
-    public Vector2 getSize(){
-    
-        return size;
-    
-    }
-    
-    public void setSize(double width, double height) {
-        if (width < 1) {
-            width = 1;
-        }
-        if (height < 1) {
-            height = 1;
-        }
-        size.set(width, height);
     }
 
     public void setSprite(Sprite s1, Sprite s2, Sprite s3) {
@@ -141,30 +50,10 @@ public class Nave {
         sprite3 = s3;
 
     }
-
-    public void init () {
     
-        spritesNave = new SpriteLoader(new File("sprites"));
-        try {
-            
-            sprite4 = (AnimatedSprite) spritesNave.loadAnimatedSprite("laser", "Proyectil64x29_FSanz.png", 64, 0, 64, 29, 1).buildSprite();
-            
-        }
-        catch(IOException ex) {
-            ex.printStackTrace(System.err);
-        }
-        
-        
-        Proyectil shooot = new Proyectil();
-        shoot.setSize(100, 100);
-        shoot.setSprite(sprite4);
-        shoot.chooseShow(true);
-        shoot.setPosition(100, 100);
-        shoot.sprite1 = sprite4;
-    
-    }
-    
-    public void draw(Graphics2D g) {
+    @Override
+    public void draw(Graphics2D g)
+    {
         if (sprite1 != null && moveX < 0) {
             sprite1.draw(g, position.x, position.y, size.x, size.y);
         }
@@ -173,9 +62,6 @@ public class Nave {
         }
         if (sprite3 != null && moveX > 0) {
             sprite3.draw(g, position.x, position.y, size.x, size.y);
-        }
-        if (sprite4 != null) {
-            shoot.sprite1.draw(g, (shoot.getPosX()), (shoot.getPosY()), (shoot.getSizeX()), (shoot.getSizeY()));
         }
         drawSpecs(g);
     }
@@ -188,6 +74,7 @@ public class Nave {
         g.setColor(old);
     }
 
+    @Override
     public void update(double delta) {
 
         if (position.x < 0) {
@@ -211,9 +98,10 @@ public class Nave {
                 }
             }
         }
-        speed.ensureRangeLocal(10, 10);
+        speed.ensureRangeLocal(600, 600);
 
-        position.add(speed);
+        //position.add(speed);
+        super.update(delta);
         
         if(fireCoolDown < 0)
             fireCoolDown = 0;
@@ -246,16 +134,6 @@ public class Nave {
             {
                 fireEnabled = event.isPressed();
             }
-            
-            /*
-                laser.setPosY(ship.getPosY() - laser.getSizeY());
-                laser.setPosX(ship.getPosX() + ship.getSizeX()/2 - laser.getSizeX()/2);
-            */
-            /*if (code == Keycode.VK_SPACE) {
-                shoot.setPosY(position.y - shoot.getSizeY());
-                shoot.setPosX(position.x + (size.x/2) - (shoot.getSizeX()/2));
-                shoot.onShow();
-            }*/
         }
     }
 }
