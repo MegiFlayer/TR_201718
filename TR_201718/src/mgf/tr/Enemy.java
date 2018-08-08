@@ -74,6 +74,54 @@ public class Enemy {
     enmSprite = s1;
     
     }
+
+    public double getPosX(){
+    
+        return position.x;
+    
+    }
+    
+    public double getPosY(){
+    
+        return position.y;
+    
+    }
+    
+    public Vector2 getPos(){
+    
+        return position;
+    
+    }
+    
+    public void setPosX(double pX){
+    
+        position.x = pX;
+    
+    }
+    
+    public void setPosY(double pY){
+    
+        position.y = pY;
+    
+    }
+    
+    public double getSizeX(){
+    
+        return size.x;
+    
+    }
+    
+    public double getSizeY(){
+    
+        return size.y;
+    
+    }
+    
+    public Vector2 getSize(){
+    
+        return size;
+    
+    }
     
     public void init () {
     
@@ -86,6 +134,8 @@ public class Enemy {
         }
         
     }
+    
+    
 
     public void update(double delta) {
         

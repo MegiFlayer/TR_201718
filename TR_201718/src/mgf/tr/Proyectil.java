@@ -200,10 +200,7 @@ public class Proyectil {
         if (event.getIdType() == InputId.KEYBOARD_TYPE) {
 
             int code = event.getCode();
-
-            /*if(code == Keycode.VK_SPACE){
-                showAble = true;
-            }*/
+            
         }
     }
 }

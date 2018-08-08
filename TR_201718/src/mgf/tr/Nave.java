@@ -83,6 +83,12 @@ public class Nave {
     
     }
     
+    public Vector2 getPos(){
+    
+        return position;
+    
+    }
+    
     public void setPosX(double pX){
     
         position.x = pX;
@@ -104,6 +110,12 @@ public class Nave {
     public double getSizeY(){
     
         return size.y;
+    
+    }
+    
+    public Vector2 getSize(){
+    
+        return size;
     
     }
     

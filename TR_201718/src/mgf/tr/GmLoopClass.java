@@ -16,6 +16,7 @@ import kp.jngg.input.InputEvent;
 import kp.jngg.input.InputId;
 import kp.jngg.input.InputListener;
 import kp.jngg.input.Keycode;
+import kp.jngg.math.BoundingBox;
 import kp.jngg.sprite.AnimatedSprite;
 import kp.jngg.sprite.Sprite;
 import kp.jngg.sprite.SpriteLoader;
@@ -35,6 +36,8 @@ public class GmLoopClass implements GameLoop, InputListener{
     private Nave ship;
     private Proyectil laser;
     private Enemy enm1;
+    private BoundingBox bbShip;
+    private BoundingBox bbEnemy;
     
     
     @Override
@@ -71,6 +74,9 @@ public class GmLoopClass implements GameLoop, InputListener{
         enm1.setPosition(100, 200);
         enm1.setSprite(sprite5);
         
+        bbShip = new BoundingBox(ship.getPosX(), ship.getPosY(), ship.getSizeX(), ship.getSizeY());
+        bbEnemy = new BoundingBox(enm1.getPosX(), enm1.getPosY(), enm1.getSizeX(), enm1.getSizeY());
+        
     }
 
     @Override
@@ -80,6 +86,19 @@ public class GmLoopClass implements GameLoop, InputListener{
         laser.draw(gd);
         enm1.draw(gd);
         
+        drawSpecs(gd);
+        
+    }
+    
+    private void drawSpecs(Graphics2D g) {
+        Color old = g.getColor();
+        g.setColor(Color.ORANGE);
+        g.drawString("Position bbShip = " + bbShip.getPoint0() + ", " + bbShip.getPoint1(), 12, 60);
+        g.setColor(Color.RED);
+        g.drawString("Position Enemy = " + enm1.getPos(), 12, 72);
+        g.setColor(Color.ORANGE);
+        g.drawString("Position bbEnemy = " + bbEnemy.getPoint0() + ", " + bbEnemy.getPoint1(), 12, 84);
+        g.setColor(old);
     }
 
     @Override
@@ -88,6 +107,9 @@ public class GmLoopClass implements GameLoop, InputListener{
         ship.update(d);
         laser.update(d);
         enm1.update(d);
+        
+        bbShip.resituateLeftTopPoint(ship.getPos(), ship.getSize());
+        bbEnemy.resituateLeftTopPoint(enm1.getPos(), enm1.getSize());
         
         if (laser.getPosY()<= 0){
         
