@@ -9,7 +9,7 @@ import java.awt.Color;
 import java.awt.Graphics2D;
 import kp.jngg.input.InputEvent;
 import kp.jngg.input.InputId;
-import kp.jngg.input.Keycode;
+import kp.jngg.math.BoundingBox;
 import kp.jngg.math.Vector2;
 import kp.jngg.sprite.Sprite;
 
@@ -22,18 +22,16 @@ public class Proyectil {
     private final Vector2 position;
     private final Vector2 size;
     private final Vector2 speed;
+    private final BoundingBox bbox;
     protected Sprite sprite1;
-    private boolean showAble;
-    private boolean moveAble;
 
     public Proyectil() {
 
         position = new Vector2();
         size = new Vector2();
         speed = new Vector2();
-        showAble = false;
+        bbox = new BoundingBox();
         sprite1 = null;
-
     }
 
     public void setPosition(double x, double y) {
@@ -70,24 +68,16 @@ public class Proyectil {
         sprite1 = s1;
 
     }
+    
+    public final boolean hasCollision(BoundingBox other) { return bbox.hasCollision(other); }
 
+    @Deprecated
     public void switchShow() {
-
-        if (showAble == false) {
-            showAble = true;
-        } else {
-            showAble = false;
-        }
 
     }
 
+    @Deprecated
     public void switchMove() {
-
-        if (moveAble == false) {
-            moveAble = true;
-        } else {
-            moveAble = false;
-        }
 
     }
 
@@ -102,6 +92,7 @@ public class Proyectil {
         return position.y;
 
     }
+    public final Vector2 getPosition() { return position.copy(); }
 
     public void setPosX(double pX) {
 
@@ -127,52 +118,58 @@ public class Proyectil {
 
     }
 
+    @Deprecated
     public void chooseShow(boolean show) {
 
-        if (show == true) {
+        /*if (show == true) {
             showAble = true;
         } else {
             showAble = false;
-        }
+        }*/
 
     }
-
+    
+    @Deprecated
     public void offShow() {
 
-        showAble = false;
+        //showAble = false;
 
     }
-
+    
+    @Deprecated
     public void onShow() {
 
-        showAble = true;
+        //showAble = true;
 
     }
-
+    
+    @Deprecated
     public void chooseMove(boolean move) {
 
-        if (move == true) {
+        /*if (move == true) {
             moveAble = true;
         } else {
             moveAble = false;
-        }
+        }*/
 
     }
 
+    @Deprecated
     public void offMove() {
 
-        moveAble = false;
+        //moveAble = false;
 
     }
 
+    @Deprecated
     public void onMove() {
 
-        moveAble = true;
+        //moveAble = true;
 
     }
 
     public void draw(Graphics2D g) {
-        if (sprite1 != null && showAble == true) {
+        if (sprite1 != null) {
             sprite1.draw(g, position.x, position.y, size.x, size.y);
         }
         drawSpecs(g);
@@ -185,15 +182,17 @@ public class Proyectil {
         g.drawString("Speed SHOOT = " + speed, 12, 48);
         g.setColor(old);
     }
+    
+    public final void updateBoundingBox()
+    {
+        bbox.resituate(position, size);
+    }
 
-    public void update(double delta) {
-
-        if (moveAble == true) {
-
-            position.y -= 15 * 60 * delta;
-
-        }
-
+    public void update(double delta)
+    {
+        sprite1.update(delta);
+        position.add(speed.product(delta));
+        updateBoundingBox();
     }
 
     public void dispatch(InputEvent event) {
