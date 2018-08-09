@@ -81,7 +81,7 @@ public class GmLoopClass implements GameLoop, InputListener{
         ship.setSize(Constants.SHIP_WIDTH, Constants.SHIP_HEIGHT);
         ship.setSprite(sprite1, sprite2, sprite3);
         
-        enm1 = new Enemy();
+        enm1 = new Enemy(sprites, bullets);
         enm1.setSize(120, 100);
         enm1.setPosition(100, 200);
         enm1.setSprite(sprite5);

@@ -12,6 +12,7 @@ import kp.jngg.math.Vector2;
 import kp.jngg.sprite.Sprite;
 import kp.jngg.sprite.SpriteLoader;
 import mgf.tr.Canvas;
+import mgf.tr.entity.Entity;
 import mgf.tr.entity.EntityManager;
 import mgf.tr.scenario.label.Lives;
 import mgf.tr.scenario.label.Score;
@@ -111,7 +112,7 @@ public final class Scenario
     
     public final void dispatch(InputEvent event)
     {
-        entities.forEachEntity((e) -> {
+        entities.forEachEntity((Entity e) -> {
             if(!e.hasDestroyed())
             {
                 e.dispatch(event);
