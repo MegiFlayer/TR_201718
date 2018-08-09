@@ -11,9 +11,17 @@ package mgf.tr;
  */
 public interface Constants
 {
+    /* CANVAS */
+    int CANVAS_WIDTH = 1280;
+    int CANVAS_HEIGHT = 720;
+    
     /* BULLETS */
     double BULLET_SHIP_WIDTH = 11.5;
     double BULLET_SHIP_HEIGHT = 40;
     double BULLET_SHIP_SPEEDX = 0;
     double BULLET_SHIP_SPEEDY = -500;
+    
+    /* SHIP */
+    double SHIP_WIDTH = 75;
+    double SHIP_HEIGHT = 90;
 }

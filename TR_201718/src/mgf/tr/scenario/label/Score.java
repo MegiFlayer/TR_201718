@@ -30,10 +30,10 @@ public final class Score extends Label
     public final long getScore() { return score; }
     
     @Override
-    public final void update(double delta)
+    public final boolean update(double delta)
     {
-        if(!enabled)
-            return;
+        if(!super.update(delta))
+            return false;
         if(remainder > 0)
         {
             double speed = remainder + 250d;
@@ -43,6 +43,7 @@ public final class Score extends Label
             remainder -= part;
             score += part;
         }
+        return true;
     }
     
     @Override

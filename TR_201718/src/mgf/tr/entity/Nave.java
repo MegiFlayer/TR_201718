@@ -13,8 +13,8 @@ import kp.jngg.input.Keycode;
 import kp.jngg.math.Vector2;
 import kp.jngg.sprite.Sprite;
 import kp.jngg.sprite.SpriteLoader;
-import mgf.tr.scenario.BulletManager;
 import mgf.tr.Constants;
+import mgf.tr.scenario.BulletManager;
 
 /**
  *
@@ -59,14 +59,15 @@ public class Nave extends Entity
     @Override
     public void draw(Graphics2D g)
     {
+        Vector2 pos = position.difference(size.quotient(2));
         if (sprite1 != null && moveX < 0) {
-            sprite1.draw(g, position.x, position.y, size.x, size.y);
+            sprite1.draw(g, pos.x, pos.y, size.x, size.y);
         }
         if (sprite2 != null && moveX == 0) {
-            sprite2.draw(g, position.x, position.y, size.x, size.y);
+            sprite2.draw(g, pos.x, pos.y, size.x, size.y);
         }
         if (sprite3 != null && moveX > 0) {
-            sprite3.draw(g, position.x, position.y, size.x, size.y);
+            sprite3.draw(g, pos.x, pos.y, size.x, size.y);
         }
         drawSpecs(g);
     }
@@ -80,13 +81,9 @@ public class Nave extends Entity
     }
 
     @Override
-    public void update(double delta) {
-
-        if (position.x < 0) {
-            position.x = 0;
-        } else if ((position.x + size.x) > 1280) {
-            position.x = 1280 - size.x;
-        }
+    public void update(double delta)
+    {
+        position.ensureRangeXLocal(size.x / 2, Constants.CANVAS_WIDTH - size.x / 2);
 
         if (moveX != 0) {
             speed.x = X_SPEED * moveX;
@@ -105,7 +102,6 @@ public class Nave extends Entity
         }
         speed.ensureRangeLocal(600, 600);
 
-        //position.add(speed);
         super.update(delta);
         
         if(fireCoolDown < 0)
@@ -117,7 +113,7 @@ public class Nave extends Entity
         {
             fireCoolDown = 0.25;
             bullets.createShipBullet(new Vector2(
-                    position.x + size.x / 2 - Constants.BULLET_SHIP_WIDTH / 2,
+                    position.x - Constants.BULLET_SHIP_WIDTH / 2,
                     position.y - Constants.BULLET_SHIP_HEIGHT
             ));
         }

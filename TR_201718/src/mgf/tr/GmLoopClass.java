@@ -6,9 +6,7 @@
 package mgf.tr;
 
 
-import mgf.tr.scenario.BulletManager;
-import mgf.tr.entity.Enemy;
-import mgf.tr.entity.Nave;
+import java.awt.Color;
 import java.awt.Graphics2D;
 import java.io.File;
 import java.io.IOException;
@@ -21,6 +19,10 @@ import kp.jngg.math.Vector2;
 import kp.jngg.sprite.AnimatedSprite;
 import kp.jngg.sprite.Sprite;
 import kp.jngg.sprite.SpriteLoader;
+import mgf.tr.entity.Enemy;
+import mgf.tr.entity.Nave;
+import mgf.tr.scenario.BulletManager;
+import mgf.tr.scenario.label.Lives;
 /**
  *
  * @author ferna
@@ -28,6 +30,7 @@ import kp.jngg.sprite.SpriteLoader;
 public class GmLoopClass implements GameLoop, InputListener{
     
     private final Display display;
+    private final Canvas canvas;
     private SpriteLoader sprites;
     private Sprite sprite1;
     private AnimatedSprite sprite2;
@@ -35,6 +38,7 @@ public class GmLoopClass implements GameLoop, InputListener{
     private AnimatedSprite sprite4;
     private AnimatedSprite sprite5;
     private BulletManager bullets;
+    private Lives lives;
     
     private Nave ship;
     private Enemy enm1;
@@ -42,6 +46,7 @@ public class GmLoopClass implements GameLoop, InputListener{
     public GmLoopClass(Display display)
     {
         this.display = Objects.requireNonNull(display);
+        this.canvas = new Canvas(display);
     }
     
     
@@ -67,9 +72,13 @@ public class GmLoopClass implements GameLoop, InputListener{
             ex.printStackTrace(System.err);
         }
         
+        lives = new Lives(sprites);
+        lives.setPosition(display.getX() + Constants.SHIP_WIDTH * 0.5, 100);
+        lives.setEnabled(true);
+        
         ship = new Nave(sprites, bullets);
-        ship.setPosition(100, 620);
-        ship.setSize(75, 90);
+        ship.setPosition(Constants.CANVAS_WIDTH / 2, Constants.CANVAS_HEIGHT - Constants.SHIP_HEIGHT + 20);
+        ship.setSize(Constants.SHIP_WIDTH, Constants.SHIP_HEIGHT);
         ship.setSprite(sprite1, sprite2, sprite3);
         
         enm1 = new Enemy();
@@ -82,10 +91,16 @@ public class GmLoopClass implements GameLoop, InputListener{
     @Override
     public void draw(Graphics2D gd){
         
-        bullets.draw(gd);
-        ship.draw(gd);
-        enm1.draw(gd);
+        Graphics2D gc = canvas.getGraphics();
+        canvas.clear(Color.BLACK);
         
+        bullets.draw(gc);
+        ship.draw(gc);
+        enm1.draw(gc);
+        lives.draw(gc);
+        
+        //canvas.destroyGraphicsCanvas();
+        canvas.draw(gd);
     }
 
     @Override
@@ -94,6 +109,7 @@ public class GmLoopClass implements GameLoop, InputListener{
         bullets.update(d);
         ship.update(d);
         enm1.update(d);
+        lives.update(d);
         
     }
 

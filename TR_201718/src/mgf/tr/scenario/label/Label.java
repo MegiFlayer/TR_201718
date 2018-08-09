@@ -38,10 +38,9 @@ public class Label
     public final void setText(String text) { this.text = Objects.requireNonNull(text); }
     public final String getText() { return text; }
     
-    public void update(double delta)
+    public boolean update(double delta)
     {
-        if(!enabled)
-            return;
+        return enabled;
     }
     
     public void draw(Graphics2D g)
