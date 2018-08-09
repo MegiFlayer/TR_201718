@@ -7,6 +7,7 @@ package mgf.tr.scenario;
 
 import java.awt.Graphics2D;
 import java.util.Objects;
+import kp.jngg.input.InputEvent;
 import kp.jngg.math.Vector2;
 import kp.jngg.sprite.Sprite;
 import kp.jngg.sprite.SpriteLoader;
@@ -78,9 +79,12 @@ public final class Scenario
     private void updateEntities(double delta)
     {
         entities.forEachEntity((e) -> {
-            e.update(delta);
-            if(!e.isAlive())
-                e.destroy();
+            if(!e.hasDestroyed())
+            {
+                e.update(delta);
+                if(!e.isAlive())
+                    e.destroy();
+            }
         });
     }
     
@@ -98,9 +102,19 @@ public final class Scenario
     private void drawEntities(Graphics2D g)
     {
         entities.forEachEntity((e) -> {
-            if(e.isAlive())
+            if(!e.hasDestroyed())
             {
                 e.draw(g);
+            }
+        });
+    }
+    
+    public final void dispatch(InputEvent event)
+    {
+        entities.forEachEntity((e) -> {
+            if(!e.hasDestroyed())
+            {
+                e.dispatch(event);
             }
         });
     }

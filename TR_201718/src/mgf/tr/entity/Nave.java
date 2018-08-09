@@ -120,6 +120,7 @@ public class Nave extends Entity
             
     }
 
+    @Override
     public void dispatch(InputEvent event) {
         if (event.getIdType() == InputId.KEYBOARD_TYPE) {
 

@@ -8,6 +8,7 @@ package mgf.tr.entity;
 import java.awt.Graphics2D;
 import java.util.Objects;
 import java.util.UUID;
+import kp.jngg.input.InputEvent;
 import kp.jngg.math.BoundingBox;
 import kp.jngg.math.Vector2;
 import kp.jngg.sprite.SpriteLoader;
@@ -118,6 +119,8 @@ public abstract class Entity
     }
     
     public abstract void draw(Graphics2D g);
+    
+    public abstract void dispatch(InputEvent event);
     
     public final void destroy()
     {
