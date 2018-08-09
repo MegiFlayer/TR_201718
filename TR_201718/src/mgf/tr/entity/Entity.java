@@ -3,13 +3,15 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package mgf.tr;
+package mgf.tr.entity;
 
 import java.awt.Graphics2D;
 import java.util.Objects;
+import java.util.UUID;
 import kp.jngg.math.BoundingBox;
 import kp.jngg.math.Vector2;
 import kp.jngg.sprite.SpriteLoader;
+import mgf.tr.scenario.BulletManager;
 
 /**
  *
@@ -17,6 +19,7 @@ import kp.jngg.sprite.SpriteLoader;
  */
 public abstract class Entity
 {
+    private final UUID id = UUID.randomUUID();
     protected final Vector2 position;
     protected final Vector2 speed;
     protected final Vector2 acceleration;
@@ -26,6 +29,8 @@ public abstract class Entity
     
     private final BoundingBox bbox;
     private int hp;
+    
+    private boolean destroyed;
     
     public Entity(SpriteLoader sprites, BulletManager bullets)
     {
@@ -40,6 +45,10 @@ public abstract class Entity
         this.bbox = new BoundingBox();
         this.hp = 1;
     }
+    
+    public final UUID getId() { return id; }
+    
+    public abstract EntityType getEntityType();
     
     public final void setPosition(double x, double y) { position.set(x, y); }
     public final void setPosition(Vector2 position) { this.position.set(position); }
@@ -109,4 +118,14 @@ public abstract class Entity
     }
     
     public abstract void draw(Graphics2D g);
+    
+    public final void destroy()
+    {
+        if(destroyed)
+            return;
+        destroyed = true;
+        onDestroying();
+    }
+    protected void onDestroying() {}
+    public final boolean hasDestroyed() { return destroyed; }
 }

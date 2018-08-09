@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package mgf.tr;
+package mgf.tr.scenario;
 
 import java.awt.Graphics2D;
 import java.util.LinkedList;
@@ -14,6 +14,7 @@ import kp.jngg.math.Vector2;
 import kp.jngg.sprite.AnimatedSprite;
 import kp.jngg.sprite.Sprite;
 import kp.jngg.sprite.SpriteLoader;
+import mgf.tr.Constants;
 
 /**
  *

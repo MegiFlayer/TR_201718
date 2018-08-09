@@ -6,6 +6,9 @@
 package mgf.tr;
 
 
+import mgf.tr.scenario.BulletManager;
+import mgf.tr.entity.Enemy;
+import mgf.tr.entity.Nave;
 import java.awt.Graphics2D;
 import java.io.File;
 import java.io.IOException;

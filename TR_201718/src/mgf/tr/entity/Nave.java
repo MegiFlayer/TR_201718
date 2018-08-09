@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package mgf.tr;
+package mgf.tr.entity;
 
 import java.awt.Color;
 import java.awt.Graphics2D;
@@ -13,6 +13,8 @@ import kp.jngg.input.Keycode;
 import kp.jngg.math.Vector2;
 import kp.jngg.sprite.Sprite;
 import kp.jngg.sprite.SpriteLoader;
+import mgf.tr.scenario.BulletManager;
+import mgf.tr.Constants;
 
 /**
  *
@@ -42,6 +44,9 @@ public class Nave extends Entity
         sprite2 = null;
         sprite3 = null;
     }
+    
+    @Override
+    public final EntityType getEntityType() { return EntityType.SHIP; }
 
     public void setSprite(Sprite s1, Sprite s2, Sprite s3) {
         
