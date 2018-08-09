@@ -37,8 +37,9 @@ public final class EntityManager
     public final void update()
     {
         /* Insert entities */
-        for(Entity e : toInsert)
+        while(!toInsert.isEmpty())
         {
+            Entity e = toInsert.removeFirst();
             if(map.containsKey(e.getId()))
                 continue;
             list.add(e);
@@ -46,8 +47,9 @@ public final class EntityManager
         }
         
         /* Remove entities */
-        for(UUID id : toRemove)
+        while(!toRemove.isEmpty())
         {
+            UUID id = toRemove.removeFirst();
             Entity e = map.remove(id);
             if(e == null)
                 continue;
