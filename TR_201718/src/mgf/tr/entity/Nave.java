@@ -57,6 +57,11 @@ public class Nave extends Entity
     }
     
     @Override
+    public void init(){
+    
+    }
+    
+    @Override
     public void draw(Graphics2D g)
     {
         Vector2 pos = position.difference(size.quotient(2));
