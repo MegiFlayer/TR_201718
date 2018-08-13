@@ -19,6 +19,110 @@ import kp.jngg.math.Vector2;
 import kp.jngg.sprite.AnimatedSprite;
 import kp.jngg.sprite.Sprite;
 import kp.jngg.sprite.SpriteLoader;
+import mgf.tr.scenario.BulletManager;
+import mgf.tr.scenario.Scenario;
+import mgf.tr.scenario.label.Lives;
+/**
+ *
+ * @author ferna
+ */
+public class GmLoopClass implements GameLoop, InputListener{
+    
+    private SpriteLoader sprites;
+    private Sprite sprite1;
+    private Sprite sprite2;
+    private Sprite sprite3;
+    private AnimatedSprite sprite4;
+    private Sprite sprite5;
+        
+    private final Display display;
+    private final Canvas canvas;      
+    
+    private Scenario stage;
+    
+    public GmLoopClass(Display display)
+    {
+        this.display = Objects.requireNonNull(display);
+        this.canvas = new Canvas(display);
+    }
+    
+    @Override
+    public void init() {
+                
+        sprites = new SpriteLoader(new File("sprites"));
+        
+        stage = Scenario.createDebugScenario(canvas, sprites);
+
+        try {
+            
+            sprite1 = sprites.loadAnimatedSprite("shipLeft", "Nave25x30_FSanz.png", 0, 0, 25, 30, 1).buildSprite();
+            sprite2 = sprites.loadAnimatedSprite("shipMid", "Nave25x30_FSanz.png", 25, 0, 25, 30, 1).buildSprite();
+            sprite3 = sprites.loadAnimatedSprite("shipRight", "Nave25x30_FSanz.png", 50, 0, 25, 30, 1).buildSprite();
+            sprite4 = (AnimatedSprite) sprites.loadAnimatedSprite("laser", "ProyectilVertical29x64_FSanz.png", 0, 0, 29, 64, 3).buildSprite();
+            sprite5 = sprites.loadAnimatedSprite("enemy", "Enemigo30x25_FSanz.png", 0, 0, 30, 25, 1).buildSprite();
+            
+        }
+        catch(IOException ex) {
+            ex.printStackTrace(System.err);
+        }
+        
+    }
+
+    @Override
+    public void draw(Graphics2D gd){
+        
+        stage.draw(gd);
+        
+    }
+
+    @Override
+    public void update(double d) {
+        
+        stage.update(d);
+        
+    }
+
+    @Override
+    public void dispatchEvent(InputEvent ie) {
+        
+        stage.dispatch(ie);
+        
+    }
+           
+}
+    
+
+
+
+
+
+
+/*
+
+BACKUP GMLOOP
+
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ 
+
+package mgf.tr;
+
+
+import java.awt.Color;
+import java.awt.Graphics2D;
+import java.io.File;
+import java.io.IOException;
+import java.util.Objects;
+import kp.jngg.Display;
+import kp.jngg.GameLoop;
+import kp.jngg.input.InputEvent;
+import kp.jngg.input.InputListener;
+import kp.jngg.math.Vector2;
+import kp.jngg.sprite.AnimatedSprite;
+import kp.jngg.sprite.Sprite;
+import kp.jngg.sprite.SpriteLoader;
 import mgf.tr.entity.Enemy;
 import mgf.tr.entity.Nave;
 import mgf.tr.scenario.BulletManager;
@@ -26,7 +130,7 @@ import mgf.tr.scenario.label.Lives;
 /**
  *
  * @author ferna
- */
+ 
 public class GmLoopClass implements GameLoop, InputListener{
     
     private final Display display;
@@ -122,3 +226,5 @@ public class GmLoopClass implements GameLoop, InputListener{
            
 }
     
+
+*/

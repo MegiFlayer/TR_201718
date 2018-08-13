@@ -22,7 +22,7 @@ public final class Lives extends Label
     
     public Lives(SpriteLoader sprites)
     {
-        shipSprite = sprites.getSprite("shipMiddle");
+        shipSprite = (Sprite) sprites.getSprite("shipMid");
         lives = 0;
     }
     
