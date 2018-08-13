@@ -50,8 +50,6 @@ public class GmLoopClass implements GameLoop, InputListener{
     public void init() {
                 
         sprites = new SpriteLoader(new File("sprites"));
-        
-        stage = Scenario.createDebugScenario(canvas, sprites);
 
         try {
             
@@ -64,14 +62,22 @@ public class GmLoopClass implements GameLoop, InputListener{
         }
         catch(IOException ex) {
             ex.printStackTrace(System.err);
-        }
+        } 
+        
+        stage = Scenario.createDebugScenario(canvas, sprites);
         
     }
 
     @Override
     public void draw(Graphics2D gd){
         
-        stage.draw(gd);
+        Graphics2D gc = canvas.getGraphics();
+        
+        canvas.clear(Color.BLACK);
+        stage.draw(gc);
+        canvas.draw(gd);
+        
+        stage.draw(gc);
         
     }
 

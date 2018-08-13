@@ -42,7 +42,6 @@ public final class Scenario
     private Sprite sprite2;
     private Sprite sprite3;
     private Sprite sprite4;
-    private final Canvas can;
         
     private Nave ship;
     private Enemy enm1;
@@ -52,7 +51,6 @@ public final class Scenario
     
     private Scenario(Canvas canvas, SpriteLoader sprites)
     {
-        this.can = canvas;
         this.width = canvas.getWidth();
         this.height = canvas.getHeight();
         this.sprites = Objects.requireNonNull(sprites);
@@ -78,11 +76,9 @@ public final class Scenario
         score.setEnabled(true);
         
         /* Situar vidas justo debajo de la puntuación */
-        lives.setPosition(10, 20);
+        lives.setPosition(30, 64);
         lives.setEnabled(true);
         
-        lives.setPosition(display.getX() + Constants.SHIP_WIDTH * 0.5, 100);
-        lives.setEnabled(true);
         /* Puedes colocar aqui otras cosas a inicializar */
         
 
@@ -133,21 +129,18 @@ public final class Scenario
     
     public final void draw(Graphics2D g)
     {
+        
         if(background != null)
             background.draw(g, 0, 0, width, height);
-        
+
         drawEntities(g);
         bullets.draw(g);
         score.draw(g);
         
-        Graphics2D gc = can.getGraphics();
-        can.clear(Color.BLACK);
-        can.draw(g);
-        
-        bullets.draw(gc);
-        lives.draw(gc);
-        ship.draw(gc);
-        enm1.draw(gc);
+        bullets.draw(g);
+        lives.draw(g);
+        ship.draw(g);
+        enm1.draw(g);
     }
     
     private void drawEntities(Graphics2D g)
