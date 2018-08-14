@@ -77,8 +77,6 @@ public class GmLoopClass implements GameLoop, InputListener{
         stage.draw(gc);
         canvas.draw(gd);
         
-        stage.draw(gc);
-        
     }
 
     @Override

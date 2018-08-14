@@ -10,6 +10,7 @@ import java.awt.Graphics2D;
 import java.util.Objects;
 import kp.jngg.font.Font;
 import kp.jngg.math.Vector2;
+import mgf.tr.Constants;
 
 /**
  *
@@ -18,7 +19,8 @@ import kp.jngg.math.Vector2;
 public class Label
 {
     protected final Vector2 position = new Vector2();
-    protected Font font = Font.getNativeFont("arial", 12, Color.WHITE);
+    protected int fontSize = Constants.fontSize;
+    protected Font font = Font.getNativeFont("arial", fontSize, Color.WHITE);
     protected String text;
     protected boolean enabled;
     
@@ -37,6 +39,9 @@ public class Label
     
     public final void setText(String text) { this.text = Objects.requireNonNull(text); }
     public final String getText() { return text; }
+    
+    public final void setFontSize(int size){ this.fontSize = Objects.requireNonNull(size); }
+    public final int getFontSize(){ return this.fontSize; }
     
     public boolean update(double delta)
     {

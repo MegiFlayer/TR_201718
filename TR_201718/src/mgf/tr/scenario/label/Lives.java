@@ -59,12 +59,12 @@ public final class Lives extends Label
     {
         if(!enabled)
             return;
-        Vector2 spriteDim = new Vector2(Constants.SHIP_WIDTH * 0.3, Constants.SHIP_HEIGHT * 0.3);
+        Vector2 spriteDim = new Vector2(Constants.SHIP_WIDTH * 0.4, Constants.SHIP_HEIGHT * 0.4);
         Vector2 oldPosition = position.copy();
         
-        shipSprite.draw(g, position.x - spriteDim.x, position.y - spriteDim.y, spriteDim.x, spriteDim.y);
+        shipSprite.draw(g, position.x, position.y, spriteDim.x, spriteDim.y);
         
-        position.add(spriteDim.x, spriteDim.y / 2);
+        position.add(spriteDim.x, spriteDim.y / 2 + 6);
         setText(" X " + lives);
         super.draw(g);
         position.set(oldPosition);

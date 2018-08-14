@@ -19,9 +19,13 @@ public interface Constants
     double BULLET_SHIP_WIDTH = 11.5;
     double BULLET_SHIP_HEIGHT = 40;
     double BULLET_SHIP_SPEEDX = 0;
-    double BULLET_SHIP_SPEEDY = -500;
+    double BULLET_SHIP_SPEEDY = -600;
     
     /* SHIP */
     double SHIP_WIDTH = 75;
     double SHIP_HEIGHT = 90;
+    
+    /*LABEL*/
+    int fontSize = 12;
+    
 }
