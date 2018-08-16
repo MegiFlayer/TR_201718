@@ -8,6 +8,7 @@ package mgf.tr.entity;
 import java.awt.Graphics2D;
 import kp.jngg.input.InputEvent;
 import kp.jngg.math.Vector2;
+import kp.jngg.sprite.AnimatedSprite;
 import kp.jngg.sprite.Sprite;
 import kp.jngg.sprite.SpriteLoader;
 import mgf.tr.Constants;
@@ -43,6 +44,15 @@ public class Enemy extends Entity{
     
     }
     
+    public void setAnimatedSprite(AnimatedSprite sprite){
+    
+        enmSprite = sprite;
+        sprite.setLoopMode();
+        sprite.setSpeed(2);
+        sprite.start();
+    
+    }
+    
     @Override
     public void init () {
     
@@ -62,7 +72,9 @@ public class Enemy extends Entity{
     @Override
     public void update(double delta) {
         
-        speed.x = 500 * moveX;
+        enmSprite.update(delta);
+        
+        speed.x = 400 * moveX;
         
         if(position.x <= size.x / 2){
             position.x = size.x / 2;

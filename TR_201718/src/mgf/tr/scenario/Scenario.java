@@ -20,6 +20,7 @@ import mgf.tr.entity.Enemy;
 import mgf.tr.entity.Entity;
 import mgf.tr.entity.EntityManager;
 import mgf.tr.entity.Nave;
+import mgf.tr.entity.Wall;
 import mgf.tr.scenario.label.Lives;
 import mgf.tr.scenario.label.Score;
 
@@ -41,10 +42,14 @@ public final class Scenario
     private Sprite sprite1;
     private Sprite sprite2;
     private Sprite sprite3;
-    private Sprite sprite4;
+    private AnimatedSprite sprite4;
+    private Sprite sprite5;
+    private Sprite sprite6;
+    private Sprite sprite7;
         
     private Nave ship;
     private Enemy enm1;
+    private Wall shield;
     
     private final double width;
     private final double height;
@@ -97,7 +102,15 @@ public final class Scenario
         enm1.setSize(120, 100);
         enm1.setPosition(100, 200);
         sprite4 = sprites.getSprite("enemy");
-        enm1.setSprite(sprite4);
+        enm1.setAnimatedSprite(sprite4);
+        
+        shield = new Wall(sprites, bullets);
+        shield.setSize(Constants.WALL_WIDTH, Constants.WALL_HEIGHT);
+        shield.setPosition(Constants.CANVAS_WIDTH / 2 - Constants.WALL_WIDTH / 2, ship.getPositionY() - 100);
+        sprite5 = sprites.getSprite("shieldFull");
+        sprite6 = sprites.getSprite("shieldTouched");
+        sprite7 = sprites.getSprite("shieldBroken");
+        shield.setSprite(sprite5, sprite6, sprite7);
         
     }
     
@@ -109,6 +122,7 @@ public final class Scenario
         lives.update(delta);
         ship.update(delta);
         enm1.update(delta);
+        shield.update(delta);
         
         if(background != null)
             background.update(delta);
@@ -141,6 +155,7 @@ public final class Scenario
         lives.draw(g);
         ship.draw(g);
         enm1.draw(g);
+        shield.draw(g);
     }
     
     private void drawEntities(Graphics2D g)

@@ -34,6 +34,9 @@ public class GmLoopClass implements GameLoop, InputListener{
     private Sprite sprite3;
     private AnimatedSprite sprite4;
     private Sprite sprite5;
+    private Sprite sprite6;
+    private Sprite sprite7;
+    private Sprite sprite8;
         
     private final Display display;
     private final Canvas canvas;      
@@ -57,7 +60,10 @@ public class GmLoopClass implements GameLoop, InputListener{
             sprite2 = sprites.loadAnimatedSprite("shipMid", "Nave25x30_FSanz.png", 25, 0, 25, 30, 1).buildSprite();
             sprite3 = sprites.loadAnimatedSprite("shipRight", "Nave25x30_FSanz.png", 50, 0, 25, 30, 1).buildSprite();
             sprite4 = (AnimatedSprite) sprites.loadAnimatedSprite("laser", "ProyectilVertical29x64_FSanz.png", 0, 0, 29, 64, 3).buildSprite();
-            sprite5 = sprites.loadAnimatedSprite("enemy", "Enemigo30x25_FSanz.png", 0, 0, 30, 25, 1).buildSprite();
+            sprite5 = (AnimatedSprite) sprites.loadAnimatedSprite("enemy", "Enemigo30x25_FSanz.png", 0, 0, 30, 25, 4).buildSprite();
+            sprite6 = sprites.loadAnimatedSprite("shieldFull", "Escudos22x16_FSanz.png", 0, 0, 22, 16, 1).buildSprite();
+            sprite7 = sprites.loadAnimatedSprite("shieldTouched", "Escudos22x16_FSanz.png", 22, 0, 22, 16, 1).buildSprite();
+            sprite8 = sprites.loadAnimatedSprite("shieldBroken", "Escudos22x16_FSanz.png", 44, 0, 22, 16, 1).buildSprite();
             
         }
         catch(IOException ex) {

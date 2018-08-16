@@ -28,4 +28,8 @@ public interface Constants
     /*LABEL*/
     int fontSize = 12;
     
+    /*WALLS*/
+    double WALL_WIDTH = 110;
+    double WALL_HEIGHT = 64;
+    
 }

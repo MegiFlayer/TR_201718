@@ -68,6 +68,12 @@ public final class BulletManager
                 continue;
             }
             
+            /*if(la bala choca contra el muro)
+            {
+                it.remove();
+                continue;
+            }*/
+            
         }
     }
     
