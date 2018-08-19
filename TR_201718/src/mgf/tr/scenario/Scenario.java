@@ -39,17 +39,20 @@ public final class Scenario
     private Sprite background;
     private Display display;
     
-    private Sprite sprite1;
-    private Sprite sprite2;
-    private Sprite sprite3;
-    private AnimatedSprite sprite4;
-    private Sprite sprite5;
-    private Sprite sprite6;
-    private Sprite sprite7;
+    private Sprite sprtNaveL;
+    private Sprite sprtNave;
+    private Sprite sprtNaveR;
+    private AnimatedSprite sprtEnm;
+    private Sprite sprtShield1;
+    private Sprite sprtShield2;
+    private Sprite sprtShield3;
         
     private Nave ship;
     private Enemy enm1;
-    private Wall shield;
+    private Wall shield1;
+    private Wall shield2;
+    private Wall shield3;
+    private Wall shield4;
     
     private final double width;
     private final double height;
@@ -91,26 +94,42 @@ public final class Scenario
         ship = new Nave(sprites, bullets);
         ship.setPosition(Constants.CANVAS_WIDTH / 2, Constants.CANVAS_HEIGHT - Constants.SHIP_HEIGHT + 20);
         ship.setSize(Constants.SHIP_WIDTH, Constants.SHIP_HEIGHT);
-        sprite1 = sprites.getSprite("shipLeft");
-        sprite2 = sprites.getSprite("shipMid");
-        sprite3 = sprites.getSprite("shipRight");
-        ship.setSprite(sprite1, sprite2, sprite3);
+        sprtNaveL = sprites.getSprite("shipLeft");
+        sprtNave = sprites.getSprite("shipMid");
+        sprtNaveR = sprites.getSprite("shipRight");
+        ship.setSprite(sprtNaveL, sprtNave, sprtNaveR);
         
         
         
         enm1 = new Enemy(sprites, bullets);
         enm1.setSize(120, 100);
         enm1.setPosition(100, 200);
-        sprite4 = sprites.getSprite("enemy");
-        enm1.setAnimatedSprite(sprite4);
+        sprtEnm = sprites.getSprite("enemy");
+        enm1.setAnimatedSprite(sprtEnm);
         
-        shield = new Wall(sprites, bullets);
-        shield.setSize(Constants.WALL_WIDTH, Constants.WALL_HEIGHT);
-        shield.setPosition(Constants.CANVAS_WIDTH / 2 - Constants.WALL_WIDTH / 2, ship.getPositionY() - 100);
-        sprite5 = sprites.getSprite("shieldFull");
-        sprite6 = sprites.getSprite("shieldTouched");
-        sprite7 = sprites.getSprite("shieldBroken");
-        shield.setSprite(sprite5, sprite6, sprite7);
+        sprtShield1 = sprites.getSprite("shieldFull");
+        sprtShield2 = sprites.getSprite("shieldTouched");
+        sprtShield3 = sprites.getSprite("shieldBroken");
+        
+        shield1 = new Wall(sprites, bullets);
+        shield1.setSize(Constants.WALL_WIDTH, Constants.WALL_HEIGHT);
+        shield1.setPosition(Constants.CANVAS_WIDTH / 5 - Constants.WALL_WIDTH / 2, ship.getPositionY() - 135);
+        shield1.setSprite(sprtShield1, sprtShield2, sprtShield3);
+        
+        shield2 = new Wall(sprites, bullets);
+        shield2.setSize(Constants.WALL_WIDTH, Constants.WALL_HEIGHT);
+        shield2.setPosition(Constants.CANVAS_WIDTH / 5 * 2 - Constants.WALL_WIDTH / 2, ship.getPositionY() - 135);
+        shield2.setSprite(sprtShield1, sprtShield2, sprtShield3);
+        
+        shield3 = new Wall(sprites, bullets);
+        shield3.setSize(Constants.WALL_WIDTH, Constants.WALL_HEIGHT);
+        shield3.setPosition(Constants.CANVAS_WIDTH / 5 * 3 - Constants.WALL_WIDTH / 2, ship.getPositionY() - 135);
+        shield3.setSprite(sprtShield1, sprtShield2, sprtShield3);
+        
+        shield4 = new Wall(sprites, bullets);
+        shield4.setSize(Constants.WALL_WIDTH, Constants.WALL_HEIGHT);
+        shield4.setPosition(Constants.CANVAS_WIDTH / 5 * 4  - Constants.WALL_WIDTH / 2, ship.getPositionY() - 135);
+        shield4.setSprite(sprtShield1, sprtShield2, sprtShield3);
         
     }
     
@@ -122,7 +141,10 @@ public final class Scenario
         lives.update(delta);
         ship.update(delta);
         enm1.update(delta);
-        shield.update(delta);
+        shield1.update(delta);
+        shield2.update(delta);
+        shield3.update(delta);
+        shield4.update(delta);
         
         if(background != null)
             background.update(delta);
@@ -155,7 +177,10 @@ public final class Scenario
         lives.draw(g);
         ship.draw(g);
         enm1.draw(g);
-        shield.draw(g);
+        shield1.draw(g);
+        shield2.draw(g);
+        shield3.draw(g);
+        shield4.draw(g);
     }
     
     private void drawEntities(Graphics2D g)

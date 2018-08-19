@@ -62,7 +62,7 @@ public class Wall extends Entity {
         if (sprite3 != null) {
             sprite3.draw(g, position.x, position.y, size.x, size.y);
         }*/
-        drawSpecs(g);
+        //drawSpecs(g);
         
     }
 
