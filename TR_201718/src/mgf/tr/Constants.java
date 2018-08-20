@@ -10,10 +10,16 @@ package mgf.tr;
  * @author Marc
  */
 public interface Constants
-{
+{   
+    /* CELLS */
+    int CELL_WIDTH = 32;
+    int CELL_HEIGHT = 32;
+    int CELL_DEFAULT_ROWS = 14;
+    int CELL_DEFAULT_COLUMNS = 19;
+    
     /* CANVAS */
-    int CANVAS_WIDTH = 1280;
-    int CANVAS_HEIGHT = 720;
+    int SCREEN_CANVAS_WIDTH = 1280;
+    int SCREEN_CANVAS_HEIGHT = 960;
     
     /* BULLETS */
     double BULLET_SHIP_WIDTH = 11.5;
@@ -22,14 +28,29 @@ public interface Constants
     double BULLET_SHIP_SPEEDY = -600;
     
     /* SHIP */
-    double SHIP_WIDTH = 75;
-    double SHIP_HEIGHT = 90;
+    double SHIP_WIDTH = CELL_WIDTH * 0.8;
+    double SHIP_HEIGHT = CELL_HEIGHT;
     
-    /*LABEL*/
-    int fontSize = 12;
+    /* LABEL */
+    int FONT_SIZE = 12;
     
-    /*WALLS*/
-    double WALL_WIDTH = 110;
-    double WALL_HEIGHT = 64;
+    /* WALLS */
+    double WALL_WIDTH = CELL_WIDTH * 2.5;
+    double WALL_HEIGHT = CELL_HEIGHT * 1.5;
     
+    /* SCENARIO_LOADER TAGS */
+    String TAG_GRID_SIZE = "grid_size";
+    String TAG_DEBUG_GRID = "debug_grid";
+    String TAG_LIVES = "lives";
+    String TAG_START_POSITION = "start_position";
+    String TAG_BACKGROUND = "background";
+    String TAG_ENTITIES = "entities";
+    String TAG_ID = "id";
+    String TAG_POSITION = "position";
+    String TAG_SIZE = "size";
+    
+    
+    /* SCENARIO_LOADER ENTITY IDS */
+    String ID_WALL = "wall";
+    String ID_BASIC_ENEMY = "basic_enemy";
 }

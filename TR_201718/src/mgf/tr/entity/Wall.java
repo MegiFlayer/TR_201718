@@ -11,6 +11,7 @@ import kp.jngg.input.InputEvent;
 import kp.jngg.math.Vector2;
 import kp.jngg.sprite.Sprite;
 import kp.jngg.sprite.SpriteLoader;
+import mgf.tr.Constants;
 import mgf.tr.scenario.BulletManager;
 
 /**
@@ -47,14 +48,19 @@ public class Wall extends Entity {
     }
     
     @Override
-    public void init(){}
+    public void init()
+    {
+        setSize(Constants.WALL_WIDTH, Constants.WALL_HEIGHT);
+        //setPosition(Constants.CANVAS_WIDTH / 5 - Constants.WALL_WIDTH / 2, Constants.CANVAS_HEIGHT - Constants.SHIP_HEIGHT - 115);
+        setSprite(sprites.getSprite("shieldFull"), sprites.getSprite("shieldTouched"), sprites.getSprite("shieldBroken"));
+    }
     
     @Override
     public void draw(Graphics2D g)
     {
-        
+        Vector2 pos = position.difference(size.quotient(2));
         if (sprite1 != null) {
-            sprite1.draw(g, position.x, position.y, size.x, size.y);
+            sprite1.draw(g, pos.x, pos.y, size.x, size.y);
         }
         /*if (sprite2 != null) {
             sprite2.draw(g, position.x, position.y, size.x, size.y);

@@ -34,15 +34,18 @@ public class Nave extends Entity
     private Sprite sprite3;
     private double fireCoolDown;
     private boolean fireEnabled;
+    
+    private final double maxX;
 
     private int moveX;
     
 
-    public Nave(SpriteLoader sprites, BulletManager bullets) {
+    public Nave(SpriteLoader sprites, BulletManager bullets, double maxX) {
         super(sprites, bullets);
         sprite1 = null;
         sprite2 = null;
         sprite3 = null;
+        this.maxX = maxX;
     }
     
     @Override
@@ -57,8 +60,10 @@ public class Nave extends Entity
     }
     
     @Override
-    public void init(){
-    
+    public void init()
+    {
+        setSize(Constants.SHIP_WIDTH, Constants.SHIP_HEIGHT);
+        setSprite(sprites.getSprite("shipLeft"), sprites.getSprite("shipMid"), sprites.getSprite("shipRight"));
     }
     
     @Override
@@ -74,7 +79,7 @@ public class Nave extends Entity
         if (sprite3 != null && moveX > 0) {
             sprite3.draw(g, pos.x, pos.y, size.x, size.y);
         }
-        drawSpecs(g);
+        //drawSpecs(g);
     }
 
     private void drawSpecs(Graphics2D g) {
@@ -88,7 +93,7 @@ public class Nave extends Entity
     @Override
     public void update(double delta)
     {
-        position.ensureRangeXLocal(size.x / 2, Constants.CANVAS_WIDTH - size.x / 2);
+        position.ensureRangeXLocal(size.x / 2, maxX - size.x / 2);
 
         if (moveX != 0) {
             speed.x = X_SPEED * moveX;

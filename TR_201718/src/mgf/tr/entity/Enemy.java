@@ -27,12 +27,14 @@ public class Enemy extends Entity{
     
     private Sprite enmSprite;
     private int moveX = 1;
+    
+    private final double maxX;
 
-    public Enemy(SpriteLoader sprites, BulletManager bullets) {
+    public Enemy(SpriteLoader sprites, BulletManager bullets, double maxX) {
     
         super(sprites, bullets);
         enmSprite = null;
-        
+        this.maxX = maxX;
     }
     
     @Override
@@ -54,8 +56,10 @@ public class Enemy extends Entity{
     }
     
     @Override
-    public void init () {
-    
+    public void init()
+    {
+        setSize(Constants.CELL_WIDTH * 0.9, Constants.CELL_HEIGHT * 0.9);
+        setAnimatedSprite(sprites.getSprite("enemy"));
     }
     
     @Override
@@ -79,8 +83,8 @@ public class Enemy extends Entity{
         if(position.x <= size.x / 2){
             position.x = size.x / 2;
             moveX = 1;
-        }else if(position.x >= Constants.CANVAS_WIDTH - size.x / 2){
-            position.x = Constants.CANVAS_WIDTH - size.x / 2;
+        }else if(position.x >= maxX - size.x / 2){
+            position.x = maxX - size.x / 2;
             moveX = -1;
         }
         

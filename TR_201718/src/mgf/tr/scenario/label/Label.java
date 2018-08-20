@@ -19,7 +19,7 @@ import mgf.tr.Constants;
 public class Label
 {
     protected final Vector2 position = new Vector2();
-    protected int fontSize = Constants.fontSize;
+    protected int fontSize = Constants.FONT_SIZE;
     protected Font font = Font.getNativeFont("arial", fontSize, Color.WHITE);
     protected String text;
     protected boolean enabled;
@@ -40,7 +40,7 @@ public class Label
     public final void setText(String text) { this.text = Objects.requireNonNull(text); }
     public final String getText() { return text; }
     
-    public final void setFontSize(int size){ this.fontSize = Objects.requireNonNull(size); }
+    public final void setFontSize(int size){ this.fontSize = size; }
     public final int getFontSize(){ return this.fontSize; }
     
     public boolean update(double delta)

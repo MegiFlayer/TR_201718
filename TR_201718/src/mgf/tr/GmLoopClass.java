@@ -15,13 +15,10 @@ import kp.jngg.Display;
 import kp.jngg.GameLoop;
 import kp.jngg.input.InputEvent;
 import kp.jngg.input.InputListener;
-import kp.jngg.math.Vector2;
-import kp.jngg.sprite.AnimatedSprite;
-import kp.jngg.sprite.Sprite;
 import kp.jngg.sprite.SpriteLoader;
-import mgf.tr.scenario.BulletManager;
 import mgf.tr.scenario.Scenario;
-import mgf.tr.scenario.label.Lives;
+import mgf.tr.scenario.ScenarioLoader;
+import mgf.tr.scenario.ScenarioLoaderException;
 /**
  *
  * @author ferna
@@ -29,14 +26,6 @@ import mgf.tr.scenario.label.Lives;
 public class GmLoopClass implements GameLoop, InputListener{
     
     private SpriteLoader sprites;
-    private Sprite sprite1;
-    private Sprite sprite2;
-    private Sprite sprite3;
-    private AnimatedSprite sprite4;
-    private Sprite sprite5;
-    private Sprite sprite6;
-    private Sprite sprite7;
-    private Sprite sprite8;
         
     private final Display display;
     private final Canvas canvas;      
@@ -46,7 +35,7 @@ public class GmLoopClass implements GameLoop, InputListener{
     public GmLoopClass(Display display)
     {
         this.display = Objects.requireNonNull(display);
-        this.canvas = new Canvas(display);
+        this.canvas = new Canvas(display, Constants.SCREEN_CANVAS_WIDTH, Constants.SCREEN_CANVAS_HEIGHT, true);
     }
     
     @Override
@@ -56,21 +45,30 @@ public class GmLoopClass implements GameLoop, InputListener{
 
         try {
             
-            sprite1 = sprites.loadAnimatedSprite("shipLeft", "Nave25x30_FSanz.png", 0, 0, 25, 30, 1).buildSprite();
-            sprite2 = sprites.loadAnimatedSprite("shipMid", "Nave25x30_FSanz.png", 25, 0, 25, 30, 1).buildSprite();
-            sprite3 = sprites.loadAnimatedSprite("shipRight", "Nave25x30_FSanz.png", 50, 0, 25, 30, 1).buildSprite();
-            sprite4 = (AnimatedSprite) sprites.loadAnimatedSprite("laser", "ProyectilVertical29x64_FSanz.png", 0, 0, 29, 64, 3).buildSprite();
-            sprite5 = (AnimatedSprite) sprites.loadAnimatedSprite("enemy", "Enemigo30x25_FSanz.png", 0, 0, 30, 25, 4).buildSprite();
-            sprite6 = sprites.loadAnimatedSprite("shieldFull", "Escudos22x16_FSanz.png", 0, 0, 22, 16, 1).buildSprite();
-            sprite7 = sprites.loadAnimatedSprite("shieldTouched", "Escudos22x16_FSanz.png", 22, 0, 22, 16, 1).buildSprite();
-            sprite8 = sprites.loadAnimatedSprite("shieldBroken", "Escudos22x16_FSanz.png", 44, 0, 22, 16, 1).buildSprite();
+            sprites.loadAnimatedSprite("shipLeft", "Nave25x30_FSanz.png", 0, 0, 25, 30, 1);
+            sprites.loadAnimatedSprite("shipMid", "Nave25x30_FSanz.png", 25, 0, 25, 30, 1);
+            sprites.loadAnimatedSprite("shipRight", "Nave25x30_FSanz.png", 50, 0, 25, 30, 1);
+            sprites.loadAnimatedSprite("laser", "ProyectilVertical29x64_FSanz.png", 0, 0, 29, 64, 3);
+            sprites.loadAnimatedSprite("enemy", "Enemigo30x25_FSanz.png", 0, 0, 30, 25, 4);
+            sprites.loadAnimatedSprite("shieldFull", "Escudos22x16_FSanz.png", 0, 0, 22, 16, 1);
+            sprites.loadAnimatedSprite("shieldTouched", "Escudos22x16_FSanz.png", 22, 0, 22, 16, 1);
+            sprites.loadAnimatedSprite("shieldBroken", "Escudos22x16_FSanz.png", 44, 0, 22, 16, 1);
             
         }
         catch(IOException ex) {
             ex.printStackTrace(System.err);
         } 
         
-        stage = Scenario.createDebugScenario(canvas, sprites);
+        //stage = Scenario.createScenario(canvas, sprites, Constants.CELL_DEFAULT_ROWS, Constants.CELL_DEFAULT_COLUMNS);
+        try
+        {
+            stage = ScenarioLoader.loadScenario(canvas, sprites, "testLevel");
+        }
+        catch(ScenarioLoaderException ex)
+        {
+            ex.printStackTrace(System.err);
+            display.abort();
+        }
         
     }
 

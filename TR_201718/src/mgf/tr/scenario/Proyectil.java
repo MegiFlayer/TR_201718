@@ -172,7 +172,7 @@ public class Proyectil {
         if (sprite1 != null) {
             sprite1.draw(g, position.x, position.y, size.x, size.y);
         }
-        drawSpecs(g);
+        //drawSpecs(g);
     }
 
     private void drawSpecs(Graphics2D g) {

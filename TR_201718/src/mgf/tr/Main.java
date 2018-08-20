@@ -20,8 +20,9 @@ public class Main {
      */
     public static void main(String[] args) {
         
-        
-        Display ventana = Display.create("Práctica", DisplayMode.getDisplayMode(1280, 720));
+        //System.out.println(DisplayMode.toStringAllDisplayModes());
+        Display ventana = Display.create("Práctica", DisplayMode.getDisplayMode(1280, 960));
+        //ventana.setFullscreen(true);
     
         GmLoopClass gl = new GmLoopClass(ventana);
         
