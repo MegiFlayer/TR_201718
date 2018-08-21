@@ -24,6 +24,7 @@ public final class ShipController
     private final Vector2 startPosition;
     private final Canvas entityCanvas;
     private Nave ship;
+    private double timeToRespawn;
     
     public ShipController(Scenario scenario, Lives lives, Canvas entityCanvas)
     {
@@ -52,7 +53,7 @@ public final class ShipController
         scenario.getEntityManager().addEntity(ship);
     }
     
-    public final void update()
+    public final void update(double delta)
     {
         if(ship != null)
         {
@@ -63,8 +64,18 @@ public final class ShipController
                 if(lives.hasLives())
                 {
                     lives.removeLives(1);
-                    newShip();
+                    timeToRespawn = Constants.SHIP_TIME_TO_RESPAWN;
+                    ship = null;
                 }
+            }
+        }
+        else
+        {
+            timeToRespawn -= delta;
+            if(timeToRespawn <= 0)
+            {
+                timeToRespawn = 0;
+                newShip();
             }
         }
     }

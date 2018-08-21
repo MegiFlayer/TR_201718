@@ -5,6 +5,7 @@
  */
 package mgf.tr.entity;
 
+import java.awt.Color;
 import java.awt.Graphics2D;
 import java.util.Objects;
 import java.util.UUID;
@@ -13,6 +14,8 @@ import kp.jngg.math.BoundingBox;
 import kp.jngg.math.Vector2;
 import kp.jngg.sprite.SpriteLoader;
 import mgf.tr.scenario.BulletManager;
+import mgf.tr.scenario.Proyectil;
+import mgf.tr.scenario.Scenario;
 
 /**
  *
@@ -109,6 +112,21 @@ public abstract class Entity
         bbox.resituate(position, size);
     }
     
+    public final boolean hasCollision(Proyectil bullet)
+    {
+        return bullet.hasCollision(bbox);
+    }
+    
+    public final void collide(Scenario scenario, Proyectil bullet)
+    {
+        if(bullet.getOwnerType() != getEntityType())
+        {
+            damage(bullet.getPower());
+            onCollide(scenario, bullet);
+        }
+    }
+    protected abstract void onCollide(Scenario scenario, Proyectil bullet);
+    
     public void init() {}
     
     public void update(double delta)
@@ -119,6 +137,12 @@ public abstract class Entity
     }
     
     public abstract void draw(Graphics2D g);
+    
+    public final void drawBoundingBox(Graphics2D g)
+    {
+        if(bbox != null)
+            bbox.draw(g, Color.GREEN);
+    }
     
     public abstract void dispatch(InputEvent event);
     

@@ -15,6 +15,8 @@ import kp.jngg.sprite.Sprite;
 import kp.jngg.sprite.SpriteLoader;
 import mgf.tr.Constants;
 import mgf.tr.scenario.BulletManager;
+import mgf.tr.scenario.Proyectil;
+import mgf.tr.scenario.Scenario;
 
 /**
  *
@@ -27,7 +29,7 @@ public class Nave extends Entity
      * Funciones recomendadas: draw: Para dibujar update: Actualizar valores
      * dispatchEvents: capturar eventos de inputs
      */
-    private static final double X_SPEED = 400;
+    private static final double X_SPEED = 100;
     private static final double FRICTION = 22.5;
     private Sprite sprite1;
     private Sprite sprite2;
@@ -57,6 +59,12 @@ public class Nave extends Entity
         sprite2 = s2;
         sprite3 = s3;
 
+    }
+    
+    @Override
+    protected final void onCollide(Scenario scenario, Proyectil bullet)
+    {
+        
     }
     
     @Override
@@ -123,8 +131,8 @@ public class Nave extends Entity
         {
             fireCoolDown = 0.25;
             bullets.createShipBullet(new Vector2(
-                    position.x - Constants.BULLET_SHIP_WIDTH / 2,
-                    position.y - Constants.BULLET_SHIP_HEIGHT
+                    position.x,
+                    position.y - Constants.BULLET_SHIP_HEIGHT / 2 - size.y / 2
             ));
         }
             

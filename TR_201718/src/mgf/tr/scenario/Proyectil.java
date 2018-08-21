@@ -7,11 +7,13 @@ package mgf.tr.scenario;
 
 import java.awt.Color;
 import java.awt.Graphics2D;
+import java.util.Objects;
 import kp.jngg.input.InputEvent;
 import kp.jngg.input.InputId;
 import kp.jngg.math.BoundingBox;
 import kp.jngg.math.Vector2;
 import kp.jngg.sprite.Sprite;
+import mgf.tr.entity.EntityType;
 
 /**
  *
@@ -19,20 +21,26 @@ import kp.jngg.sprite.Sprite;
  */
 public class Proyectil {
 
+    private final EntityType ownerType;
     private final Vector2 position;
     private final Vector2 size;
     private final Vector2 speed;
     private final BoundingBox bbox;
+    private int power;
     protected Sprite sprite1;
 
-    public Proyectil() {
+    public Proyectil(EntityType ownerType) {
 
-        position = new Vector2();
-        size = new Vector2();
-        speed = new Vector2();
-        bbox = new BoundingBox();
-        sprite1 = null;
+        this.ownerType = Objects.requireNonNull(ownerType);
+        this.position = new Vector2();
+        this.size = new Vector2();
+        this.speed = new Vector2();
+        this.bbox = new BoundingBox();
+        this.power = 1;
+        this.sprite1 = null;
     }
+    
+    public final EntityType getOwnerType() { return ownerType; }
 
     public void setPosition(double x, double y) {
         if (x < 0) {
@@ -117,6 +125,12 @@ public class Proyectil {
         return size.y;
 
     }
+    
+    public final void setPower(int power)
+    {
+        this.power = power < 1 ? 1 : power;
+    }
+    public final int getPower() { return power; }
 
     @Deprecated
     public void chooseShow(boolean show) {
@@ -169,10 +183,17 @@ public class Proyectil {
     }
 
     public void draw(Graphics2D g) {
+        Vector2 pos = position.difference(size.quotient(2));
         if (sprite1 != null) {
-            sprite1.draw(g, position.x, position.y, size.x, size.y);
+            sprite1.draw(g, pos.x, pos.y, size.x, size.y);
         }
         //drawSpecs(g);
+    }
+    
+    public final void drawBoundingBox(Graphics2D g)
+    {
+        if(bbox != null)
+            bbox.draw(g, Color.RED);
     }
 
     private void drawSpecs(Graphics2D g) {

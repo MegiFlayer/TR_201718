@@ -6,6 +6,7 @@
 package mgf.tr.entity;
 
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.ListIterator;
 import java.util.UUID;
@@ -15,7 +16,7 @@ import java.util.function.Consumer;
  *
  * @author Asus
  */
-public final class EntityManager
+public final class EntityManager implements Iterable<Entity>
 {
     private final HashMap<UUID, Entity> map = new HashMap<>();
     private final LinkedList<Entity> list = new LinkedList<>();
@@ -76,4 +77,7 @@ public final class EntityManager
             }
         }
     }
+    
+    @Override
+    public final Iterator<Entity> iterator() { return list.iterator(); }
 }

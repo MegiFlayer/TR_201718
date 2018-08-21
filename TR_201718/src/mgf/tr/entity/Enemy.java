@@ -13,6 +13,8 @@ import kp.jngg.sprite.Sprite;
 import kp.jngg.sprite.SpriteLoader;
 import mgf.tr.Constants;
 import mgf.tr.scenario.BulletManager;
+import mgf.tr.scenario.Proyectil;
+import mgf.tr.scenario.Scenario;
 
 /**
  *
@@ -53,6 +55,12 @@ public class Enemy extends Entity{
         sprite.setSpeed(2);
         sprite.start();
     
+    }
+    
+    @Override
+    protected final void onCollide(Scenario scenario, Proyectil bullet)
+    {
+        
     }
     
     @Override

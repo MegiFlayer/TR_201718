@@ -22,14 +22,15 @@ public interface Constants
     int SCREEN_CANVAS_HEIGHT = 960;
     
     /* BULLETS */
-    double BULLET_SHIP_WIDTH = 11.5;
-    double BULLET_SHIP_HEIGHT = 40;
+    double BULLET_SHIP_WIDTH = 4;
+    double BULLET_SHIP_HEIGHT = 10;
     double BULLET_SHIP_SPEEDX = 0;
-    double BULLET_SHIP_SPEEDY = -600;
+    double BULLET_SHIP_SPEEDY = -200;
     
     /* SHIP */
     double SHIP_WIDTH = CELL_WIDTH * 0.8;
     double SHIP_HEIGHT = CELL_HEIGHT;
+    double SHIP_TIME_TO_RESPAWN = 3; // 3 Seconds to respawn.
     
     /* LABEL */
     int FONT_SIZE = 12;
@@ -53,4 +54,15 @@ public interface Constants
     /* SCENARIO_LOADER ENTITY IDS */
     String ID_WALL = "wall";
     String ID_BASIC_ENEMY = "basic_enemy";
+    
+    /* SPRITES */
+    String SPRITE_EXPL_NORMAL = "explosion.normal";
+    String SPRITE_EXPL_BLUE = "explosion.blue";
+    String SPRITE_EXPL_GREEN = "explosion.green";
+    String SPRITE_EXPL_PURPLE = "explosion.purple";
+    String SPRITE_EXPL_BIG = "explosion.big";
+    
+    String SPRITE_ENEMY_BASIC = "enemy.basic";
+    String SPRITE_ENEMY_WARRIOR = "enemy.warrior";
+    String SPRITE_ENEMY_TANK = "enemy.tank";
 }

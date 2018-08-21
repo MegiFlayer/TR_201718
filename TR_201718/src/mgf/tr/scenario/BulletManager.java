@@ -15,6 +15,9 @@ import kp.jngg.sprite.AnimatedSprite;
 import kp.jngg.sprite.Sprite;
 import kp.jngg.sprite.SpriteLoader;
 import mgf.tr.Constants;
+import mgf.tr.entity.Entity;
+import mgf.tr.entity.EntityManager;
+import mgf.tr.entity.EntityType;
 
 /**
  *
@@ -22,20 +25,27 @@ import mgf.tr.Constants;
  */
 public final class BulletManager
 {
+    private final Scenario scenario;
     private final SpriteLoader sprites;
+    private final EntityManager entities;
     private final LinkedList<Proyectil> aliveBullets;
     private final BoundingBox bounds;
+    private boolean drawBbox;
     
-    public BulletManager(SpriteLoader sprites, Vector2 boundsPosition, Vector2 boundsSize)
+    public BulletManager(Scenario scenario, Vector2 boundsPosition, Vector2 boundsSize)
     {
-        this.sprites = Objects.requireNonNull(sprites);
+        this.scenario = Objects.requireNonNull(scenario);
+        this.sprites = Objects.requireNonNull(scenario.getSpriteLoader());
+        this.entities = Objects.requireNonNull(scenario.getEntityManager());
         this.aliveBullets = new LinkedList<>();
         this.bounds = BoundingBox.situate(boundsPosition, boundsSize);
     }
     
-    private void createBullet(Vector2 pos, Vector2 size, Vector2 speed, Sprite sprite)
+    public final void setEnabledDrawBoundingBox(boolean flag) { drawBbox = flag; }
+    
+    private void createBullet(EntityType ownerType, Vector2 pos, Vector2 size, Vector2 speed, Sprite sprite)
     {
-        Proyectil bullet = new Proyectil();
+        Proyectil bullet = new Proyectil(ownerType);
         bullet.setSprite(sprite);
         bullet.setPosition(pos.x, pos.y);
         bullet.setSize(size.x, size.y);
@@ -50,7 +60,7 @@ public final class BulletManager
         sprite.setLoopMode();
         sprite.setSpeed(20);
         sprite.start();
-        createBullet(pos,
+        createBullet(EntityType.SHIP, pos,
                 new Vector2(Constants.BULLET_SHIP_WIDTH, Constants.BULLET_SHIP_HEIGHT),
                 new Vector2(Constants.BULLET_SHIP_SPEEDX, Constants.BULLET_SHIP_SPEEDY), sprite);
     }
@@ -62,17 +72,12 @@ public final class BulletManager
         {
             Proyectil bullet = it.next();
             bullet.update(delta);
-            if(!bounds.contains(bullet.getPosition()))
+            
+            if(computeCollisions(bullet) || !bounds.contains(bullet.getPosition()))
             {
                 it.remove();
                 continue;
             }
-            
-            /*if(la bala choca contra el muro)
-            {
-                it.remove();
-                continue;
-            }*/
             
         }
     }
@@ -82,6 +87,22 @@ public final class BulletManager
         for(Proyectil bullet : aliveBullets)
         {
             bullet.draw(g);
+            if(drawBbox)
+                bullet.drawBoundingBox(g);
         }
+    }
+    
+    private boolean computeCollisions(Proyectil bullet)
+    {
+        int collisions = 0;
+        for(Entity entity : entities)
+        {
+            if(entity.hasCollision(bullet))
+            {
+                collisions++;
+                entity.collide(scenario, bullet);
+            }
+        }
+        return collisions > 0;
     }
 }

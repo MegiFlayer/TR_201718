@@ -13,6 +13,9 @@ import kp.jngg.sprite.Sprite;
 import kp.jngg.sprite.SpriteLoader;
 import mgf.tr.Constants;
 import mgf.tr.scenario.BulletManager;
+import mgf.tr.scenario.Proyectil;
+import mgf.tr.scenario.Scenario;
+import mgf.tr.scenario.visual.Explosion;
 
 /**
  *
@@ -24,6 +27,8 @@ public class Wall extends Entity {
      * Funciones recomendadas: draw: Para dibujar update: Actualizar valores
      * dispatchEvents: capturar eventos de inputs
      */
+    
+    private static final int MAX_HEALTH_POINTS = 5;
 
     private Sprite sprite1;
     private Sprite sprite2;
@@ -48,27 +53,42 @@ public class Wall extends Entity {
     }
     
     @Override
+    protected final void onCollide(Scenario scenario, Proyectil bullet)
+    {
+        if(!isAlive())
+        {
+            Explosion expl = Explosion.createExplosion(sprites, Constants.SPRITE_EXPL_NORMAL,
+                    position.x, position.y, size.x * 1.2, size.x * 1.2, 15);
+            scenario.addVisualObject(expl);
+        }
+    }
+    
+    @Override
     public void init()
     {
         setSize(Constants.WALL_WIDTH, Constants.WALL_HEIGHT);
         //setPosition(Constants.CANVAS_WIDTH / 5 - Constants.WALL_WIDTH / 2, Constants.CANVAS_HEIGHT - Constants.SHIP_HEIGHT - 115);
         setSprite(sprites.getSprite("shieldFull"), sprites.getSprite("shieldTouched"), sprites.getSprite("shieldBroken"));
+        setHealthPoints(MAX_HEALTH_POINTS);
     }
     
     @Override
     public void draw(Graphics2D g)
     {
         Vector2 pos = position.difference(size.quotient(2));
-        if (sprite1 != null) {
+        int hp = getHealthPoints();
+        if(hp < 3)
+        {
+            if(sprite3 != null)
+                sprite3.draw(g, pos.x, pos.y, size.x, size.y);
+        }
+        else if(hp < MAX_HEALTH_POINTS)
+        {
+            if(sprite2 != null)
+                sprite2.draw(g, pos.x, pos.y, size.x, size.y);
+        }
+        else if(sprite1 != null)
             sprite1.draw(g, pos.x, pos.y, size.x, size.y);
-        }
-        /*if (sprite2 != null) {
-            sprite2.draw(g, position.x, position.y, size.x, size.y);
-        }
-        if (sprite3 != null) {
-            sprite3.draw(g, position.x, position.y, size.x, size.y);
-        }*/
-        //drawSpecs(g);
         
     }
 
