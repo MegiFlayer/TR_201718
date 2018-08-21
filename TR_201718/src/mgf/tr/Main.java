@@ -14,6 +14,9 @@ import kp.jngg.input.Keyboard;
  * @author ferna
  */
 public class Main {
+    
+    /* Enable native 2D hardware acceleration */
+    static { System.setProperty("sun.java2d.opengl","True"); }
 
     /**
      * @param args the command line arguments
@@ -22,6 +25,9 @@ public class Main {
         
         //System.out.println(DisplayMode.toStringAllDisplayModes());
         Display ventana = Display.create("Práctica", DisplayMode.getDisplayMode(1280, 960));
+        /*ventana.getDebugInfo().setEnabled(true);
+        ventana.getDebugInfo().setExactFps(true);
+        ventana.getDebugInfo().setColor(Color.GREEN);*/
         //ventana.setFullscreen(true);
     
         GmLoopClass gl = new GmLoopClass(ventana);

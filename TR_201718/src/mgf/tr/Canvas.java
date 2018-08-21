@@ -7,7 +7,9 @@ package mgf.tr;
 
 import java.awt.Color;
 import java.awt.Graphics2D;
-import java.awt.image.BufferedImage;
+import java.awt.GraphicsConfiguration;
+import java.awt.GraphicsEnvironment;
+import java.awt.image.VolatileImage;
 import kp.jngg.Display;
 
 /**
@@ -18,13 +20,14 @@ public final class Canvas
 {
     private static final Color CLEAN_COLOR = new Color(1f, 1f, 1f, 0f);
     
-    private final BufferedImage canvas;
+    private VolatileImage canvas;
     private final int width;
     private final int height;
     private final int superWidth;
     private final int superHeight;
     private final boolean deformedExpansion;
     private final Graphics2D gcanvas;
+    private final GraphicsConfiguration gconf = GraphicsEnvironment.getLocalGraphicsEnvironment().getDefaultScreenDevice().getDefaultConfiguration();
     
     public Canvas(Display display, int width, int height, boolean deformedExpansion)
     {
@@ -33,7 +36,9 @@ public final class Canvas
     
     private Canvas(int width, int height, int superWidth, int superHeight, boolean deformedExpansion)
     {
-        this.canvas = new BufferedImage(width, height, BufferedImage.TYPE_INT_ARGB);
+        this.canvas = gconf.createCompatibleVolatileImage(width, height, VolatileImage.TRANSLUCENT);
+        //this.canvas = new BufferedImage(width, height, BufferedImage.TYPE_INT_ARGB);
+        this.canvas.setAccelerationPriority(1f);
         this.width = width;
         this.height = height;
         this.superWidth = superWidth;
@@ -61,19 +66,33 @@ public final class Canvas
     
     public final void draw(Graphics2D g)
     {
-        if(deformedExpansion || superWidth == superHeight)
-            g.drawImage(canvas, 0, 0, superWidth, superHeight, null);
-        else
+        main_loop:
+        for(;;)
         {
-            if(superWidth > superHeight)
-            {
-                int newWidth = width * (superHeight / height);
-                g.drawImage(canvas, (superWidth - newWidth) / 2, 0, newWidth, superHeight, null);
-            }
+            if(deformedExpansion || superWidth == superHeight)
+                g.drawImage(canvas, 0, 0, superWidth, superHeight, null);
             else
             {
-                int newHeight = height * (superWidth / width);
-                g.drawImage(canvas, 0, (superHeight - newHeight) / 2, superWidth, newHeight, null);
+                if(superWidth > superHeight)
+                {
+                    int newWidth = width * (superHeight / height);
+                    g.drawImage(canvas, (superWidth - newWidth) / 2, 0, newWidth, superHeight, null);
+                }
+                else
+                {
+                    int newHeight = height * (superWidth / width);
+                    g.drawImage(canvas, 0, (superHeight - newHeight) / 2, superWidth, newHeight, null);
+                }
+            }
+            if(!canvas.contentsLost())
+                break;
+            switch(canvas.validate(gconf))
+            {
+                case VolatileImage.IMAGE_OK: break main_loop;
+                case VolatileImage.IMAGE_INCOMPATIBLE:
+                    canvas = gconf.createCompatibleVolatileImage(width, height, VolatileImage.TRANSLUCENT);
+                case VolatileImage.IMAGE_RESTORED:
+                    //Do nothing. Re-render all.
             }
         }
     }
