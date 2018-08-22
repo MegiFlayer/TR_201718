@@ -13,7 +13,7 @@ import kp.jngg.sprite.Sprite;
 import kp.jngg.sprite.SpriteLoader;
 import mgf.tr.Constants;
 import mgf.tr.scenario.BulletManager;
-import mgf.tr.scenario.Proyectil;
+import mgf.tr.scenario.Bullet;
 import mgf.tr.scenario.Scenario;
 import mgf.tr.scenario.visual.Explosion;
 
@@ -53,7 +53,7 @@ public class Wall extends Entity {
     }
     
     @Override
-    protected final void onCollide(Scenario scenario, Proyectil bullet)
+    protected final void onCollide(Scenario scenario, Bullet bullet)
     {
         if(!isAlive())
         {

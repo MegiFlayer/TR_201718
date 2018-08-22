@@ -6,103 +6,119 @@
 package mgf.tr.entity;
 
 import java.awt.Graphics2D;
+import java.util.Objects;
 import kp.jngg.input.InputEvent;
+import kp.jngg.math.RNG;
 import kp.jngg.math.Vector2;
 import kp.jngg.sprite.AnimatedSprite;
-import kp.jngg.sprite.Sprite;
 import kp.jngg.sprite.SpriteLoader;
 import mgf.tr.Constants;
+import mgf.tr.scenario.Bullet;
 import mgf.tr.scenario.BulletManager;
-import mgf.tr.scenario.Proyectil;
 import mgf.tr.scenario.Scenario;
+import mgf.tr.scenario.visual.Explosion;
 
 /**
  *
  * @author ferna
  */
-public class Enemy extends Entity{
+public class Enemy extends Entity
+{
 
     /**
      * Funciones recomendadas: draw: Para dibujar update: Actualizar valores
      * dispatchEvents: capturar eventos de inputs
      */
     
-    private Sprite enmSprite;
-    private int moveX = 1;
+    private static final RNG RAND = new RNG();
     
-    private final double maxX;
+    private AnimatedSprite sprite;
+    
+    private final String explosionSpriteId;
+    private String bulletModelId = "";
+    private int fireRatio;
+    private double fireDelay;
 
-    public Enemy(SpriteLoader sprites, BulletManager bullets, double maxX) {
+    public Enemy(SpriteLoader sprites, BulletManager bullets, String explosionSpriteId) {
     
         super(sprites, bullets);
-        enmSprite = null;
-        this.maxX = maxX;
+        sprite = null;
+        this.explosionSpriteId = Objects.requireNonNull(explosionSpriteId);
     }
     
     @Override
     public final EntityType getEntityType() { return EntityType.ENEMY; }
     
-    public void setSprite(Sprite s1){
-    
-    enmSprite = s1;
-    
+    public void setSprite(AnimatedSprite sprite)
+    {
+        this.sprite = sprite;
     }
     
-    public void setAnimatedSprite(AnimatedSprite sprite){
+    public final void setBulletModelId(String bulletModelId)
+    {
+        this.bulletModelId = Objects.requireNonNull(bulletModelId);
+    }
     
-        enmSprite = sprite;
-        sprite.setLoopMode();
-        sprite.setSpeed(2);
-        sprite.start();
-    
+    public final void setFireRatio(int fireRatio)
+    {
+        this.fireRatio = fireRatio;
     }
     
     @Override
-    protected final void onCollide(Scenario scenario, Proyectil bullet)
+    protected final void onCollide(Scenario scenario, Bullet bullet)
     {
-        
+        if(!isAlive())
+        {
+            Explosion expl = Explosion.createExplosion(sprites, explosionSpriteId, position.x, position.y, size.x * 1.25, size.y * 1.25, 16);
+            scenario.addVisualObject(expl);
+        }
     }
     
     @Override
     public void init()
     {
         setSize(Constants.CELL_WIDTH * 0.9, Constants.CELL_HEIGHT * 0.9);
-        setAnimatedSprite(sprites.getSprite("enemy"));
     }
     
     @Override
-    public void draw(Graphics2D g) {
-        
+    public void draw(Graphics2D g)
+    {
         Vector2 pos = position.difference(size.quotient(2));
-        
-        if (enmSprite != null) {
-            enmSprite.draw(g, pos.x, pos.y, size.x, size.y);
-        }
-        
+        if(sprite != null)
+            sprite.draw(g, pos.x, pos.y, size.x, size.y);
     }
 
     @Override
-    public void update(double delta) {
-        
-        enmSprite.update(delta);
-        
-        speed.x = 400 * moveX;
-        
-        if(position.x <= size.x / 2){
-            position.x = size.x / 2;
-            moveX = 1;
-        }else if(position.x >= maxX - size.x / 2){
-            position.x = maxX - size.x / 2;
-            moveX = -1;
-        }
-        
+    public void update(double delta)
+    {
+        if(sprite != null)
+            sprite.update(delta);
         super.update(delta);
-        
+        if(fireRatio > 0)
+        {
+            if(fireDelay <= 0)
+            {
+                bullets.createBullet(bulletModelId, this, getPosition(), 0);
+                updateFireDelay();
+            }
+            else fireDelay -= delta;
+        }
     }
 
     @Override
     public void dispatch(InputEvent event) {
 
+    }
+    
+    public final void updateFireDelay()
+    {
+        if(fireRatio <= 0)
+            return;
+        fireDelay = 0.25;
+        if(fireRatio >= 255)
+            return;
+        fireDelay += (1d - fireRatio / 255d) * 10d;
+        fireDelay += RAND.getDouble(fireDelay);
     }
     
 }

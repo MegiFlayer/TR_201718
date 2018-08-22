@@ -49,11 +49,17 @@ public interface Constants
     String TAG_ID = "id";
     String TAG_POSITION = "position";
     String TAG_SIZE = "size";
+    String TAG_ENEMY_BEHAVIOR = "enemy_behavior";
+    String TAG_SPEED = "speed";
+    String TAG_SPEED_INCREMENT = "speed_increment";
+    String TAG_FALL_AMOUNT = "fall_amount";
     
     
     /* SCENARIO_LOADER ENTITY IDS */
     String ID_WALL = "wall";
-    String ID_BASIC_ENEMY = "basic_enemy";
+    String ID_ENEMY_BASIC = "enemy_basic";
+    String ID_ENEMY_WARRIOR = "enemy_warrior";
+    String ID_ENEMY_TANK = "enemy_tank";
     
     /* SPRITES */
     String SPRITE_EXPL_NORMAL = "explosion.normal";
@@ -61,6 +67,10 @@ public interface Constants
     String SPRITE_EXPL_GREEN = "explosion.green";
     String SPRITE_EXPL_PURPLE = "explosion.purple";
     String SPRITE_EXPL_BIG = "explosion.big";
+    String SPRITE_EXPL_BULLET_0 = "explosion.bullet_0";
+    String SPRITE_EXPL_BULLET_1 = "explosion.bullet_1";
+    String SPRITE_EXPL_BULLET_2 = "explosion.bullet_2";
+    String SPRITE_EXPL_BULLET_3 = "explosion.bullet_3";
     
     String SPRITE_ENEMY_BASIC = "enemy.basic";
     String SPRITE_ENEMY_WARRIOR = "enemy.warrior";

@@ -14,8 +14,8 @@ import kp.jngg.math.Vector2;
 import kp.jngg.sprite.Sprite;
 import kp.jngg.sprite.SpriteLoader;
 import mgf.tr.Constants;
+import mgf.tr.scenario.Bullet;
 import mgf.tr.scenario.BulletManager;
-import mgf.tr.scenario.Proyectil;
 import mgf.tr.scenario.Scenario;
 
 /**
@@ -62,7 +62,7 @@ public class Nave extends Entity
     }
     
     @Override
-    protected final void onCollide(Scenario scenario, Proyectil bullet)
+    protected final void onCollide(Scenario scenario, Bullet bullet)
     {
         
     }
@@ -130,10 +130,8 @@ public class Nave extends Entity
         if(fireEnabled && fireCoolDown == 0)
         {
             fireCoolDown = 0.25;
-            bullets.createShipBullet(new Vector2(
-                    position.x,
-                    position.y - Constants.BULLET_SHIP_HEIGHT / 2 - size.y / 2
-            ));
+            bullets.createBullet("ship_bullet", this,
+                    position.x, position.y - Constants.BULLET_SHIP_HEIGHT / 2 - size.y / 2, Math.PI);
         }
             
     }

@@ -1,0 +1,211 @@
+{
+	"static_sprites": [
+	],
+	
+	"sheet_sprites": [
+		{
+			"id": "shipLeft",
+			"path": "Nave25x30_FSanz.png",
+			"offset_x": 0,
+			"offset_y": 0,
+			"width": 25,
+			"height": 30
+		},
+		{
+			"id": "shipMid",
+			"path": "Nave25x30_FSanz.png",
+			"offset_x": 25,
+			"offset_y": 0,
+			"width": 25,
+			"height": 30
+		},
+		{
+			"id": "shipRight",
+			"path": "Nave25x30_FSanz.png",
+			"offset_x": 50,
+			"offset_y": 0,
+			"width": 25,
+			"height": 30
+		},
+		{
+			"id": "shieldFull",
+			"path": "Escudos22x16_FSanz.png",
+			"offset_x": 0,
+			"offset_y": 0,
+			"width": 22,
+			"height": 16
+		},
+		{
+			"id": "shieldTouched",
+			"path": "Escudos22x16_FSanz.png",
+			"offset_x": 22,
+			"offset_y": 0,
+			"width": 22,
+			"height": 16
+		},
+		{
+			"id": "shieldBroken",
+			"path": "Escudos22x16_FSanz.png",
+			"offset_x": 44,
+			"offset_y": 0,
+			"width": 22,
+			"height": 16
+		},
+	],
+	
+	"animated_sprites": [
+		{
+			"id": "laser",
+			"path": "ProyectilVertical29x64_FSanz.png",
+			"offset_x": 0,
+			"offset_y": 0,
+			"frame_width": 29,
+			"frame_height": 64,
+			"frames": 3
+		},
+		{
+			"id": "bullet.basic.yellow",
+			"path": "basic_bullet.png",
+			"offset_x": 0,
+			"offset_y": 0,
+			"frame_width": 32,
+			"frame_height": 32,
+			"frames": 2
+		},
+		{
+			"id": "bullet.basic.green",
+			"path": "basic_bullet.png",
+			"offset_x": 0,
+			"offset_y": 32,
+			"frame_width": 32,
+			"frame_height": 32,
+			"frames": 2
+		},
+		{
+			"id": "bullet.basic.blue",
+			"path": "basic_bullet.png",
+			"offset_x": 0,
+			"offset_y": 64,
+			"frame_width": 32,
+			"frame_height": 32,
+			"frames": 2
+		},
+		{
+			"id": "bullet.basic.purple",
+			"path": "basic_bullet.png",
+			"offset_x": 0,
+			"offset_y": 96,
+			"frame_width": 32,
+			"frame_height": 32,
+			"frames": 2
+		},
+		{
+			"id": "explosion.normal",
+			"path": "std_expl.png",
+			"offset_x": 0,
+			"offset_y": 0,
+			"frame_width": 36,
+			"frame_height": 36,
+			"frames": 9
+		},
+		{
+			"id": "explosion.blue",
+			"path": "std_expl.png",
+			"offset_x": 0,
+			"offset_y": 36,
+			"frame_width": 36,
+			"frame_height": 36,
+			"frames": 9
+		},
+		{
+			"id": "explosion.green",
+			"path": "std_expl.png",
+			"offset_x": 0,
+			"offset_y": 72,
+			"frame_width": 36,
+			"frame_height": 36,
+			"frames": 9
+		},
+		{
+			"id": "explosion.purple",
+			"path": "std_expl.png",
+			"offset_x": 0,
+			"offset_y": 108,
+			"frame_width": 36,
+			"frame_height": 36,
+			"frames": 9
+		},
+		{
+			"id": "explosion.big",
+			"path": "big_explosion.png",
+			"offset_x": 0,
+			"offset_y": 0,
+			"frame_width": 128,
+			"frame_height": 128,
+			"frames": 18
+		},
+		{
+			"id": "explosion.bullet_0",
+			"path": "bullet_expl.png",
+			"offset_x": 0,
+			"offset_y": 0,
+			"frame_width": 32,
+			"frame_height": 32,
+			"frames": 4
+		},
+		{
+			"id": "explosion.bullet_1",
+			"path": "bullet_expl.png",
+			"offset_x": 0,
+			"offset_y": 32,
+			"frame_width": 32,
+			"frame_height": 32,
+			"frames": 4
+		},
+		{
+			"id": "explosion.bullet_2",
+			"path": "bullet_expl.png",
+			"offset_x": 0,
+			"offset_y": 64,
+			"frame_width": 32,
+			"frame_height": 32,
+			"frames": 4
+		},
+		{
+			"id": "explosion.bullet_3",
+			"path": "bullet_expl.png",
+			"offset_x": 0,
+			"offset_y": 96,
+			"frame_width": 32,
+			"frame_height": 32,
+			"frames": 4
+		},
+		{
+			"id": "enemy.basic",
+			"path": "enemy_basic.png",
+			"offset_x": 0,
+			"offset_y": 0,
+			"frame_width": 12,
+			"frame_height": 12,
+			"frames": 4
+		},
+		{
+			"id": "enemy.warrior",
+			"path": "enemy_warrior.png",
+			"offset_x": 0,
+			"offset_y": 0,
+			"frame_width": 12,
+			"frame_height": 12,
+			"frames": 4
+		},
+		{
+			"id": "enemy.tank",
+			"path": "enemy_tank.png",
+			"offset_x": 0,
+			"offset_y": 0,
+			"frame_width": 12,
+			"frame_height": 13,
+			"frames": 3
+		}
+	]
+}

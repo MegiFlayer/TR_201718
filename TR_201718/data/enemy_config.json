@@ -1,0 +1,34 @@
+{
+	"enemy_models": [
+		{
+			"id": "enemy_basic",
+			
+			"sprite_id": "enemy.basic",
+			"explosion_sprite_id": "explosion.blue",
+			"sprite_speed": 5,
+			
+			"delta_width": 0.9,
+			"delta_height": 0.9,
+			
+			"health_points": 1,
+			
+			"bullet_model_id": "basic_green_bullet",
+			"fire_ratio": 100
+		},
+		{
+			"id": "enemy_warrior",
+			
+			"sprite_id": "enemy.warrior",
+			"explosion_sprite_id": "explosion.purple",
+			"sprite_speed": 5,
+			
+			"delta_width": 0.9,
+			"delta_height": 0.9,
+			
+			"health_points": 2,
+			
+			"bullet_model_id": "basic_green_bullet",
+			"fire_ratio": 170
+		}
+	]
+}

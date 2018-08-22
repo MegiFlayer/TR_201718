@@ -1,0 +1,40 @@
+{
+	"bullet_models": [
+		{
+			"id": "ship_bullet",
+			
+			"sprite_id": "laser",
+			"sprite_speed": 20,
+			"sprite_width": 4,
+			"sprite_height": 10,
+			
+			"bbox_x": 0,
+			"bbox_y": -3,
+			"bbox_width": 2,
+			"bbox_height": 2,
+			
+			"speed": 300,
+			
+			"power": 1,
+			"explosion_id": 2
+		},
+		{
+			"id": "basic_green_bullet",
+			
+			"sprite_id": "bullet.basic.green",
+			"sprite_speed": 30,
+			"sprite_width": 10,
+			"sprite_height": 12,
+			
+			"bbox_x": 0,
+			"bbox_y": -2,
+			"bbox_width": 5,
+			"bbox_height": 5,
+			
+			"speed": 200,
+			
+			"power": 1,
+			"explosion_id": 1
+		}
+	]
+}

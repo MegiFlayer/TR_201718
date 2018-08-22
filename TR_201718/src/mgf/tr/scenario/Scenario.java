@@ -18,6 +18,7 @@ import mgf.tr.Canvas;
 import mgf.tr.Constants;
 import mgf.tr.entity.Entity;
 import mgf.tr.entity.EntityManager;
+import mgf.tr.entity.EntityType;
 import mgf.tr.scenario.label.Lives;
 import mgf.tr.scenario.label.Score;
 import mgf.tr.scenario.visual.VisualObject;
@@ -40,6 +41,14 @@ public final class Scenario
     private boolean enabledGrid;
     private boolean enabledDrawBbox;
     
+    private double enemySpeed;
+    private double enemySpeedIncrement;
+    private double enemyFallAmount;
+    private boolean enemyFall;
+    
+    private boolean firstUpdate = true;
+    
+    
     private final ShipController ship;
     
     private Scenario(Canvas screenCanvas, Canvas entityCanvas, SpriteLoader sprites)
@@ -56,6 +65,11 @@ public final class Scenario
         this.lives = new Lives(sprites);
         this.ship = new ShipController(this, lives, entityCanvas);
         this.vobjs = new LinkedList<>();
+        
+        this.enemySpeed = 10;
+        this.enemySpeedIncrement = 2;
+        this.enemyFallAmount = 20;
+        this.enemyFall = false;
         
         init();
     }
@@ -98,6 +112,10 @@ public final class Scenario
         bullets.setEnabledDrawBoundingBox(flag);
     }
     
+    public final void setEnemySpeed(double speed) { this.enemySpeed = Math.abs(speed); }
+    public final void setEnemySpeedIncrement(double increment) { this.enemySpeedIncrement = Math.abs(increment); }
+    public final void setEnemyFallAmount(double amount) { this.enemyFallAmount = Math.abs(amount); }
+    
     public final void update(double delta)
     {
         updateEntities(delta);
@@ -110,16 +128,48 @@ public final class Scenario
         if(background != null)
             background.update(delta);
         entities.update();
+        if(firstUpdate)
+            for(Entity e : entities)
+                if(e.getEntityType() == EntityType.ENEMY)
+                    e.setSpeed(enemySpeed, 0); 
+        
+        if(firstUpdate)
+            firstUpdate = false;
     }
     
     private void updateEntities(double delta)
     {
+        final boolean fall = enemyFall;
+        if(fall)
+        {
+            enemySpeed += enemySpeedIncrement;
+            enemySpeed *= -1;
+            enemySpeedIncrement *= -1;
+            enemyFall = false;
+        }
         entities.forEachEntity((e) -> {
             if(!e.hasDestroyed())
             {
                 e.update(delta);
                 if(!e.isAlive())
                     e.destroy();
+                else if(e.getEntityType() == EntityType.ENEMY)
+                {
+                    if(fall)
+                    {
+                        e.setPosition(e.getPosition().add(0, enemyFallAmount));
+                        e.setSpeed(enemySpeed, 0); 
+                    }
+                    else if(!enemyFall)
+                    {
+                        double x = e.getPositionX();
+                        double midWidth = e.getWidth() / 2;
+                        if(enemySpeed > 0 && x + midWidth >= entityCanvas.getWidth())
+                            enemyFall = true;
+                        else if(enemySpeed < 0 && x - midWidth <= 0)
+                            enemyFall = true;
+                    }
+                }
             }
         });
     }

@@ -11,13 +11,9 @@ import java.util.ListIterator;
 import java.util.Objects;
 import kp.jngg.math.BoundingBox;
 import kp.jngg.math.Vector2;
-import kp.jngg.sprite.AnimatedSprite;
-import kp.jngg.sprite.Sprite;
 import kp.jngg.sprite.SpriteLoader;
-import mgf.tr.Constants;
 import mgf.tr.entity.Entity;
 import mgf.tr.entity.EntityManager;
-import mgf.tr.entity.EntityType;
 
 /**
  *
@@ -28,7 +24,7 @@ public final class BulletManager
     private final Scenario scenario;
     private final SpriteLoader sprites;
     private final EntityManager entities;
-    private final LinkedList<Proyectil> aliveBullets;
+    private final LinkedList<Bullet> aliveBullets;
     private final BoundingBox bounds;
     private boolean drawBbox;
     
@@ -43,18 +39,34 @@ public final class BulletManager
     
     public final void setEnabledDrawBoundingBox(boolean flag) { drawBbox = flag; }
     
-    private void createBullet(EntityType ownerType, Vector2 pos, Vector2 size, Vector2 speed, Sprite sprite)
+    public final void createBullet(String bulletId, Entity owner, Vector2 pos, double dirRadians)
     {
-        Proyectil bullet = new Proyectil(ownerType);
+        BulletModel model = BulletModel.getModel(bulletId);
+        if(model == null)
+            return;
+        Bullet bullet = model.build(owner, sprites);
+        bullet.setPosition(pos.x, pos.y);
+        bullet.setSpeed(bullet.getSpeed().rotate(dirRadians));
+        bullet.updateBoundingBox();
+        aliveBullets.add(bullet);
+    }
+    public final void createBullet(String bulletId, Entity owner, double x, double y, double dirRadians)
+    {
+        createBullet(bulletId, owner, new Vector2(x, y), dirRadians);
+    }
+    
+    /*private void createBullet(EntityType ownerType, Vector2 pos, Vector2 size, Vector2 speed, Sprite sprite)
+    {
+        Bullet bullet = new Bullet(ownerType);
         bullet.setSprite(sprite);
         bullet.setPosition(pos.x, pos.y);
         bullet.setSize(size.x, size.y);
         bullet.setSpeed(speed.x, speed.y);
         bullet.updateBoundingBox();
         aliveBullets.add(bullet);
-    }
+    }*/
     
-    public final void createShipBullet(Vector2 pos)
+    /*public final void createShipBullet(Vector2 pos)
     {
         AnimatedSprite sprite = sprites.getSprite("laser");
         sprite.setLoopMode();
@@ -63,18 +75,19 @@ public final class BulletManager
         createBullet(EntityType.SHIP, pos,
                 new Vector2(Constants.BULLET_SHIP_WIDTH, Constants.BULLET_SHIP_HEIGHT),
                 new Vector2(Constants.BULLET_SHIP_SPEEDX, Constants.BULLET_SHIP_SPEEDY), sprite);
-    }
+    }*/
     
     public final void update(double delta)
     {
-        ListIterator<Proyectil> it = aliveBullets.listIterator();
+        ListIterator<Bullet> it = aliveBullets.listIterator();
         while(it.hasNext())
         {
-            Proyectil bullet = it.next();
+            Bullet bullet = it.next();
             bullet.update(delta);
             
             if(computeCollisions(bullet) || !bounds.contains(bullet.getPosition()))
             {
+                bullet.explode(scenario);
                 it.remove();
                 continue;
             }
@@ -84,7 +97,7 @@ public final class BulletManager
     
     public final void draw(Graphics2D g)
     {
-        for(Proyectil bullet : aliveBullets)
+        for(Bullet bullet : aliveBullets)
         {
             bullet.draw(g);
             if(drawBbox)
@@ -92,12 +105,12 @@ public final class BulletManager
         }
     }
     
-    private boolean computeCollisions(Proyectil bullet)
+    private boolean computeCollisions(Bullet bullet)
     {
         int collisions = 0;
         for(Entity entity : entities)
         {
-            if(entity.hasCollision(bullet))
+            if(!entity.getId().equals(bullet.getOwner().getId()) && entity.hasCollision(bullet))
             {
                 collisions++;
                 entity.collide(scenario, bullet);

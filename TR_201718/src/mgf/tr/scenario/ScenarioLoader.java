@@ -12,11 +12,13 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import kp.jngg.math.Vector2;
+import kp.jngg.sprite.AnimatedSprite;
 import kp.jngg.sprite.Sprite;
 import kp.jngg.sprite.SpriteLoader;
 import mgf.tr.Canvas;
 import mgf.tr.Constants;
 import mgf.tr.entity.Enemy;
+import mgf.tr.entity.EnemyModel;
 import mgf.tr.entity.Entity;
 import mgf.tr.entity.EntityManager;
 import mgf.tr.entity.Wall;
@@ -40,7 +42,7 @@ public final class ScenarioLoader
     
     public static Scenario loadScenario(Canvas canvas, SpriteLoader sprites, String stageName) throws ScenarioLoaderException
     {
-        File file = new File("stages" + File.separator + stageName + ".json");
+        File file = new File("data" + File.separator + "stages" + File.separator + stageName + ".json");
         return loadScenario(canvas, sprites, file);
     }
     
@@ -78,6 +80,9 @@ public final class ScenarioLoader
         /* Start Position */
         loadStartPosition(base, scenario);
         
+        /* Enemy Behavior */
+        loadEnemyBehavior(base, scenario);
+        
         /* Entities */
         loadEntities(base, scenario);
         
@@ -100,7 +105,7 @@ public final class ScenarioLoader
         if(backName.isEmpty())
             return;
         
-        File file = new File("sprites" + File.separator + "background" + File.separator + backName + ".png");
+        File file = new File("data" + File.separator + "sprites" + File.separator + "background" + File.separator + backName + ".png");
         try
         {
             Sprite back = SpriteLoader.createStaticSprite(file);
@@ -118,6 +123,17 @@ public final class ScenarioLoader
         scenario.getShipController().setStartPosition(pos);
     }
     
+    private static void loadEnemyBehavior(JSONObject base, Scenario scenario)
+    {
+        JSONObject jobj = base.optJSONObject(Constants.TAG_ENEMY_BEHAVIOR);
+        if(jobj == null)
+            return;
+        
+        scenario.setEnemySpeed(jobj.optDouble(Constants.TAG_SPEED, 10));
+        scenario.setEnemySpeedIncrement(jobj.optDouble(Constants.TAG_SPEED_INCREMENT, 2));
+        scenario.setEnemyFallAmount(jobj.optDouble(Constants.TAG_FALL_AMOUNT, 20));
+    }
+    
     private static void loadEntities(JSONObject base, Scenario scenario)
     {
         JSONArray array = base.optJSONArray(Constants.TAG_ENTITIES);
@@ -125,6 +141,8 @@ public final class ScenarioLoader
             return;
         
         EntityManager entities = scenario.getEntityManager();
+        SpriteLoader sprites = scenario.getSpriteLoader();
+        BulletManager bullets = scenario.getBulletManager();
         int len = array.length();
         for(int i=0;i<len;i++)
         {
@@ -138,19 +156,38 @@ public final class ScenarioLoader
             switch(id)
             {
                 case Constants.ID_WALL: {
-                    Wall wall = new Wall(scenario.getSpriteLoader(), scenario.getBulletManager());
+                    Wall wall = new Wall(sprites, bullets);
                     wall.init();
                     setEntityPosition(object, wall);
                     setEntitySize(object, wall);
                     entities.addEntity(wall);
                 } break;
-                case Constants.ID_BASIC_ENEMY: {
-                    Enemy enemy = new Enemy(scenario.getSpriteLoader(), scenario.getBulletManager(), scenario.getEntityCanvas().getWidth());
-                    enemy.init();
+                default: {
+                    EnemyModel model = EnemyModel.getModel(id);
+                    if(model == null)
+                        break;
+                    Enemy enemy = model.build(sprites, bullets);
                     setEntityPosition(object, enemy);
                     setEntitySize(object, enemy);
                     entities.addEntity(enemy);
                 } break;
+                /*case Constants.ID_ENEMY_BASIC: {
+                    Enemy enemy = new Enemy(sprites, scenario.getBulletManager(), Constants.SPRITE_EXPL_BLUE);
+                    enemy.init();
+                    setEntityPosition(object, enemy);
+                    setEntitySize(object, enemy);
+                    setEnemySprite(sprites, enemy, Constants.SPRITE_ENEMY_BASIC, 5);
+                    entities.addEntity(enemy);
+                } break;
+                case Constants.ID_ENEMY_WARRIOR: {
+                    Enemy enemy = new Enemy(sprites, scenario.getBulletManager(), Constants.SPRITE_EXPL_PURPLE);
+                    enemy.init();
+                    setEntityPosition(object, enemy);
+                    setEntitySize(object, enemy);
+                    setEnemySprite(sprites, enemy, Constants.SPRITE_ENEMY_WARRIOR, 5);
+                    enemy.setHealthPoints(2);
+                    entities.addEntity(enemy);
+                } break;*/
             }
         }
     }
@@ -179,5 +216,18 @@ public final class ScenarioLoader
         size.x *= width;
         size.y *= height;
         entity.setSize(size);
+    }
+    
+    private static void setEnemySprite(SpriteLoader sprites, Entity entity, String spriteId, double spriteSpeed)
+    {
+        try
+        {
+            AnimatedSprite sprite = sprites.getSprite(spriteId);
+            if(sprite == null)
+                return;
+            sprite.setSpeed((float) spriteSpeed);
+            ((Enemy) entity).setSprite(sprite);
+        }
+        catch(Exception ex) { ex.printStackTrace(System.err); }
     }
 }

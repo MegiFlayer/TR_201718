@@ -9,16 +9,17 @@ package mgf.tr;
 import java.awt.Color;
 import java.awt.Graphics2D;
 import java.io.File;
-import java.io.IOException;
 import java.util.Objects;
 import kp.jngg.Display;
 import kp.jngg.GameLoop;
 import kp.jngg.input.InputEvent;
 import kp.jngg.input.InputListener;
 import kp.jngg.sprite.SpriteLoader;
+import mgf.tr.entity.EnemyModel;
+import mgf.tr.scenario.BulletModel;
 import mgf.tr.scenario.Scenario;
 import mgf.tr.scenario.ScenarioLoader;
-import mgf.tr.scenario.ScenarioLoaderException;
+import mgf.tr.utils.SpriteConfigLoader;
 /**
  *
  * @author ferna
@@ -40,38 +41,26 @@ public class GmLoopClass implements GameLoop, InputListener{
     
     @Override
     public void init() {
-                
-        sprites = new SpriteLoader(new File("sprites"));
-
-        try {
-            
-            sprites.loadAnimatedSprite("shipLeft", "Nave25x30_FSanz.png", 0, 0, 25, 30, 1);
-            sprites.loadAnimatedSprite("shipMid", "Nave25x30_FSanz.png", 25, 0, 25, 30, 1);
-            sprites.loadAnimatedSprite("shipRight", "Nave25x30_FSanz.png", 50, 0, 25, 30, 1);
-            sprites.loadAnimatedSprite("laser", "ProyectilVertical29x64_FSanz.png", 0, 0, 29, 64, 3);
-            sprites.loadAnimatedSprite("enemy", "Enemigo30x25_FSanz.png", 0, 0, 30, 25, 4);
-            sprites.loadAnimatedSprite("shieldFull", "Escudos22x16_FSanz.png", 0, 0, 22, 16, 1);
-            sprites.loadAnimatedSprite("shieldTouched", "Escudos22x16_FSanz.png", 22, 0, 22, 16, 1);
-            sprites.loadAnimatedSprite("shieldBroken", "Escudos22x16_FSanz.png", 44, 0, 22, 16, 1);
-            
-            loadExplosionSprites(sprites);
-        }
-        catch(IOException ex) {
-            ex.printStackTrace(System.err);
-        } 
-        
-        //stage = Scenario.createScenario(canvas, sprites, Constants.CELL_DEFAULT_ROWS, Constants.CELL_DEFAULT_COLUMNS);
+             
         try
         {
+            sprites = new SpriteLoader(new File("data" + File.separator + "sprites"));
+            SpriteConfigLoader.loadSprites(sprites);
+
+            /* Load Bullet models */
+            BulletModel.loadBulletModels();
+            
+            /* Load Enemy models */
+            EnemyModel.loadEnemyModels();
+        
             stage = ScenarioLoader.loadScenario(canvas, sprites, "testLevel");
             //stage.setEnabledDrawBoundingBox(true);
         }
-        catch(ScenarioLoaderException ex)
+        catch(Exception ex)
         {
             ex.printStackTrace(System.err);
             display.abort();
         }
-        
     }
 
     @Override
@@ -96,20 +85,6 @@ public class GmLoopClass implements GameLoop, InputListener{
     public void dispatchEvent(InputEvent ie) {
         
         stage.dispatch(ie);
-        
-    }
-    
-    private static void loadExplosionSprites(SpriteLoader sprites) throws IOException
-    {
-        sprites.loadAnimatedSprite(Constants.SPRITE_EXPL_NORMAL, "std_expl.png", 0, 0, 36, 36, 9);
-        sprites.loadAnimatedSprite(Constants.SPRITE_EXPL_BLUE, "std_expl.png", 0, 36, 36, 36, 9);
-        sprites.loadAnimatedSprite(Constants.SPRITE_EXPL_GREEN, "std_expl.png", 0, 72, 36, 36, 9);
-        sprites.loadAnimatedSprite(Constants.SPRITE_EXPL_PURPLE, "std_expl.png", 0, 108, 36, 36, 9);
-        sprites.loadAnimatedSprite(Constants.SPRITE_EXPL_BIG, "big_explosion.png", 0, 0, 128, 128, 18);
-    }
-    
-    private static void loadEnemySprites(SpriteLoader sprites) throws IOException
-    {
         
     }
            

@@ -13,8 +13,8 @@ import kp.jngg.input.InputEvent;
 import kp.jngg.math.BoundingBox;
 import kp.jngg.math.Vector2;
 import kp.jngg.sprite.SpriteLoader;
+import mgf.tr.scenario.Bullet;
 import mgf.tr.scenario.BulletManager;
-import mgf.tr.scenario.Proyectil;
 import mgf.tr.scenario.Scenario;
 
 /**
@@ -112,20 +112,20 @@ public abstract class Entity
         bbox.resituate(position, size);
     }
     
-    public final boolean hasCollision(Proyectil bullet)
+    public final boolean hasCollision(Bullet bullet)
     {
         return bullet.hasCollision(bbox);
     }
     
-    public final void collide(Scenario scenario, Proyectil bullet)
+    public final void collide(Scenario scenario, Bullet bullet)
     {
-        if(bullet.getOwnerType() != getEntityType())
+        if(bullet.getOwner().getEntityType() != getEntityType())
         {
             damage(bullet.getPower());
             onCollide(scenario, bullet);
         }
     }
-    protected abstract void onCollide(Scenario scenario, Proyectil bullet);
+    protected abstract void onCollide(Scenario scenario, Bullet bullet);
     
     public void init() {}
     
