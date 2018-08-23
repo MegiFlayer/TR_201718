@@ -47,6 +47,7 @@ public final class BulletManager
         Bullet bullet = model.build(owner, sprites);
         bullet.setPosition(pos.x, pos.y);
         bullet.setSpeed(bullet.getSpeed().rotate(dirRadians));
+        bullet.rotateBoundingBoxFromCenter(dirRadians);
         bullet.updateBoundingBox();
         aliveBullets.add(bullet);
     }

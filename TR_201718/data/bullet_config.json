@@ -9,7 +9,7 @@
 			"sprite_height": 10,
 			
 			"bbox_x": 0,
-			"bbox_y": -3,
+			"bbox_y": 3,
 			"bbox_width": 2,
 			"bbox_height": 2,
 			
@@ -27,7 +27,7 @@
 			"sprite_height": 12,
 			
 			"bbox_x": 0,
-			"bbox_y": -2,
+			"bbox_y": 2,
 			"bbox_width": 5,
 			"bbox_height": 5,
 			

@@ -15,13 +15,13 @@ import kp.jngg.math.Vector2;
 import kp.jngg.sprite.Sprite;
 import kp.jngg.sprite.SpriteLoader;
 import mgf.tr.Canvas;
-import mgf.tr.Constants;
 import mgf.tr.entity.Entity;
 import mgf.tr.entity.EntityManager;
 import mgf.tr.entity.EntityType;
 import mgf.tr.scenario.label.Lives;
 import mgf.tr.scenario.label.Score;
 import mgf.tr.scenario.visual.VisualObject;
+import mgf.tr.utils.Constants;
 
 /**
  *
@@ -84,12 +84,12 @@ public final class Scenario
     private void init()
     {
         /* Situar puntuación arriba a la izquierda */
-        score.setPosition(10, 15);
+        score.setPosition(10, 25);
         score.setText("Score:");
         score.setEnabled(true);
         
         /* Situar vidas justo debajo de la puntuación */
-        lives.setPosition(10, 20);
+        lives.setPosition(10, 40);
         lives.setEnabled(true);
         
         /* Puedes colocar aqui otras cosas a inicializar */

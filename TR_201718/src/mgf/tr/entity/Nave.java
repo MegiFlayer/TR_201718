@@ -5,18 +5,20 @@
  */
 package mgf.tr.entity;
 
-import java.awt.Color;
 import java.awt.Graphics2D;
 import kp.jngg.input.InputEvent;
 import kp.jngg.input.InputId;
+import kp.jngg.input.KeyId;
 import kp.jngg.input.Keycode;
+import kp.jngg.input.virtual.VirtualBiBinaryButton;
 import kp.jngg.math.Vector2;
 import kp.jngg.sprite.Sprite;
 import kp.jngg.sprite.SpriteLoader;
-import mgf.tr.Constants;
+import mgf.tr.utils.Constants;
 import mgf.tr.scenario.Bullet;
 import mgf.tr.scenario.BulletManager;
 import mgf.tr.scenario.Scenario;
+import mgf.tr.scenario.visual.Explosion;
 
 /**
  *
@@ -39,7 +41,7 @@ public class Nave extends Entity
     
     private final double maxX;
 
-    private int moveX;
+    private final VirtualBiBinaryButton moveX;
     
 
     public Nave(SpriteLoader sprites, BulletManager bullets, double maxX) {
@@ -48,6 +50,8 @@ public class Nave extends Entity
         sprite2 = null;
         sprite3 = null;
         this.maxX = maxX;
+        
+        this.moveX = new VirtualBiBinaryButton(KeyId.getId(Keycode.VK_LEFT), KeyId.getId(Keycode.VK_RIGHT));
     }
     
     @Override
@@ -64,7 +68,13 @@ public class Nave extends Entity
     @Override
     protected final void onCollide(Scenario scenario, Bullet bullet)
     {
-        
+        if(!isAlive())
+        {
+            double size = Math.max(this.size.x, this.size.y) * 2.5;
+            Explosion expl = Explosion.createExplosion(sprites, Constants.SPRITE_EXPL_BIG, position.x, position.y,
+                    size , size, 30);
+            scenario.addVisualObject(expl);
+        }
     }
     
     @Override
@@ -78,24 +88,15 @@ public class Nave extends Entity
     public void draw(Graphics2D g)
     {
         Vector2 pos = position.difference(size.quotient(2));
-        if (sprite1 != null && moveX < 0) {
+        if (sprite1 != null && moveX.isLeftPressed()) {
             sprite1.draw(g, pos.x, pos.y, size.x, size.y);
         }
-        if (sprite2 != null && moveX == 0) {
+        if (sprite2 != null && !moveX.isAnyPressed()) {
             sprite2.draw(g, pos.x, pos.y, size.x, size.y);
         }
-        if (sprite3 != null && moveX > 0) {
+        if (sprite3 != null && moveX.isRightPressed()) {
             sprite3.draw(g, pos.x, pos.y, size.x, size.y);
         }
-        //drawSpecs(g);
-    }
-
-    private void drawSpecs(Graphics2D g) {
-        Color old = g.getColor();
-        g.setColor(Color.GREEN);
-        g.drawString("Position = " + position, 12, 12);
-        g.drawString("Speed = " + speed, 12, 24);
-        g.setColor(old);
     }
 
     @Override
@@ -103,8 +104,8 @@ public class Nave extends Entity
     {
         position.ensureRangeXLocal(size.x / 2, maxX - size.x / 2);
 
-        if (moveX != 0) {
-            speed.x = X_SPEED * moveX;
+        if (moveX.isAnyPressed()) {
+            speed.x = X_SPEED * moveX.getDirection();
         } else {
             if (speed.x > 0) {
                 speed.x -= FRICTION;
@@ -142,12 +143,7 @@ public class Nave extends Entity
 
             int code = event.getCode();
 
-            if (code == Keycode.VK_LEFT) {
-                moveX += event.isPressed() ? -1 : 1;
-            }
-            if (code == Keycode.VK_RIGHT) {
-                moveX += event.isPressed() ? 1 : -1;
-            }
+            moveX.dispatchEvent(event);
             if(code == Keycode.VK_SPACE)
             {
                 fireEnabled = event.isPressed();

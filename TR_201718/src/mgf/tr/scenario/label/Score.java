@@ -5,7 +5,10 @@
  */
 package mgf.tr.scenario.label;
 
+import java.awt.Color;
+import java.awt.Dimension;
 import java.awt.Graphics2D;
+import kp.jngg.math.Vector2;
 
 /**
  *
@@ -15,6 +18,7 @@ public final class Score extends Label
 {
     private long score;
     private long remainder;
+    private double delay;
     
     public Score() {}
     
@@ -23,6 +27,7 @@ public final class Score extends Label
         if(enabled && points > 0)
         {
             remainder += points;
+            delay = 1.25;
             return points;
         }
         return 0;
@@ -36,12 +41,17 @@ public final class Score extends Label
             return false;
         if(remainder > 0)
         {
-            double speed = remainder + 250d;
-            long part = (long) (speed * delta);
-            if(part > remainder)
-                part = remainder;
-            remainder -= part;
-            score += part;
+            if(delay > 0)
+                delay -= delta;
+            else
+            {
+                double speed = remainder + 250d;
+                long part = (long) (speed * delta);
+                if(part > remainder)
+                    part = remainder;
+                remainder -= part;
+                score += part;
+            }
         }
         return true;
     }
@@ -52,6 +62,21 @@ public final class Score extends Label
         String old = text;
         text += " " + score;
         super.draw(g);
+        
+        if(remainder != 0)
+        {
+            Color oldColor = font.getColor();
+            Vector2 oldPos = position.copy();
+            Dimension dim = font.getTextSize(text);
+            position.x += dim.width;
+            font.setColor(Color.GREEN);
+            text = " " + remainder;
+            super.draw(g);
+            font.setColor(Color.GREEN);
+            font.setColor(oldColor);
+            position.set(oldPos);
+        }
+        
         text = old;
     }
 }

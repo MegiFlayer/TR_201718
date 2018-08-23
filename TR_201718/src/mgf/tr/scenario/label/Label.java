@@ -5,12 +5,11 @@
  */
 package mgf.tr.scenario.label;
 
-import java.awt.Color;
 import java.awt.Graphics2D;
 import java.util.Objects;
-import kp.jngg.font.Font;
+import kp.jngg.font.DefaultFont;
 import kp.jngg.math.Vector2;
-import mgf.tr.Constants;
+import mgf.tr.utils.Constants;
 
 /**
  *
@@ -19,10 +18,14 @@ import mgf.tr.Constants;
 public class Label
 {
     protected final Vector2 position = new Vector2();
-    protected int fontSize = Constants.FONT_SIZE;
-    protected Font font = Font.getNativeFont("arial", fontSize, Color.WHITE);
+    protected DefaultFont font = Constants.DEFAULT_FONT.copy();
     protected String text;
     protected boolean enabled;
+    
+    public Label()
+    {
+        font.setDimensions(32);
+    }
     
     public final void setPosition(double x, double y) { position.set(x, y); }
     public final void setPosition(Vector2 position) { this.position.set(position); }
@@ -34,14 +37,11 @@ public class Label
     public final void setEnabled(boolean flag) { this.enabled = flag; }
     public final boolean isEnabled() { return enabled; }
     
-    public final void setFont(Font font) { this.font = Objects.requireNonNull(font); }
-    public final Font getFont() { return font; }
+    public final void setFont(DefaultFont font) { this.font = Objects.requireNonNull(font); }
+    public final DefaultFont getFont() { return font; }
     
     public final void setText(String text) { this.text = Objects.requireNonNull(text); }
     public final String getText() { return text; }
-    
-    public final void setFontSize(int size){ this.fontSize = size; }
-    public final int getFontSize(){ return this.fontSize; }
     
     public boolean update(double delta)
     {

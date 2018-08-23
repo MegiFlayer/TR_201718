@@ -9,7 +9,7 @@ import java.util.Objects;
 import kp.jngg.input.InputEvent;
 import kp.jngg.math.Vector2;
 import mgf.tr.Canvas;
-import mgf.tr.Constants;
+import mgf.tr.utils.Constants;
 import mgf.tr.entity.Nave;
 import mgf.tr.scenario.label.Lives;
 

@@ -3,7 +3,11 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package mgf.tr;
+package mgf.tr.utils;
+
+import java.awt.Color;
+import java.io.File;
+import kp.jngg.font.DefaultFont;
 
 /**
  *
@@ -75,4 +79,7 @@ public interface Constants
     String SPRITE_ENEMY_BASIC = "enemy.basic";
     String SPRITE_ENEMY_WARRIOR = "enemy.warrior";
     String SPRITE_ENEMY_TANK = "enemy.tank";
+    
+    /* FONTS */
+    DefaultFont DEFAULT_FONT = new DefaultFont("data" + File.separator + "yoster.ttf", 32, Color.WHITE);
 }

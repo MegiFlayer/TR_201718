@@ -5,6 +5,7 @@
  */
 package mgf.tr.entity;
 
+import java.awt.Color;
 import java.awt.Graphics2D;
 import java.util.Objects;
 import kp.jngg.input.InputEvent;
@@ -12,11 +13,12 @@ import kp.jngg.math.RNG;
 import kp.jngg.math.Vector2;
 import kp.jngg.sprite.AnimatedSprite;
 import kp.jngg.sprite.SpriteLoader;
-import mgf.tr.Constants;
 import mgf.tr.scenario.Bullet;
 import mgf.tr.scenario.BulletManager;
 import mgf.tr.scenario.Scenario;
 import mgf.tr.scenario.visual.Explosion;
+import mgf.tr.scenario.visual.FloatingPoints;
+import mgf.tr.utils.Constants;
 
 /**
  *
@@ -38,6 +40,8 @@ public class Enemy extends Entity
     private String bulletModelId = "";
     private int fireRatio;
     private double fireDelay;
+    private int score;
+    private Color scoreColor;
 
     public Enemy(SpriteLoader sprites, BulletManager bullets, String explosionSpriteId) {
     
@@ -64,6 +68,12 @@ public class Enemy extends Entity
         this.fireRatio = fireRatio;
     }
     
+    public final void setScore(int score) { this.score = score; }
+    public final int getScopre() { return score; }
+    
+    public final void setScoreColor(Color scoreColor) { this.scoreColor = scoreColor; }
+    public final Color getScopreColor() { return scoreColor; }
+    
     @Override
     protected final void onCollide(Scenario scenario, Bullet bullet)
     {
@@ -71,6 +81,10 @@ public class Enemy extends Entity
         {
             Explosion expl = Explosion.createExplosion(sprites, explosionSpriteId, position.x, position.y, size.x * 1.25, size.y * 1.25, 16);
             scenario.addVisualObject(expl);
+            scenario.getScore().addScore(score);
+            
+            FloatingPoints fp = FloatingPoints.create(score, position.x, position.y, 15, scoreColor);
+            scenario.addVisualObject(fp);
         }
     }
     

@@ -11,7 +11,7 @@ import kp.jngg.input.InputEvent;
 import kp.jngg.math.Vector2;
 import kp.jngg.sprite.Sprite;
 import kp.jngg.sprite.SpriteLoader;
-import mgf.tr.Constants;
+import mgf.tr.utils.Constants;
 import mgf.tr.scenario.BulletManager;
 import mgf.tr.scenario.Bullet;
 import mgf.tr.scenario.Scenario;

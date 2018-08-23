@@ -5,6 +5,7 @@
  */
 package mgf.tr.entity;
 
+import java.awt.Color;
 import java.io.BufferedInputStream;
 import java.io.File;
 import java.io.FileInputStream;
@@ -38,6 +39,9 @@ public final class EnemyModel
     public final String bulletModelId;
     public final int fireRatio;
     
+    public final int score;
+    public final Color scoreColor;
+    
     private EnemyModel(JSONObject base)
     {
         this.spriteId = base.optString("sprite_id");
@@ -51,6 +55,9 @@ public final class EnemyModel
         
         this.bulletModelId = base.optString("bullet_model_id");
         this.fireRatio = base.optInt("fire_ratio");
+        
+        this.score = base.optInt("score");
+        this.scoreColor = loadColor(base, "score_color");
     }
     
     public final Enemy build(SpriteLoader sprites, BulletManager bullets)
@@ -72,6 +79,8 @@ public final class EnemyModel
         enemy.setHealthPoints(healthPoints);
         enemy.setBulletModelId(bulletModelId);
         enemy.setFireRatio(fireRatio);
+        enemy.setScore(score);
+        enemy.setScoreColor(scoreColor);
         enemy.updateFireDelay();
         
         return enemy;
@@ -109,5 +118,18 @@ public final class EnemyModel
                 continue;
             MODELS.put(modelId, new EnemyModel(jsonModel));
         }
+    }
+    
+    private static Color loadColor(JSONObject base, String fieldName)
+    {
+        JSONArray array = base.optJSONArray(fieldName);
+        if(array == null || array.length() < 3)
+            return Color.WHITE;
+        
+        int red = Math.max(0, Math.min(255, array.optInt(0)));
+        int green = Math.max(0, Math.min(255, array.optInt(1)));
+        int blue = Math.max(0, Math.min(255, array.optInt(2)));
+        
+        return new Color(red, green, blue);
     }
 }

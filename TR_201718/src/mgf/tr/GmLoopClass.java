@@ -19,6 +19,7 @@ import mgf.tr.entity.EnemyModel;
 import mgf.tr.scenario.BulletModel;
 import mgf.tr.scenario.Scenario;
 import mgf.tr.scenario.ScenarioLoader;
+import mgf.tr.utils.Constants;
 import mgf.tr.utils.SpriteConfigLoader;
 /**
  *

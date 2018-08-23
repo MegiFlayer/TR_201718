@@ -16,9 +16,9 @@ import kp.jngg.sprite.AnimatedSprite;
 import kp.jngg.sprite.Sprite;
 import kp.jngg.sprite.SpriteLoader;
 import kp.jngg.sprite.SpriteModel;
-import mgf.tr.Constants;
 import mgf.tr.entity.Entity;
 import mgf.tr.scenario.visual.Explosion;
+import mgf.tr.utils.Constants;
 
 /**
  *
@@ -50,7 +50,12 @@ public class Bullet {
         this.explId = model.explosionId;
         this.sprite = sprites.getSprite(model.spriteId);
         if(sprite != null && sprite.getModel().getModelType() == SpriteModel.TYPE_ANIMATED)
-            ((AnimatedSprite) sprite).setSpeed((float) model.spriteSpeed);
+        {
+            AnimatedSprite as = (AnimatedSprite) sprite;
+            as.setSpeed((float) model.spriteSpeed);
+            as.setLoopMode();
+            as.start();
+        }
     }
     
     public final Entity getOwner() { return owner; }
@@ -175,6 +180,11 @@ public class Bullet {
     public final void updateBoundingBox()
     {
         bbox.resituate(position.sum(bboxPosition), bboxSize);
+    }
+    
+    public final void rotateBoundingBoxFromCenter(double radians)
+    {
+        bboxPosition.rotate(radians);
     }
 
     public void update(double delta)

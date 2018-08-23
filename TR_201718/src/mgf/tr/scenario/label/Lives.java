@@ -9,7 +9,6 @@ import java.awt.Graphics2D;
 import kp.jngg.math.Vector2;
 import kp.jngg.sprite.Sprite;
 import kp.jngg.sprite.SpriteLoader;
-import mgf.tr.Constants;
 
 /**
  *
@@ -59,10 +58,10 @@ public final class Lives extends Label
     {
         if(!enabled)
             return;
-        Vector2 spriteDim = new Vector2(Constants.SHIP_WIDTH * 0.6, Constants.SHIP_HEIGHT * 0.6);
+        Vector2 spriteDim = new Vector2(font.getDimensions() * 0.8, font.getDimensions());
         Vector2 oldPosition = position.copy();
         
-        shipSprite.draw(g, position.x, position.y, spriteDim.x, spriteDim.y);
+        shipSprite.draw(g, position.x, position.y - spriteDim.y * 0.2, spriteDim.x, spriteDim.y);
         
         position.add(spriteDim.x, spriteDim.y / 2 + 6);
         setText(" X " + lives);

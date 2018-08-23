@@ -16,7 +16,7 @@ import kp.jngg.sprite.AnimatedSprite;
 import kp.jngg.sprite.Sprite;
 import kp.jngg.sprite.SpriteLoader;
 import mgf.tr.Canvas;
-import mgf.tr.Constants;
+import mgf.tr.utils.Constants;
 import mgf.tr.entity.Enemy;
 import mgf.tr.entity.EnemyModel;
 import mgf.tr.entity.Entity;

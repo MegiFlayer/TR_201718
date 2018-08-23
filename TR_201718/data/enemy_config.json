@@ -13,7 +13,10 @@
 			"health_points": 1,
 			
 			"bullet_model_id": "basic_green_bullet",
-			"fire_ratio": 100
+			"fire_ratio": 100,
+			
+			"score": 50,
+			"score_color": [0, 170, 160]
 		},
 		{
 			"id": "enemy_warrior",
@@ -28,7 +31,10 @@
 			"health_points": 2,
 			
 			"bullet_model_id": "basic_green_bullet",
-			"fire_ratio": 170
+			"fire_ratio": 170,
+			
+			"score": 80,
+			"score_color": [240, 0, 210]
 		}
 	]
 }
