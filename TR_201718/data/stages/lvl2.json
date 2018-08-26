@@ -1,0 +1,50 @@
+{
+	"grid_size": [14, 19],
+	"debug_grid": false,
+	"lives": 3,
+	"background": "back_space1",
+	
+	"enemy_behavior": {
+		"speed": 20,
+		"speed_increment": 10,
+		"fall_amount": 20
+	},
+	
+	"entities": [
+		{
+			"id": "enemy_basic",
+			"position": [4, 10],
+			"size": [1, 1]
+		},
+		{
+			"id": "enemy_basic",
+			"position": [5, 10],
+			"size": [1, 1]
+		},
+		{ "id": "enemy_boss", "position": [2, 6] },
+		{ "id": "enemy_tank", "position": [2, 7] },
+		{ "id": "enemy_warrior", "position": [2, 8] },
+		{ "id": "enemy_warrior", "position": [2, 9] },
+		{ "id": "enemy_warrior", "position": [2, 10] },
+		
+		{ "id": "enemy_warrior", "position": [-1, 7] },
+		{ "id": "enemy_warrior", "position": [-1, 8] },
+		{ "id": "enemy_warrior", "position": [-1, 9] },
+		{
+			"id": "wall",
+			"position": [10, 3]
+		},
+		{
+			"id": "wall",
+			"position": [10, 7]
+		},
+		{
+			"id": "wall",
+			"position": [10, 11]
+		},
+		{
+			"id": "wall",
+			"position": [10, 15]
+		}
+	]
+}

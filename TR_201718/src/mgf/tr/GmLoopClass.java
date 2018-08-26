@@ -54,8 +54,9 @@ public class GmLoopClass implements GameLoop, InputListener{
             /* Load Enemy models */
             EnemyModel.loadEnemyModels();
         
-            stage = ScenarioLoader.loadScenario(canvas, sprites, "testLevel");
-            //stage.setEnabledDrawBoundingBox(true);
+            //stage = ScenarioLoader.loadScenario(canvas, sprites, "testLevel");
+            stage = ScenarioLoader.loadScenario(canvas, sprites, "lvl2");
+            stage.setEnabledDrawBoundingBox(true);
         }
         catch(Exception ex)
         {

@@ -135,6 +135,15 @@
 			"frame_height": 36,
 			"frames": 9
 		},
+                {
+			"id": "explosion.yellow",
+			"path": "std_expl.png",
+			"offset_x": 0,
+			"offset_y": 144,
+			"frame_width": 36,
+			"frame_height": 36,
+			"frames": 9
+		},
 		{
 			"id": "explosion.big",
 			"path": "big_explosion.png",
@@ -206,6 +215,15 @@
 			"frame_width": 12,
 			"frame_height": 13,
 			"frames": 3
+		},
+                {
+			"id": "enemy.boss",
+			"path": "Enemigo30x25_FSanz.png",
+			"offset_x": 0,
+			"offset_y": 0,
+			"frame_width": 30,
+			"frame_height": 25,
+			"frames": 4
 		}
 	]
 }
