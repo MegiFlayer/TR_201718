@@ -30,7 +30,7 @@
 			
 			"health_points": 2,
 			
-			"bullet_model_id": "basic_green_bullet",
+			"bullet_model_id": "warrior_bullet",
 			"fire_ratio": 170,
 			
 			"score": 80,
@@ -48,11 +48,11 @@
             
                         "health_points": 4,
             
-                        "bullet_model_id": "basic_green_bullet",
+                        "bullet_model_id": "tank_bullet",
                         "fire_ratio": 200,
             
                         "score": 120,
-			"score_color": [240, 0, 210]
+			"score_color": [240, 260, 0]
                         
                         
                         
@@ -62,18 +62,18 @@
             
                         "sprite_id": "enemy.boss",
 			"explosion_sprite_id": "explosion.normal",
-                        "sprite_speed": 5,
+                        "sprite_speed": 3,
             
                         "delta_width": 0.9,
                         "delta_height": 0.9,
             
                         "health_points": 25,
             
-                        "bullet_model_id": "basic_green_bullet",
+                        "bullet_model_id": "big_boss_bullet",
                         "fire_ratio": 220,
             
                         "score": 1000,
-			"score_color": [240, 0, 210]
+			"score_color": [238, 12, 12]
                         
                         
                         

@@ -35,6 +35,60 @@
 			
 			"power": 1,
 			"explosion_id": 1
+		},
+                {
+			"id": "tank_bullet",
+			
+			"sprite_id": "bullet.basic.yellow",
+			"sprite_speed": 30,
+			"sprite_width": 10,
+			"sprite_height": 12,
+			
+			"bbox_x": 0,
+			"bbox_y": 2,
+			"bbox_width": 5,
+			"bbox_height": 5,
+			
+			"speed": 200,
+			
+			"power": 1,
+			"explosion_id": 1
+		},
+                {
+			"id": "warrior_bullet",
+			
+			"sprite_id": "bullet.basic.purple",
+			"sprite_speed": 30,
+			"sprite_width": 100,
+			"sprite_height": 12,
+			
+			"bbox_x": 0,
+			"bbox_y": 2,
+			"bbox_width": 30,
+			"bbox_height": 5,
+			
+			"speed": 200,
+			
+			"power": 1,
+			"explosion_id": 1
+		},
+                {
+			"id": "big_boss_bullet",
+			
+			"sprite_id": "bullet.basic.yellow",
+			"sprite_speed": 30,
+			"sprite_width": 30,
+			"sprite_height": 36,
+			
+			"bbox_x": 0,
+			"bbox_y": 2,
+			"bbox_width": 10,
+			"bbox_height": 10,
+			
+			"speed": 100,
+			
+			"power": 2,
+			"explosion_id": 4
 		}
 	]
 }
