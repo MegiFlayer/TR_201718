@@ -70,7 +70,7 @@
 			"speed": 200,
 			
 			"power": 1,
-			"explosion_id": 1
+			"explosion_id": 3
 		},
                 {
 			"id": "big_boss_bullet",
@@ -88,7 +88,7 @@
 			"speed": 100,
 			
 			"power": 2,
-			"explosion_id": 4
+			"explosion_id": 0
 		}
 	]
 }

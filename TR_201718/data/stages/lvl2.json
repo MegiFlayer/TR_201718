@@ -1,6 +1,6 @@
 {
 	"grid_size": [14, 19],
-	"debug_grid": true,
+	"debug_grid": false,
 	"lives": 3,
 	"background": "back_space2",
 	

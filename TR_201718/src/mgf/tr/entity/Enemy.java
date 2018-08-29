@@ -107,13 +107,13 @@ public class Enemy extends Entity
     {
         if(sprite != null)
             sprite.update(delta);
-        //super.update(delta);
+        super.update(delta);
         if(fireRatio > 0)
         {
             if(fireDelay <= 0)
             {
-                //bullets.createBullet(bulletModelId, this, getPosition(), 0);
-                //updateFireDelay();
+                bullets.createBullet(bulletModelId, this, getPosition(), 0);
+                updateFireDelay();
             }
             else fireDelay -= delta;
         }
