@@ -16,6 +16,8 @@ import kp.jngg.sprite.SpriteLoader;
 import mgf.tr.scenario.Bullet;
 import mgf.tr.scenario.BulletManager;
 import mgf.tr.scenario.Scenario;
+import mgf.tr.scenario.visual.ShieldEffect;
+import mgf.tr.scenario.visual.ShieldEffect.ShieldColor;
 
 /**
  *
@@ -32,7 +34,9 @@ public abstract class Entity
     protected final BulletManager bullets;
     
     private final BoundingBox bbox;
+    private final ShieldEffect shield;
     private int hp;
+    private int shieldAbsorb;
     
     private boolean destroyed;
     
@@ -46,8 +50,10 @@ public abstract class Entity
         this.acceleration = new Vector2();
         this.size = new Vector2(1, 1);
         
+        this.shield = new ShieldEffect(sprites);
         this.bbox = new BoundingBox();
         this.hp = 1;
+        this.shieldAbsorb = -1;
     }
     
     public final UUID getId() { return id; }
@@ -60,8 +66,16 @@ public abstract class Entity
     public final void setSpeed(double x, double y) { speed.set(x, y); }
     public final void setSpeed(Vector2 position) { this.speed.set(position); }
     
-    public final void setSize(double x, double y) { size.set(x, y); }
-    public final void setSize(Vector2 position) { this.size.set(position); }
+    public final void setSize(double x, double y)
+    {
+        size.set(x, y);
+        shield.size.set(size.product(1.25));
+    }
+    public final void setSize(Vector2 position)
+    {
+        this.size.set(position);
+        shield.size.set(size.product(1.25));
+    }
     
     public final double getPositionX() { return position.x; }
     public final double getPositionY() { return position.y; }
@@ -85,11 +99,22 @@ public abstract class Entity
     }
     public final void damage(int points)
     {
+        points = points < 0 ? -points : points;
+        if(shield.isEnabled())
+        {
+            if(shieldAbsorb < 0 || shieldAbsorb - points >= 0)
+                return;
+            points -= shieldAbsorb;
+        }
         hp -= points < 0 ? -points : points;
         if(hp < 0)
             hp = 0;
     }
-    public final void kill() { hp = 0; }
+    public final void kill(boolean force)
+    {
+        if(force || !shield.isEnabled())
+            hp = 0;
+    }
     public final void heal(int points)
     {
         if(hp > 0)
@@ -106,6 +131,10 @@ public abstract class Entity
     }
     public final int getHealthPoints() { return hp; }
     public final boolean isAlive() { return hp > 0; }
+    
+    public final boolean isShieldEnabled() { return shield.isEnabled(); }
+    public final void setShieldEnabled(boolean flag) { shield.setEnabled(flag); }
+    public final void setShieldColor(ShieldColor color) { shield.setColor(color); }
     
     public final void updateBoundingBox()
     {
@@ -133,10 +162,21 @@ public abstract class Entity
     {
         speed.add(acceleration.product(delta));
         position.add(speed.product(delta));
+        shield.position.set(position);
+        shield.update(delta);
         updateBoundingBox();
     }
     
-    public abstract void draw(Graphics2D g);
+    public final void draw(Graphics2D g)
+    {
+        boolean inFront = shield.isInFront();
+        if(!inFront)
+            shield.draw(g);
+        innerDraw(g);
+        if(inFront)
+        shield.draw(g);
+    }
+    protected abstract void innerDraw(Graphics2D g);
     
     public final void drawBoundingBox(Graphics2D g)
     {

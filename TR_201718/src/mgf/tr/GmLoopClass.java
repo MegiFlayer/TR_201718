@@ -56,7 +56,7 @@ public class GmLoopClass implements GameLoop, InputListener{
         
             //stage = ScenarioLoader.loadScenario(canvas, sprites, "testLevel");
             stage = ScenarioLoader.loadScenario(canvas, sprites, "lvl2");
-            //stage.setEnabledDrawBoundingBox(true);
+            stage.setEnabledDrawBoundingBox(Config.getBoolean("debug.show_bounding_box", false));
         }
         catch(Exception ex)
         {

@@ -14,11 +14,12 @@ import kp.jngg.input.virtual.VirtualBiBinaryButton;
 import kp.jngg.math.Vector2;
 import kp.jngg.sprite.Sprite;
 import kp.jngg.sprite.SpriteLoader;
-import mgf.tr.utils.Constants;
 import mgf.tr.scenario.Bullet;
 import mgf.tr.scenario.BulletManager;
 import mgf.tr.scenario.Scenario;
 import mgf.tr.scenario.visual.Explosion;
+import mgf.tr.scenario.visual.ShieldEffect.ShieldColor;
+import mgf.tr.utils.Constants;
 
 /**
  *
@@ -39,6 +40,8 @@ public class Nave extends Entity
     private double fireCoolDown;
     private boolean fireEnabled;
     
+    private double shieldEnabledTime;
+    
     private final double maxX;
 
     private final VirtualBiBinaryButton moveX;
@@ -52,7 +55,22 @@ public class Nave extends Entity
         this.maxX = maxX;
         
         this.moveX = new VirtualBiBinaryButton(KeyId.getId(Keycode.VK_LEFT), KeyId.getId(Keycode.VK_RIGHT));
+        
+        setShieldColor(ShieldColor.BLUE);
     }
+    
+    public final void setShieldEnabledTime(double seconds)
+    {
+        shieldEnabledTime = seconds < 0 ? 0 : seconds;
+        if(shieldEnabledTime > 0)
+        {
+            if(!isShieldEnabled())
+                setShieldEnabled(true);
+        }
+        else if(isShieldEnabled())
+            setShieldEnabled(false);
+    }
+    public final double getShieldEnabledTime() { return shieldEnabledTime < 0 ? 0 : shieldEnabledTime; }
     
     @Override
     public final EntityType getEntityType() { return EntityType.SHIP; }
@@ -85,7 +103,7 @@ public class Nave extends Entity
     }
     
     @Override
-    public void draw(Graphics2D g)
+    public void innerDraw(Graphics2D g)
     {
         Vector2 pos = position.difference(size.quotient(2));
         if (sprite1 != null && moveX.isLeftPressed()) {
@@ -133,6 +151,19 @@ public class Nave extends Entity
             fireCoolDown = 0.25;
             bullets.createBullet("ship_bullet", this,
                     position.x, position.y - Constants.BULLET_SHIP_HEIGHT / 2 - size.y / 2, Math.PI);
+        }
+        
+        if(isShieldEnabled())
+        {
+            if(shieldEnabledTime <= 0)
+            {
+                setShieldEnabled(false);
+                shieldEnabledTime = 0;
+            }
+            else
+            {
+                shieldEnabledTime -= delta;
+            }
         }
             
     }

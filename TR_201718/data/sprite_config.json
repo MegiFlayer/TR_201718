@@ -216,7 +216,7 @@
 			"frame_height": 13,
 			"frames": 3
 		},
-                {
+		{
 			"id": "enemy.boss",
 			"path": "Enemigo30x25_FSanz.png",
 			"offset_x": 0,
@@ -224,6 +224,69 @@
 			"frame_width": 30,
 			"frame_height": 25,
 			"frames": 4
+		},
+		{
+			"id": "entity.energy_shield.red",
+			"path": "shields.png",
+			"offset_x": 0,
+			"offset_y": 0,
+			"frame_width": 48,
+			"frame_height": 48,
+			"frames": 18
+		},
+		{
+			"id": "entity.energy_shield.orange",
+			"path": "shields.png",
+			"offset_x": 0,
+			"offset_y": 48,
+			"frame_width": 48,
+			"frame_height": 48,
+			"frames": 18
+		},
+		{
+			"id": "entity.energy_shield.yellow",
+			"path": "shields.png",
+			"offset_x": 0,
+			"offset_y": 96,
+			"frame_width": 48,
+			"frame_height": 48,
+			"frames": 18
+		},
+		{
+			"id": "entity.energy_shield.green",
+			"path": "shields.png",
+			"offset_x": 0,
+			"offset_y": 144,
+			"frame_width": 48,
+			"frame_height": 48,
+			"frames": 18
+		},
+		{
+			"id": "entity.energy_shield.cyan",
+			"path": "shields.png",
+			"offset_x": 0,
+			"offset_y": 192,
+			"frame_width": 48,
+			"frame_height": 48,
+			"frames": 18
+		},
+		{
+			"id": "entity.energy_shield.blue",
+			"path": "shields.png",
+			"offset_x": 0,
+			"offset_y": 240,
+			"frame_width": 48,
+			"frame_height": 48,
+			"frames": 18
+		},
+		{
+			"id": "entity.energy_shield.purple",
+			"path": "shields.png",
+			"offset_x": 0,
+			"offset_y": 288,
+			"frame_width": 48,
+			"frame_height": 48,
+			"frames": 18
 		}
 	]
 }

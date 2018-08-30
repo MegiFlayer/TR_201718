@@ -16,10 +16,10 @@ import kp.jngg.math.Vector2;
 import kp.jngg.sprite.AnimatedSprite;
 import kp.jngg.sprite.SpriteLoader;
 import mgf.tr.scenario.BulletManager;
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
-import org.json.JSONTokener;
+import kp.jngg.json.JSONArray;
+import kp.jngg.json.JSONException;
+import kp.jngg.json.JSONObject;
+import kp.jngg.json.JSONTokener;
 
 /**
  *

@@ -11,11 +11,11 @@ import kp.jngg.input.InputEvent;
 import kp.jngg.math.Vector2;
 import kp.jngg.sprite.Sprite;
 import kp.jngg.sprite.SpriteLoader;
-import mgf.tr.utils.Constants;
-import mgf.tr.scenario.BulletManager;
 import mgf.tr.scenario.Bullet;
+import mgf.tr.scenario.BulletManager;
 import mgf.tr.scenario.Scenario;
 import mgf.tr.scenario.visual.Explosion;
+import mgf.tr.utils.Constants;
 
 /**
  *
@@ -73,7 +73,7 @@ public class Wall extends Entity {
     }
     
     @Override
-    public void draw(Graphics2D g)
+    public void innerDraw(Graphics2D g)
     {
         Vector2 pos = position.difference(size.quotient(2));
         int hp = getHealthPoints();

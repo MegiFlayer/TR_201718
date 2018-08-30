@@ -9,9 +9,9 @@ import java.util.Objects;
 import kp.jngg.input.InputEvent;
 import kp.jngg.math.Vector2;
 import mgf.tr.Canvas;
-import mgf.tr.utils.Constants;
 import mgf.tr.entity.Nave;
 import mgf.tr.scenario.label.Lives;
+import mgf.tr.utils.Constants;
 
 /**
  *
@@ -41,7 +41,7 @@ public final class ShipController
     
     public final boolean hasMoreShips() { return lives.hasLives() || (ship != null && ship.isAlive() && !ship.hasDestroyed()); }
     
-    public final void newShip()
+    public final void newShip(boolean enableTemporaryShield)
     {
         if(ship != null)
         {
@@ -51,6 +51,8 @@ public final class ShipController
         
         ship = createShip();
         scenario.getEntityManager().addEntity(ship);
+        if(enableTemporaryShield)
+            ship.setShieldEnabledTime(3);
     }
     
     public final void update(double delta)
@@ -75,7 +77,7 @@ public final class ShipController
             if(timeToRespawn <= 0)
             {
                 timeToRespawn = 0;
-                newShip();
+                newShip(true);
             }
         }
     }

@@ -15,6 +15,7 @@ import kp.jngg.math.Vector2;
 import kp.jngg.sprite.Sprite;
 import kp.jngg.sprite.SpriteLoader;
 import mgf.tr.Canvas;
+import mgf.tr.entity.Enemy;
 import mgf.tr.entity.Entity;
 import mgf.tr.entity.EntityManager;
 import mgf.tr.entity.EntityType;
@@ -93,7 +94,7 @@ public final class Scenario
         lives.setEnabled(true);
         
         /* Puedes colocar aqui otras cosas a inicializar */
-        ship.newShip();
+        ship.newShip(false);
     }
     
     public final SpriteLoader getSpriteLoader() { return sprites; }
@@ -155,12 +156,14 @@ public final class Scenario
                     e.destroy();
                 else if(e.getEntityType() == EntityType.ENEMY)
                 {
+                    Enemy enemy = (Enemy) e;
                     if(fall)
                     {
-                        e.setPosition(e.getPosition().add(0, enemyFallAmount));
-                        e.setSpeed(enemySpeed, 0); 
+                        //enemy.setPosition(e.getPosition().add(0, enemyFallAmount));
+                        enemy.setPixelsToDown(enemyFallAmount);
+                        enemy.setSpeed(enemySpeed, 0); 
                     }
-                    else if(!enemyFall)
+                    else if(!enemyFall && !enemy.isInToDown())
                     {
                         double x = e.getPositionX();
                         double midWidth = e.getWidth() / 2;

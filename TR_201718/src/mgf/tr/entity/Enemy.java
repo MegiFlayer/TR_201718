@@ -42,6 +42,7 @@ public class Enemy extends Entity
     private double fireDelay;
     private int score;
     private Color scoreColor;
+    private double pixelsToDown;
 
     public Enemy(SpriteLoader sprites, BulletManager bullets, String explosionSpriteId) {
     
@@ -74,6 +75,12 @@ public class Enemy extends Entity
     public final void setScoreColor(Color scoreColor) { this.scoreColor = scoreColor; }
     public final Color getScopreColor() { return scoreColor; }
     
+    public final void setPixelsToDown(double pixels)
+    {
+        this.pixelsToDown = pixels < 0 ? 0 : pixels;
+    }
+    public final boolean isInToDown() { return pixelsToDown != 0; }
+    
     @Override
     protected final void onCollide(Scenario scenario, Bullet bullet)
     {
@@ -95,7 +102,7 @@ public class Enemy extends Entity
     }
     
     @Override
-    public void draw(Graphics2D g)
+    public void innerDraw(Graphics2D g)
     {
         Vector2 pos = position.difference(size.quotient(2));
         if(sprite != null)
@@ -107,7 +114,20 @@ public class Enemy extends Entity
     {
         if(sprite != null)
             sprite.update(delta);
-        super.update(delta);
+        if(pixelsToDown != 0)
+        {
+            double last = speed.x;
+            speed.set(0, Math.abs(last));
+            super.update(delta);
+            speed.set(last, 0);
+            pixelsToDown -= Math.abs(last) * delta;
+            if(pixelsToDown < 0)
+            {
+                position.y += pixelsToDown;
+                pixelsToDown = 0;
+            }
+        }
+        else super.update(delta);
         if(fireRatio > 0)
         {
             if(fireDelay <= 0)

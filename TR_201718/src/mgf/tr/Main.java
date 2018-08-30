@@ -5,6 +5,9 @@
  */
 package mgf.tr;
 
+import java.awt.Color;
+import java.awt.Font;
+import kp.jngg.DebugInfo;
 import kp.jngg.Display;
 import kp.jngg.DisplayMode;
 import kp.jngg.input.Keyboard;
@@ -25,6 +28,7 @@ public class Main {
         
         //System.out.println(DisplayMode.toStringAllDisplayModes());
         Display ventana = Display.create("Práctica", DisplayMode.getDisplayMode(1280, 960));
+        enableDebugInfo(ventana);
         /*ventana.getDebugInfo().setEnabled(true);
         ventana.getDebugInfo().setExactFps(true);
         ventana.getDebugInfo().setColor(Color.GREEN);*/
@@ -50,6 +54,25 @@ public class Main {
         win.getDebugInfo().setShowMemory(true);*/
         //win.start();
         
+    }
+    
+    private static void enableDebugInfo(Display display)
+    {
+        if(Config.getBoolean("debug.enabled_info", false))
+        {
+            DebugInfo info = display.getDebugInfo();
+            info.setEnabled(true);
+            
+            if(Config.getBoolean("debug.enabled_memory", false))
+                info.setShowMemory(true);
+            
+            if(Config.getBoolean("debug.enabled_fps_physics", false))
+                info.setShowUpdateFps(true);
+            
+            info.setColor(Config.getColor("debug.info_color", Color.MAGENTA));
+            
+            info.setFont(new Font("arial", Font.BOLD, Config.getInt("debug.info_size", 24)));
+        }
     }
     
 }

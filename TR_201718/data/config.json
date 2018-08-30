@@ -1,0 +1,11 @@
+{
+    "debug": {
+		"enabled_info": false,
+		"enabled_memory": false,
+		"enabled_fps_physics": false,
+		"info_color": [255, 0, 255],
+		"info_size": 24,
+		
+		"show_bounding_box": false
+	}
+}
