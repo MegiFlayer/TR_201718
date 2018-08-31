@@ -57,6 +57,8 @@ public class GmLoopClass implements GameLoop, InputListener{
             //stage = ScenarioLoader.loadScenario(canvas, sprites, "testLevel");
             stage = ScenarioLoader.loadScenario(canvas, sprites, "lvl2");
             stage.setEnabledDrawBoundingBox(Config.getBoolean("debug.show_bounding_box", false));
+            
+            stage.start();
         }
         catch(Exception ex)
         {
@@ -86,7 +88,7 @@ public class GmLoopClass implements GameLoop, InputListener{
     @Override
     public void dispatchEvent(InputEvent ie) {
         
-        stage.dispatch(ie);
+        stage.dispatchEvent(ie);
         
     }
            

@@ -49,8 +49,11 @@ public final class Scenario
     
     private boolean firstUpdate = true;
     
+    private int enemyCount;
     
     private final ShipController ship;
+    
+    private ScenarioState state = ScenarioState.STOPPED;
     
     private Scenario(Canvas screenCanvas, Canvas entityCanvas, SpriteLoader sprites)
     {
@@ -93,8 +96,13 @@ public final class Scenario
         lives.setPosition(10, 40);
         lives.setEnabled(true);
         
-        /* Puedes colocar aqui otras cosas a inicializar */
+    }
+    
+    public final void start()
+    {
         ship.newShip(false);
+        
+        state = ScenarioState.RUNNING;
     }
     
     public final SpriteLoader getSpriteLoader() { return sprites; }
@@ -104,6 +112,7 @@ public final class Scenario
     public final Lives getLives() { return lives; }
     public final Score getScore() { return score; }
     public final Canvas getEntityCanvas() { return entityCanvas; }
+    public final ScenarioState getScenarioState() { return state; }
     
     public final void setBackground(Sprite background) { this.background = background; }
     public final void setEnabledDebugGrid(boolean flag) { enabledGrid = flag; }
@@ -119,6 +128,8 @@ public final class Scenario
     
     public final void update(double delta)
     {
+        if(state == ScenarioState.STOPPED)
+            return;
         updateEntities(delta);
         updateVisualObjects(delta);
         bullets.update(delta);
@@ -136,6 +147,8 @@ public final class Scenario
         
         if(firstUpdate)
             firstUpdate = false;
+        
+        updateScenarioState();
     }
     
     private void updateEntities(double delta)
@@ -148,6 +161,7 @@ public final class Scenario
             enemySpeedIncrement *= -1;
             enemyFall = false;
         }
+        enemyCount = 0;
         entities.forEachEntity((e) -> {
             if(!e.hasDestroyed())
             {
@@ -156,6 +170,7 @@ public final class Scenario
                     e.destroy();
                 else if(e.getEntityType() == EntityType.ENEMY)
                 {
+                    enemyCount++;
                     Enemy enemy = (Enemy) e;
                     if(fall)
                     {
@@ -189,8 +204,30 @@ public final class Scenario
         }
     }
     
+    private void updateScenarioState()
+    {
+        switch(state)
+        {
+            case RUNNING: {
+                if(!ship.hasMoreShips())
+                {
+                    state = ScenarioState.PLAYER_LOSE;
+                    break;
+                }
+                if(enemyCount <= 0)
+                {
+                    state = ScenarioState.PLAYER_WIN;
+                    break;
+                }
+            } break;
+        }
+    }
+    
     public final void draw(Graphics2D g)
     {
+        if(state == ScenarioState.STOPPED)
+            return;
+        
         if(background != null)
             background.draw(g, 0, 0, screenCanvas.getWidth(), screenCanvas.getHeight());
 
@@ -223,8 +260,11 @@ public final class Scenario
             vobj.draw(g);
     }
     
-    public final void dispatch(InputEvent event)
+    public final void dispatchEvent(InputEvent event)
     {
+        if(state == ScenarioState.STOPPED)
+            return;
+        
         entities.forEachEntity((Entity e) -> {
             if(!e.hasDestroyed())
             {
@@ -232,7 +272,8 @@ public final class Scenario
             }
         });
         
-        ship.dispatchEvent(event);
+        if(state == ScenarioState.RUNNING)
+            ship.dispatchEvent(event);
         
     }
     
