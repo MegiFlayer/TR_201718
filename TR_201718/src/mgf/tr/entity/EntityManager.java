@@ -11,6 +11,7 @@ import java.util.LinkedList;
 import java.util.ListIterator;
 import java.util.UUID;
 import java.util.function.Consumer;
+import mgf.tr.scenario.Scenario;
 
 /**
  *
@@ -35,7 +36,7 @@ public final class EntityManager implements Iterable<Entity>
     
     public final void removeEntity(UUID id) { toRemove.add(id); }
     
-    public final void update()
+    public final void update(Scenario stage)
     {
         /* Insert entities */
         while(!toInsert.isEmpty())
@@ -45,6 +46,7 @@ public final class EntityManager implements Iterable<Entity>
                 continue;
             list.add(e);
             map.put(e.getId(), e);
+            e.setScenario(stage);
         }
         
         /* Remove entities */
@@ -55,6 +57,7 @@ public final class EntityManager implements Iterable<Entity>
             if(e == null)
                 continue;
             list.remove(e);
+            e.setScenario(null);
         }
     }
     

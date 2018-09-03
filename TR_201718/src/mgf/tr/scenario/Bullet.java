@@ -36,6 +36,7 @@ public class Bullet {
     private Sprite sprite;
     private int power;
     private int explId;
+    private boolean ignore_allies;
 
     public Bullet(Entity owner, SpriteLoader sprites, BulletModel model) {
 
@@ -47,6 +48,7 @@ public class Bullet {
         this.bboxSize = new Vector2(model.bboxWidth, model.bboxHeight);
         this.bbox = new BoundingBox();
         this.power = model.power;
+        this.ignore_allies = model.ignoreAllies;
         this.explId = model.explosionId;
         this.sprite = sprites.getSprite(model.spriteId);
         if(sprite != null && sprite.getModel().getModelType() == SpriteModel.TYPE_ANIMATED)
@@ -162,6 +164,9 @@ public class Bullet {
         this.power = power < 1 ? 1 : power;
     }
     public final int getPower() { return power; }
+    
+    public final void setIgnoreAllies(boolean flag) { this.ignore_allies = flag; }
+    public final boolean ignoreAllies() { return ignore_allies; }
 
 
     public void draw(Graphics2D g) {

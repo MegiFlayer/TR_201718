@@ -56,28 +56,6 @@ public final class BulletManager
         createBullet(bulletId, owner, new Vector2(x, y), dirRadians);
     }
     
-    /*private void createBullet(EntityType ownerType, Vector2 pos, Vector2 size, Vector2 speed, Sprite sprite)
-    {
-        Bullet bullet = new Bullet(ownerType);
-        bullet.setSprite(sprite);
-        bullet.setPosition(pos.x, pos.y);
-        bullet.setSize(size.x, size.y);
-        bullet.setSpeed(speed.x, speed.y);
-        bullet.updateBoundingBox();
-        aliveBullets.add(bullet);
-    }*/
-    
-    /*public final void createShipBullet(Vector2 pos)
-    {
-        AnimatedSprite sprite = sprites.getSprite("laser");
-        sprite.setLoopMode();
-        sprite.setSpeed(20);
-        sprite.start();
-        createBullet(EntityType.SHIP, pos,
-                new Vector2(Constants.BULLET_SHIP_WIDTH, Constants.BULLET_SHIP_HEIGHT),
-                new Vector2(Constants.BULLET_SHIP_SPEEDX, Constants.BULLET_SHIP_SPEEDY), sprite);
-    }*/
-    
     public final void update(double delta)
     {
         ListIterator<Bullet> it = aliveBullets.listIterator();
@@ -111,10 +89,25 @@ public final class BulletManager
         int collisions = 0;
         for(Entity entity : entities)
         {
-            if(!entity.getId().equals(bullet.getOwner().getId()) && entity.hasCollision(bullet))
+            if(!entity.getId().equals(bullet.getOwner().getId()))
             {
-                collisions++;
-                entity.collide(scenario, bullet);
+                if(bullet.ignoreAllies())
+                {
+                    if(bullet.getOwner().getEntityType() != entity.getEntityType() && entity.hasCollision(bullet))
+                    {
+                        collisions++;
+                        entity.collide(scenario, bullet);
+                    }
+                }
+                else
+                {
+                    if(entity.hasCollision(bullet))
+                    {
+                        collisions++;
+                        if(bullet.getOwner().getEntityType() != entity.getEntityType())
+                            entity.collide(scenario, bullet);
+                    }
+                }
             }
         }
         return collisions > 0;

@@ -17,8 +17,7 @@ import kp.jngg.input.InputListener;
 import kp.jngg.sprite.SpriteLoader;
 import mgf.tr.entity.EnemyModel;
 import mgf.tr.scenario.BulletModel;
-import mgf.tr.scenario.Scenario;
-import mgf.tr.scenario.ScenarioLoader;
+import mgf.tr.scenario.ScenarioController;
 import mgf.tr.utils.Constants;
 import mgf.tr.utils.SpriteConfigLoader;
 /**
@@ -32,7 +31,8 @@ public class GmLoopClass implements GameLoop, InputListener{
     private final Display display;
     private final Canvas canvas;      
     
-    private Scenario stage;
+    //private Scenario stage;
+    private ScenarioController stage;
     
     public GmLoopClass(Display display)
     {
@@ -54,9 +54,9 @@ public class GmLoopClass implements GameLoop, InputListener{
             /* Load Enemy models */
             EnemyModel.loadEnemyModels();
         
-            //stage = ScenarioLoader.loadScenario(canvas, sprites, "testLevel");
-            stage = ScenarioLoader.loadScenario(canvas, sprites, "lvl2");
-            stage.setEnabledDrawBoundingBox(Config.getBoolean("debug.show_bounding_box", false));
+            //stage = ScenarioController.loadScenario(canvas, sprites, "testLevel");
+            stage = ScenarioController.loadScenario(canvas, sprites, "lvl2");
+            stage.getScenario().setEnabledDrawBoundingBox(Config.getBoolean("debug.show_bounding_box", false));
             
             stage.start();
         }

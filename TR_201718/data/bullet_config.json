@@ -16,6 +16,7 @@
 			"speed": 300,
 			
 			"power": 1,
+			"ignore_allies": false,
 			"explosion_id": 2
 		},
 		{
@@ -34,6 +35,7 @@
 			"speed": 200,
 			
 			"power": 1,
+			"ignore_allies": false,
 			"explosion_id": 1
 		},
                 {
@@ -52,6 +54,7 @@
 			"speed": 200,
 			
 			"power": 1,
+			"ignore_allies": false,
 			"explosion_id": 1
 		},
                 {
@@ -70,6 +73,7 @@
 			"speed": 200,
 			
 			"power": 1,
+			"ignore_allies": false,
 			"explosion_id": 3
 		},
                 {
@@ -88,6 +92,7 @@
 			"speed": 100,
 			
 			"power": 2,
+			"ignore_allies": true,
 			"explosion_id": 0
 		}
 	]

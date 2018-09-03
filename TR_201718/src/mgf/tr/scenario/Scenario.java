@@ -11,6 +11,7 @@ import java.util.LinkedList;
 import java.util.ListIterator;
 import java.util.Objects;
 import kp.jngg.input.InputEvent;
+import kp.jngg.math.BoundingBox;
 import kp.jngg.math.Vector2;
 import kp.jngg.sprite.Sprite;
 import kp.jngg.sprite.SpriteLoader;
@@ -50,6 +51,7 @@ public final class Scenario
     private boolean firstUpdate = true;
     
     private int enemyCount;
+    private boolean enemyOut;
     
     private final ShipController ship;
     
@@ -139,7 +141,7 @@ public final class Scenario
         
         if(background != null)
             background.update(delta);
-        entities.update();
+        entities.update(this);
         if(firstUpdate)
             for(Entity e : entities)
                 if(e.getEntityType() == EntityType.ENEMY)
@@ -147,8 +149,7 @@ public final class Scenario
         
         if(firstUpdate)
             firstUpdate = false;
-        
-        updateScenarioState();
+        else updateScenarioState();
     }
     
     private void updateEntities(double delta)
@@ -187,6 +188,11 @@ public final class Scenario
                         else if(enemySpeed < 0 && x - midWidth <= 0)
                             enemyFall = true;
                     }
+                    
+                    if(!enemyOut && enemy.getPositionY() >= entityCanvas.getHeight())
+                        enemyOut = true;
+                    
+                    ship.updateEnemyCollision(enemy);
                 }
             }
         });
@@ -290,6 +296,18 @@ public final class Scenario
                 g.drawRect(column * Constants.CELL_WIDTH, row * Constants.CELL_HEIGHT,
                         Constants.CELL_WIDTH, Constants.CELL_HEIGHT);
             }
+    }
+    
+    public final boolean canShoot(Enemy enemy)
+    {
+        BoundingBox box = new BoundingBox(enemy.getPositionX() - enemy.getWidth() / 4, enemy.getPositionY(), 
+                enemy.getPositionX() + enemy.getWidth() / 4, entityCanvas.getHeight());
+        for(Entity e : entities)
+        {
+            if(e != enemy && e.getEntityType() == EntityType.ENEMY && e.hasCollision(box))
+                return false;
+        }
+        return true;
     }
     
     public final void addVisualObject(VisualObject vobj)

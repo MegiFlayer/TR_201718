@@ -9,6 +9,7 @@ import java.util.Objects;
 import kp.jngg.input.InputEvent;
 import kp.jngg.math.Vector2;
 import mgf.tr.Canvas;
+import mgf.tr.entity.Enemy;
 import mgf.tr.entity.Nave;
 import mgf.tr.scenario.label.Lives;
 import mgf.tr.utils.Constants;
@@ -25,6 +26,7 @@ public final class ShipController
     private final Canvas entityCanvas;
     private Nave ship;
     private double timeToRespawn;
+    private boolean definitiveDead;
     
     public ShipController(Scenario scenario, Lives lives, Canvas entityCanvas)
     {
@@ -39,7 +41,13 @@ public final class ShipController
     public final void setStartPosition(Vector2 position) { startPosition.set(position); }
     public final Vector2 getStartPosition() { return startPosition.copy(); }
     
-    public final boolean hasMoreShips() { return lives.hasLives() || (ship != null && ship.isAlive() && !ship.hasDestroyed()); }
+    public final boolean hasMoreShips() { return !definitiveDead; }
+    
+    public final void updateEnemyCollision(Enemy enemy)
+    {
+        if(ship != null && ship.isAlive() && ship.hasCollision(enemy))
+            ship.kill(false);
+    }
     
     public final void newShip(boolean enableTemporaryShield)
     {
@@ -57,6 +65,8 @@ public final class ShipController
     
     public final void update(double delta)
     {
+        if(definitiveDead)
+            return;
         if(ship != null)
         {
             if(!ship.isAlive())
@@ -69,6 +79,7 @@ public final class ShipController
                     timeToRespawn = Constants.SHIP_TIME_TO_RESPAWN;
                     ship = null;
                 }
+                else definitiveDead = true;
             }
         }
         else

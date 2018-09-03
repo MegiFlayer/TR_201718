@@ -14,6 +14,7 @@
 			
 			"bullet_model_id": "basic_green_bullet",
 			"fire_ratio": 100,
+			"force_shoot": false,
 			
 			"score": 50,
 			"score_color": [0, 170, 160]
@@ -32,51 +33,48 @@
 			
 			"bullet_model_id": "warrior_bullet",
 			"fire_ratio": 170,
+			"force_shoot": false,
 			
 			"score": 80,
 			"score_color": [240, 0, 210]
 		},
-                {
-                        "id": "enemy_tank",
-            
-                        "sprite_id": "enemy.tank",
+		{
+			"id": "enemy_tank",
+
+			"sprite_id": "enemy.tank",
 			"explosion_sprite_id": "explosion.yellow",
-                        "sprite_speed": 5,
-            
-                        "delta_width": 0.9,
-                        "delta_height": 0.9,
-            
-                        "health_points": 4,
-            
-                        "bullet_model_id": "tank_bullet",
-                        "fire_ratio": 200,
-            
-                        "score": 120,
+			"sprite_speed": 5,
+
+			"delta_width": 0.9,
+			"delta_height": 0.9,
+
+			"health_points": 4,
+
+			"bullet_model_id": "tank_bullet",
+			"fire_ratio": 200,
+			"force_shoot": false,
+
+			"score": 120,
 			"score_color": [240, 260, 0]
-                        
-                        
-                        
-                },
-                {
-                        "id": "enemy_boss",
-            
-                        "sprite_id": "enemy.boss",
+		},
+		{
+			"id": "enemy_boss",
+
+			"sprite_id": "enemy.boss",
 			"explosion_sprite_id": "explosion.normal",
-                        "sprite_speed": 3,
-            
-                        "delta_width": 0.9,
-                        "delta_height": 0.9,
-            
-                        "health_points": 25,
-            
-                        "bullet_model_id": "big_boss_bullet",
-                        "fire_ratio": 220,
-            
-                        "score": 1000,
+			"sprite_speed": 3,
+
+			"delta_width": 0.9,
+			"delta_height": 0.9,
+
+			"health_points": 25,
+
+			"bullet_model_id": "big_boss_bullet",
+			"fire_ratio": 220,
+			"force_shoot": true,
+
+			"score": 1000,
 			"score_color": [238, 12, 12]
-                        
-                        
-                        
-                }
+		}
 	]
 }

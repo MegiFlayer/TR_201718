@@ -43,6 +43,7 @@ public class Enemy extends Entity
     private int score;
     private Color scoreColor;
     private double pixelsToDown;
+    private boolean forceShoot;
 
     public Enemy(SpriteLoader sprites, BulletManager bullets, String explosionSpriteId) {
     
@@ -68,6 +69,8 @@ public class Enemy extends Entity
     {
         this.fireRatio = fireRatio;
     }
+    
+    public final void setForceShoot(boolean flag) { this.forceShoot = flag; }
     
     public final void setScore(int score) { this.score = score; }
     public final int getScopre() { return score; }
@@ -132,7 +135,8 @@ public class Enemy extends Entity
         {
             if(fireDelay <= 0)
             {
-                bullets.createBullet(bulletModelId, this, getPosition(), 0);
+                if(stage != null && (forceShoot || stage.canShoot(this)))
+                    bullets.createBullet(bulletModelId, this, getPosition(), 0);
                 updateFireDelay();
             }
             else fireDelay -= delta;

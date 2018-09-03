@@ -11,12 +11,12 @@ import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.HashMap;
-import kp.jngg.sprite.SpriteLoader;
-import mgf.tr.entity.Entity;
 import kp.jngg.json.JSONArray;
 import kp.jngg.json.JSONException;
 import kp.jngg.json.JSONObject;
 import kp.jngg.json.JSONTokener;
+import kp.jngg.sprite.SpriteLoader;
+import mgf.tr.entity.Entity;
 
 /**
  *
@@ -37,6 +37,7 @@ public final class BulletModel
     public final double speed;
     
     public final int power;
+    public final boolean ignoreAllies;
     public final int explosionId;
     
     private BulletModel(JSONObject base)
@@ -54,6 +55,7 @@ public final class BulletModel
         this.speed = base.optDouble("speed", 1);
         
         this.power = base.optInt("power", 1);
+        this.ignoreAllies = base.optBoolean("ignore_allies");
         this.explosionId = base.optInt("explosion_id", 0);
     }
     

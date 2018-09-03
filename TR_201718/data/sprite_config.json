@@ -1,5 +1,13 @@
 {
 	"static_sprites": [
+		{
+			"id": "scenario.game_over",
+			"path":"game-over.png"
+		},
+		{
+			"id": "scenario.you_win",
+			"path":"you-win.png"
+		}
 	],
 	
 	"sheet_sprites": [

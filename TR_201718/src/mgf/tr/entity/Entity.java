@@ -32,6 +32,7 @@ public abstract class Entity
     protected final Vector2 size;
     protected final SpriteLoader sprites;
     protected final BulletManager bullets;
+    protected Scenario stage;
     
     private final BoundingBox bbox;
     private final ShieldEffect shield;
@@ -93,6 +94,8 @@ public abstract class Entity
     public final double getHeight() { return size.y; }
     public final Vector2 getSize() { return size.copy(); }
     
+    public final void setScenario(Scenario stage) { this.stage = stage; }
+    
     public final void setHealthPoints(int hp)
     {
         this.hp = hp < 1 ? 1 : hp;
@@ -146,13 +149,20 @@ public abstract class Entity
         return bullet.hasCollision(bbox);
     }
     
+    public final boolean hasCollision(Entity entity)
+    {
+        return bbox.hasCollision(entity.bbox);
+    }
+    
+    public final boolean hasCollision(BoundingBox other)
+    {
+        return bbox.hasCollision(other);
+    }
+    
     public final void collide(Scenario scenario, Bullet bullet)
     {
-        if(bullet.getOwner().getEntityType() != getEntityType())
-        {
-            damage(bullet.getPower());
-            onCollide(scenario, bullet);
-        }
+        damage(bullet.getPower());
+        onCollide(scenario, bullet);
     }
     protected abstract void onCollide(Scenario scenario, Bullet bullet);
     

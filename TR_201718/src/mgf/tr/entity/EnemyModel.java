@@ -12,14 +12,14 @@ import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.HashMap;
-import kp.jngg.math.Vector2;
-import kp.jngg.sprite.AnimatedSprite;
-import kp.jngg.sprite.SpriteLoader;
-import mgf.tr.scenario.BulletManager;
 import kp.jngg.json.JSONArray;
 import kp.jngg.json.JSONException;
 import kp.jngg.json.JSONObject;
 import kp.jngg.json.JSONTokener;
+import kp.jngg.math.Vector2;
+import kp.jngg.sprite.AnimatedSprite;
+import kp.jngg.sprite.SpriteLoader;
+import mgf.tr.scenario.BulletManager;
 
 /**
  *
@@ -38,6 +38,7 @@ public final class EnemyModel
     
     public final String bulletModelId;
     public final int fireRatio;
+    public final boolean forceShoot;
     
     public final int score;
     public final Color scoreColor;
@@ -55,6 +56,7 @@ public final class EnemyModel
         
         this.bulletModelId = base.optString("bullet_model_id");
         this.fireRatio = base.optInt("fire_ratio");
+        this.forceShoot = base.optBoolean("force_shoot");
         
         this.score = base.optInt("score");
         this.scoreColor = loadColor(base, "score_color");
@@ -79,6 +81,7 @@ public final class EnemyModel
         enemy.setHealthPoints(healthPoints);
         enemy.setBulletModelId(bulletModelId);
         enemy.setFireRatio(fireRatio);
+        enemy.setForceShoot(forceShoot);
         enemy.setScore(score);
         enemy.setScoreColor(scoreColor);
         enemy.updateFireDelay();
