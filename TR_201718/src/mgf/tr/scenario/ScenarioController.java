@@ -50,6 +50,9 @@ public final class ScenarioController
     
     public final void start() { stage.start(); }
     
+    public final boolean hasFinished() { return deadlineTime <= 0; }
+    public final ScenarioState getScenarioState() { return stage.getScenarioState(); }
+    
     public final void update(double delta)
     {
         if(deadlineTime <= 0)
