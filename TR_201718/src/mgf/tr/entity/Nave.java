@@ -97,6 +97,9 @@ public class Nave extends Entity
     }
     
     @Override
+    protected void onDestroying(){ X_SPEED = 200; }
+            
+    @Override
     public void init()
     {
         setSize(Constants.SHIP_WIDTH, Constants.SHIP_HEIGHT);
