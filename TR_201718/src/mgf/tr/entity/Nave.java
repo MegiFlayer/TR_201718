@@ -11,7 +11,6 @@ import kp.jngg.input.InputId;
 import kp.jngg.input.KeyId;
 import kp.jngg.input.Keycode;
 import kp.jngg.input.virtual.VirtualBiBinaryButton;
-import kp.jngg.math.BoundingBox;
 import kp.jngg.math.Vector2;
 import kp.jngg.sprite.Sprite;
 import kp.jngg.sprite.SpriteLoader;
@@ -33,7 +32,7 @@ public class Nave extends Entity
      * Funciones recomendadas: draw: Para dibujar update: Actualizar valores
      * dispatchEvents: capturar eventos de inputs
      */
-    private static double X_SPEED = 200;
+    private static final double X_SPEED = 200;
     private static final double FRICTION = 22.5;
     private Sprite sprite1;
     private Sprite sprite2;
@@ -84,8 +83,7 @@ public class Nave extends Entity
 
     }
     
-    @Override
-    protected final void onCollide(Scenario scenario, Bullet bullet)
+    public final void tryExplode(Scenario scenario)
     {
         if(!isAlive())
         {
@@ -97,7 +95,13 @@ public class Nave extends Entity
     }
     
     @Override
-    protected void onDestroying(){ X_SPEED = 200; }
+    protected final void onCollide(Scenario scenario, Bullet bullet)
+    {
+        tryExplode(scenario);
+    }
+    
+    @Override
+    protected void onDestroying() {}
             
     @Override
     public void init()
@@ -127,7 +131,7 @@ public class Nave extends Entity
         position.ensureRangeXLocal(size.x / 2, maxX - size.x / 2);
 
         if (moveX.isAnyPressed()) {
-            speed.x = X_SPEED * moveX.getDirection();
+            speed.x = (fireEnabled ? X_SPEED * 0.75 : X_SPEED) * moveX.getDirection();
         } else {
             if (speed.x > 0) {
                 speed.x -= FRICTION;
@@ -173,22 +177,15 @@ public class Nave extends Entity
     }
 
     @Override
-    public void dispatch(InputEvent event) {
-        if (event.getIdType() == InputId.KEYBOARD_TYPE) {
-
+    public void dispatch(InputEvent event)
+    {
+        if(event.getIdType() == InputId.KEYBOARD_TYPE)
+        {
             int code = event.getCode();
 
             moveX.dispatchEvent(event);
-            if(code == Keycode.VK_SPACE && event.isPressed())
-            {
-                X_SPEED *= 0.75;
-                fireEnabled = true;
-            }
-            if(code == Keycode.VK_SPACE && event.isReleased())
-            {
-                X_SPEED /= 0.75;
-                fireEnabled = false;
-            }
+            if(code == Keycode.VK_SPACE)
+                fireEnabled = event.isPressed();
         }
     }
 }

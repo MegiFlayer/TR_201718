@@ -215,7 +215,7 @@ public final class Scenario
         switch(state)
         {
             case RUNNING: {
-                if(!ship.hasMoreShips())
+                if(!ship.hasMoreShips() || enemyOut)
                 {
                     state = ScenarioState.PLAYER_LOSE;
                     break;

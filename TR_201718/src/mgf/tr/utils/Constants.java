@@ -7,7 +7,13 @@ package mgf.tr.utils;
 
 import java.awt.Color;
 import java.io.File;
+import java.io.IOException;
 import kp.jngg.font.DefaultFont;
+import kp.jngg.input.KeyId;
+import kp.jngg.input.Keycode;
+import kp.jngg.menu.MenuController;
+import kp.jngg.sprite.Sprite;
+import kp.jngg.sprite.SpriteLoader;
 
 /**
  *
@@ -82,4 +88,28 @@ public interface Constants
     
     /* FONTS */
     DefaultFont DEFAULT_FONT = new DefaultFont("data" + File.separator + "yoster.ttf", 32, Color.WHITE);
+    
+    /* MENU CONTROLLER CREATOR */
+    static void initMenuController(MenuController controller)
+    {
+        controller.setActionInputId(KeyId.getId(Keycode.VK_ENTER));
+        controller.setBackInputId(KeyId.getId(Keycode.VK_ESCAPE));
+        controller.setUpInputId(KeyId.getId(Keycode.VK_UP));
+        controller.setDownInputId(KeyId.getId(Keycode.VK_DOWN));
+        controller.setTitleSize(64);
+        controller.setNormalSize(32);
+        controller.setSelectedSize(38);
+        controller.setDescriptionSize(18);
+        controller.setFont(Constants.DEFAULT_FONT.copy());
+    }
+    
+    static Sprite loadBackground(String path)
+    {
+        File file = new File("data" + File.separator + "sprites" + File.separator + "background" + File.separator + path + ".png");
+        try
+        {
+            return SpriteLoader.createStaticSprite(file);
+        }
+        catch(IOException ex) { return null; }
+    }
 }

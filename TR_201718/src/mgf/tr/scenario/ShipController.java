@@ -46,7 +46,10 @@ public final class ShipController
     public final void updateEnemyCollision(Enemy enemy)
     {
         if(ship != null && ship.isAlive() && ship.hasCollision(enemy))
+        {
             ship.kill(false);
+            ship.tryExplode(scenario);
+        }
     }
     
     public final void newShip(boolean enableTemporaryShield)

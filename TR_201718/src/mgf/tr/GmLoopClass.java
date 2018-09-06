@@ -18,6 +18,7 @@ import kp.jngg.input.KeyId;
 import kp.jngg.input.Keycode;
 import kp.jngg.menu.Menu;
 import kp.jngg.menu.MenuController;
+import kp.jngg.sprite.Sprite;
 import kp.jngg.sprite.SpriteLoader;
 import mgf.tr.entity.EnemyModel;
 import mgf.tr.scenario.BulletModel;
@@ -37,8 +38,7 @@ public class GmLoopClass implements GameLoop, InputListener
     private final MenuController menu;
     private final StageSelector stages;
     
-    //private Scenario stage;
-    //private ScenarioController stage;
+    private final Sprite background;
     
     public GmLoopClass(Display display)
     {
@@ -47,6 +47,7 @@ public class GmLoopClass implements GameLoop, InputListener
         this.sprites = new SpriteLoader(new File("data" + File.separator + "sprites"));
         this.menu = new MenuController();
         this.stages = new StageSelector(canvas, sprites);
+        this.background = loadBackground();
     }
     
     @Override
@@ -76,6 +77,14 @@ public class GmLoopClass implements GameLoop, InputListener
             display.abort();
         }
     }
+    
+    private Sprite loadBackground()
+    {
+        String path = Config.getString("main.background", "");
+        if(path == null || path.isEmpty())
+            return null;
+        return Constants.loadBackground(path);
+    }
 
     @Override
     public void draw(Graphics2D gd){
@@ -85,7 +94,12 @@ public class GmLoopClass implements GameLoop, InputListener
         canvas.clear(Color.BLACK);
         if(stages.hasCurrentStage())
             stages.drawCurrentStage(gc);
-        else menu.draw(gc);
+        else
+        {
+            if(background != null)
+                background.draw(gc, 0, 0, canvas.getWidth(), canvas.getHeight());
+            menu.draw(gc);
+        }
         canvas.draw(gd);
         
     }
@@ -95,7 +109,12 @@ public class GmLoopClass implements GameLoop, InputListener
         
         if(stages.hasCurrentStage())
             stages.updateCurrentStage(d);
-        else menu.update(d);
+        else
+        {
+            if(background != null)
+                background.update(d);
+            menu.update(d);
+        }
         //stage.update(d);
         
     }
@@ -114,6 +133,7 @@ public class GmLoopClass implements GameLoop, InputListener
     {
         menu.setPosition(0, 0);
         menu.setSize(canvas.getWidth(), canvas.getHeight());
+        Constants.initMenuController(menu);
         menu.setActionInputId(KeyId.getId(Keycode.VK_ENTER));
         menu.setBackInputId(KeyId.getId(Keycode.VK_ESCAPE));
         menu.setUpInputId(KeyId.getId(Keycode.VK_UP));
