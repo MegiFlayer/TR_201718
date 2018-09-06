@@ -77,6 +77,25 @@
 			"explosion_id": 3
 		},
                 {
+			"id": "fast_bullet",
+			
+			"sprite_id": "bullet.basic.yellow",
+			"sprite_speed": 30,
+			"sprite_width": 10,
+			"sprite_height": 12,
+			
+			"bbox_x": 0,
+			"bbox_y": 2,
+			"bbox_width": 5,
+			"bbox_height": 5,
+			
+			"speed": 350,
+			
+			"power": 1,
+			"ignore_allies": true,
+			"explosion_id": 1
+		},
+                {
 			"id": "big_boss_bullet",
 			
 			"sprite_id": "bullet.basic.yellow",

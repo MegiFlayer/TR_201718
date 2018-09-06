@@ -10,7 +10,7 @@
 			"delta_width": 0.9,
 			"delta_height": 0.9,
 			
-			"health_points": 1,
+			"health_points": 2,
 			
 			"bullet_model_id": "basic_green_bullet",
 			"fire_ratio": 100,
@@ -29,7 +29,7 @@
 			"delta_width": 0.9,
 			"delta_height": 0.9,
 			
-			"health_points": 2,
+			"health_points": 3,
 			
 			"bullet_model_id": "warrior_bullet",
 			"fire_ratio": 170,
@@ -55,6 +55,25 @@
 			"force_shoot": false,
 
 			"score": 120,
+			"score_color": [240, 260, 0]
+		},
+                {
+			"id": "enemy_fast",
+
+			"sprite_id": "enemy.fast",
+			"explosion_sprite_id": "explosion.yellow",
+			"sprite_speed": 4,
+
+			"delta_width": 0.9,
+			"delta_height": 0.9,
+
+			"health_points": 1,
+
+			"bullet_model_id": "fast_bullet",
+			"fire_ratio": 252,
+			"force_shoot": false,
+
+			"score": 100,
 			"score_color": [240, 260, 0]
 		},
 		{

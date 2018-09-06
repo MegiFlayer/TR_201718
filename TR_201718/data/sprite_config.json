@@ -224,6 +224,15 @@
 			"frame_height": 13,
 			"frames": 3
 		},
+                {
+			"id": "enemy.fast",
+			"path": "enemy_fast.png",
+			"offset_x": 0,
+			"offset_y": 0,
+			"frame_width": 10,
+			"frame_height": 13,
+			"frames": 3
+		},
 		{
 			"id": "enemy.boss",
 			"path": "Enemigo30x25_FSanz.png",

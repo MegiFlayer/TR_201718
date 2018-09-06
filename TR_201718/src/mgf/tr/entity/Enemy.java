@@ -9,6 +9,7 @@ import java.awt.Color;
 import java.awt.Graphics2D;
 import java.util.Objects;
 import kp.jngg.input.InputEvent;
+import kp.jngg.math.BoundingBox;
 import kp.jngg.math.RNG;
 import kp.jngg.math.Vector2;
 import kp.jngg.sprite.AnimatedSprite;
@@ -158,6 +159,6 @@ public class Enemy extends Entity
         fireDelay += (1d - fireRatio / 255d) * 10d;
         fireDelay += RAND.getDouble(fireDelay);
     }
-    
+ 
 }
 

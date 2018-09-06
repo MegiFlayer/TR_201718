@@ -11,6 +11,7 @@ import kp.jngg.input.InputId;
 import kp.jngg.input.KeyId;
 import kp.jngg.input.Keycode;
 import kp.jngg.input.virtual.VirtualBiBinaryButton;
+import kp.jngg.math.BoundingBox;
 import kp.jngg.math.Vector2;
 import kp.jngg.sprite.Sprite;
 import kp.jngg.sprite.SpriteLoader;
@@ -32,7 +33,7 @@ public class Nave extends Entity
      * Funciones recomendadas: draw: Para dibujar update: Actualizar valores
      * dispatchEvents: capturar eventos de inputs
      */
-    private static final double X_SPEED = 100;
+    private static double X_SPEED = 200;
     private static final double FRICTION = 22.5;
     private Sprite sprite1;
     private Sprite sprite2;
@@ -175,9 +176,15 @@ public class Nave extends Entity
             int code = event.getCode();
 
             moveX.dispatchEvent(event);
-            if(code == Keycode.VK_SPACE)
+            if(code == Keycode.VK_SPACE && event.isPressed())
             {
-                fireEnabled = event.isPressed();
+                X_SPEED *= 0.75;
+                fireEnabled = true;
+            }
+            if(code == Keycode.VK_SPACE && event.isReleased())
+            {
+                X_SPEED /= 0.75;
+                fireEnabled = false;
             }
         }
     }
