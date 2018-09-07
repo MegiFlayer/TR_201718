@@ -6,23 +6,41 @@
 	
 	"enemy_behavior": {
 		"speed": 20,
-		"speed_increment": 10,
+		"speed_increment": 7,
 		"fall_amount": 20
 	},
 	
 	"entities": [
         
-		{ "id": "enemy_basic", "position": [4, 10] },
-		{ "id": "enemy_basic", "position": [4, 9] },
+		{ "id": "enemy_basic", "position": [2, 8] },
                 
-		{ "id": "enemy_warrior", "position": [2, 6] },
-		{ "id": "enemy_warrior", "position": [2, 7] },
-		{ "id": "enemy_warrior", "position": [2, 8] },
-		{ "id": "enemy_warrior", "position": [2, 9] },
-		{ "id": "enemy_warrior", "position": [2, 10] },
+		{ "id": "enemy_basic", "position": [1, 7] },
+		{ "id": "enemy_basic", "position": [1, 8] },
+		{ "id": "enemy_basic", "position": [1, 9] },
+                
+                { "id": "enemy_warrior", "position": [0, 6] },
+		{ "id": "enemy_warrior", "position": [0, 7] },
+		{ "id": "enemy_warrior", "position": [0, 8] },
+		{ "id": "enemy_warrior", "position": [0, 9] },
+                { "id": "enemy_warrior", "position": [0, 10] },
+                
+                { "id": "enemy_warrior", "position": [-1, 5] },
+                { "id": "enemy_warrior", "position": [-1, 6] },
 		{ "id": "enemy_warrior", "position": [-1, 7] },
 		{ "id": "enemy_warrior", "position": [-1, 8] },
 		{ "id": "enemy_warrior", "position": [-1, 9] },
+                { "id": "enemy_warrior", "position": [-1, 10] },
+                { "id": "enemy_warrior", "position": [-1, 11] },
+
+                { "id": "enemy_warrior", "position": [-2, 4] },
+                { "id": "enemy_warrior", "position": [-2, 5] },
+                { "id": "enemy_warrior", "position": [-2, 6] },
+		{ "id": "enemy_warrior", "position": [-2, 7] },
+		{ "id": "enemy_warrior", "position": [-2, 8] },
+		{ "id": "enemy_warrior", "position": [-2, 9] },
+                { "id": "enemy_warrior", "position": [-2, 10] },
+                { "id": "enemy_warrior", "position": [-2, 11] },
+                { "id": "enemy_warrior", "position": [-2, 12] },
                 
 		{
 			"id": "wall",

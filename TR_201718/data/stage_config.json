@@ -6,16 +6,25 @@
 		},
                 {
                         "stage_path": "lvl02",
-                        "stage_name": "Meet the boss"
+                        "stage_name": "Introducing the tank"
                 },
                 {
                         "stage_path": "lvl03",
-                        "stage_name": "Hi, Larry!"
+                        "stage_name": "Meet the boss"
                 },
                 {
                         "stage_path": "lvl04",
+                        "stage_name": "Hi, Larry!"
+                },
+                {
+                        "stage_path": "lvl05",
                         "stage_name": "Things are getting hard"
+                },
+                {
+                        "stage_path": "lvl06",
+                        "stage_name": "Here's Speedy!"
                 }
+                
                 
 	]
 }

@@ -131,7 +131,7 @@ public class Nave extends Entity
         position.ensureRangeXLocal(size.x / 2, maxX - size.x / 2);
 
         if (moveX.isAnyPressed()) {
-            speed.x = (fireEnabled ? X_SPEED * 0.75 : X_SPEED) * moveX.getDirection();
+            speed.x = (fireEnabled ? X_SPEED * 0.5 : X_SPEED) * moveX.getDirection();
         } else {
             if (speed.x > 0) {
                 speed.x -= FRICTION;
