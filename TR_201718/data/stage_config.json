@@ -6,23 +6,47 @@
 		},
                 {
                         "stage_path": "lvl02",
-                        "stage_name": "Introducing the tank"
+                        "stage_name": "Wow, they are a lot!"
                 },
                 {
                         "stage_path": "lvl03",
-                        "stage_name": "Meet the boss"
+                        "stage_name": "Warriors are coming"
                 },
                 {
                         "stage_path": "lvl04",
-                        "stage_name": "Hi, Larry!"
+                        "stage_name": "Prepare your defenses"
                 },
                 {
                         "stage_path": "lvl05",
-                        "stage_name": "Things are getting hard"
+                        "stage_name": "Introducing the tank"
                 },
                 {
                         "stage_path": "lvl06",
+                        "stage_name": "Better than shields"
+                },
+                {
+			"stage_path": "lvl07",
+			"stage_name": "Meet the boss"
+		},
+                {
+                        "stage_path": "lvl08",
+                        "stage_name": "You are fired!"
+                },
+                {
+                        "stage_path": "lvl09",
                         "stage_name": "Here's Speedy!"
+                },
+                {
+                        "stage_path": "lvl10",
+                        "stage_name": "Slow down, buddy"
+                },
+                {
+                        "stage_path": "lvl11",
+                        "stage_name": "Hi, Larry!"
+                },
+                {
+                        "stage_path": "lvl12",
+                        "stage_name": "Things are getting hard"
                 }
                 
                 
