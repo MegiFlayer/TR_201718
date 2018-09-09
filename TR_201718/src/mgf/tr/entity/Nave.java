@@ -146,7 +146,7 @@ public class Nave extends Entity
             }
         }
         speed.ensureRangeLocal(600, 600);
-
+        
         super.update(delta);
         
         if(fireCoolDown < 0)
@@ -161,7 +161,7 @@ public class Nave extends Entity
                     position.x, position.y - Constants.BULLET_SHIP_HEIGHT / 2 - size.y / 2, Math.PI);
         }
         
-        if(isShieldEnabled())
+         if(isShieldEnabled())
         {
             if(shieldEnabledTime <= 0)
             {

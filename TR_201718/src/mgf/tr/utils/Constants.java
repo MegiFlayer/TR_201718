@@ -40,7 +40,7 @@ public interface Constants
     /* SHIP */
     double SHIP_WIDTH = CELL_WIDTH * 0.8;
     double SHIP_HEIGHT = CELL_HEIGHT;
-    double SHIP_TIME_TO_RESPAWN = 3; // 3 Seconds to respawn.
+    double SHIP_TIME_TO_RESPAWN = 1.5; // 2 Seconds to respawn.
     
     /* LABEL */
     int FONT_SIZE = 12;
