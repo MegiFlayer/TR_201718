@@ -47,8 +47,11 @@
                 {
                         "stage_path": "lvl12",
                         "stage_name": "Things are getting hard"
+                },
+                {
+                        "stage_path": "lvl13",
+                        "stage_name": "Bubble trouble"
                 }
-                
                 
 	]
 }

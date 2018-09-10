@@ -89,7 +89,7 @@
 			"health_points": 25,
 
 			"bullet_model_id": "big_boss_bullet",
-			"fire_ratio": 220,
+			"fire_ratio": 250,
 			"force_shoot": true,
 
 			"score": 1000,
