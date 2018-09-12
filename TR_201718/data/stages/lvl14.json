@@ -1,0 +1,81 @@
+{
+	"grid_size": [14, 19],
+	"debug_grid": false,
+	"lives": 5,
+	"background": "back_space1",
+	
+	"enemy_behavior": {
+		"speed": 15,
+		"speed_increment": 2,
+		"fall_amount": 15
+	},
+	
+	"entities": [
+		{ "id": "enemy_fast", "position": [3, 3] },
+                { "id": "enemy_fast", "position": [3, 4] },
+                { "id": "enemy_fast", "position": [3, 5] },
+                { "id": "enemy_fast", "position": [3, 6] },
+                { "id": "enemy_fast", "position": [3, 15] },
+                { "id": "enemy_fast", "position": [3, 16] },
+                { "id": "enemy_fast", "position": [3, 17] },
+                
+                { "id": "enemy_fast", "position": [-2, 3] },
+                { "id": "enemy_fast", "position": [-2, 11] },
+                { "id": "enemy_fast", "position": [-2, 12] },
+                { "id": "enemy_fast", "position": [-2, 13] },
+                { "id": "enemy_fast", "position": [-2, 14] },
+                { "id": "enemy_fast", "position": [-2, 15] },
+                { "id": "enemy_fast", "position": [-2, 16] },
+                { "id": "enemy_fast", "position": [-2, 17] },
+                
+                { "id": "enemy_fast", "position": [-6, 3] },
+                { "id": "enemy_fast", "position": [-6, 4] },
+                { "id": "enemy_fast", "position": [-6, 5] },
+                { "id": "enemy_fast", "position": [-6, 6] },
+                { "id": "enemy_fast", "position": [-6, 7] },
+                { "id": "enemy_fast", "position": [-6, 14] },
+                { "id": "enemy_fast", "position": [-6, 15] },
+                { "id": "enemy_fast", "position": [-6, 16] },
+                { "id": "enemy_fast", "position": [-6, 17] },
+                
+                { "id": "enemy_fast", "position": [-11, 3] },
+                { "id": "enemy_fast", "position": [-11, 4] },
+                { "id": "enemy_fast", "position": [-11, 5] },
+                { "id": "enemy_fast", "position": [-11, 6] },
+                { "id": "enemy_fast", "position": [-11, 7] },
+                { "id": "enemy_fast", "position": [-11, 8] },
+                { "id": "enemy_fast", "position": [-11, 9] },
+                { "id": "enemy_fast", "position": [-11, 10] },
+                { "id": "enemy_fast", "position": [-11, 11] },
+                { "id": "enemy_fast", "position": [-11, 17] },
+                
+                { "id": "enemy_fast", "position": [-18, 3] },
+                { "id": "enemy_fast", "position": [-18, 8] },
+                { "id": "enemy_fast", "position": [-18, 9] },
+                { "id": "enemy_fast", "position": [-18, 10] },
+                { "id": "enemy_fast", "position": [-18, 11] },
+                { "id": "enemy_fast", "position": [-18, 12] },
+                { "id": "enemy_fast", "position": [-18, 13] },
+                { "id": "enemy_fast", "position": [-18, 14] },
+                { "id": "enemy_fast", "position": [-18, 15] },
+                { "id": "enemy_fast", "position": [-18, 16] },
+                { "id": "enemy_fast", "position": [-18, 17] },
+                
+                { "id": "enemy_fast", "position": [-27, 3] },
+                { "id": "enemy_fast", "position": [-27, 4] },
+                { "id": "enemy_fast", "position": [-27, 5] },
+                { "id": "enemy_fast", "position": [-27, 6] },
+                { "id": "enemy_fast", "position": [-27, 7] },
+                { "id": "enemy_fast", "position": [-27, 11] },
+                { "id": "enemy_fast", "position": [-27, 12] },
+                { "id": "enemy_fast", "position": [-27, 13] },
+                { "id": "enemy_fast", "position": [-27, 14] },
+                { "id": "enemy_fast", "position": [-27, 15] },
+                { "id": "enemy_fast", "position": [-27, 16] },
+                { "id": "enemy_fast", "position": [-27, 17] },
+                
+                { "id": "enemy_boss", "position": [-35, 3], "size": [5, 5] },
+                { "id": "enemy_boss", "position": [-35, 14], "size": [5, 5] }
+                
+	]
+}
