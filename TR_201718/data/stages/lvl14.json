@@ -2,7 +2,7 @@
 	"grid_size": [14, 19],
 	"debug_grid": false,
 	"lives": 5,
-	"background": "back_space1",
+	"background": "back_space4",
 	
 	"enemy_behavior": {
 		"speed": 15,
