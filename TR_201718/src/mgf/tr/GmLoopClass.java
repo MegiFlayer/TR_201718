@@ -38,8 +38,6 @@ public class GmLoopClass implements GameLoop, InputListener
     private final MenuController menu;
     private final StageSelector stages;
     
-    private final Sprite background;
-    
     public GmLoopClass(Display display)
     {
         this.display = Objects.requireNonNull(display);
@@ -47,7 +45,6 @@ public class GmLoopClass implements GameLoop, InputListener
         this.sprites = new SpriteLoader(new File("data" + File.separator + "sprites"));
         this.menu = new MenuController();
         this.stages = new StageSelector(canvas, sprites);
-        this.background = loadBackground();
     }
     
     @Override
@@ -85,6 +82,14 @@ public class GmLoopClass implements GameLoop, InputListener
             return null;
         return Constants.loadBackground(path);
     }
+    
+    private Sprite loadStageBackground()
+    {
+        String path = Config.getString("main.stage_background", "");
+        if(path == null || path.isEmpty())
+            return null;
+        return Constants.loadBackground(path);
+    }
 
     @Override
     public void draw(Graphics2D gd){
@@ -96,8 +101,6 @@ public class GmLoopClass implements GameLoop, InputListener
             stages.drawCurrentStage(gc);
         else
         {
-            if(background != null)
-                background.draw(gc, 0, 0, canvas.getWidth(), canvas.getHeight());
             menu.draw(gc);
         }
         canvas.draw(gd);
@@ -111,8 +114,6 @@ public class GmLoopClass implements GameLoop, InputListener
             stages.updateCurrentStage(d);
         else
         {
-            if(background != null)
-                background.update(d);
             menu.update(d);
         }
         //stage.update(d);
@@ -154,6 +155,7 @@ public class GmLoopClass implements GameLoop, InputListener
         //main.addSimpleAction("PLAY STAGE", "Start a game at the stage you want.", (controller) -> { controller.goTo(stages); });
         main.addOption(stages);
         main.addSimpleAction("QUIT", "Quit the game.", (controller) -> { display.stop(); });
+        main.setBackground(loadBackground());
         menu.setRoot(main);
         
         stages.setOptionTitle("PLAY STAGE");
@@ -164,6 +166,7 @@ public class GmLoopClass implements GameLoop, InputListener
         stages.setPrintCenteredOptions(true);
         stages.setBack(main);
         stages.setAutoStartNextStage(true);
+        stages.setBackground(loadStageBackground());
         stages.initStages();
         
         menu.goToRoot();

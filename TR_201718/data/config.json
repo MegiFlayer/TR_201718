@@ -13,7 +13,8 @@
     },
 	
 	"main": {
-		"background": "main_back"
+		"background": "main_back",
+		"stage_background": "stage_back"
 	}
     
 }
