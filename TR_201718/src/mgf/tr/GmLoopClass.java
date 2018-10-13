@@ -146,9 +146,9 @@ public class GmLoopClass implements GameLoop, InputListener
         menu.setFont(Constants.DEFAULT_FONT.copy());
         
         Menu main = new Menu();
-        main.setOptionTitle("MAIN MENU");
+        /*main.setOptionTitle("MAIN MENU");
         main.setShowTitle(true);
-        main.setTitlePosition(50);
+        main.setTitlePosition(50);*/
         main.setFirstOptionPosition(canvas.getHeight() / 2);
         main.setPrintCenteredOptions(true);
         main.setBack(main);

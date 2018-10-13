@@ -11,10 +11,10 @@
         "enabled_info": false,
         "info_size": 24
     },
-	
-	"main": {
-		"background": "main_back",
-		"stage_background": "stage_back"
-	}
-    
+    "root": {},
+    "main_backSPACE": {},
+    "main": {
+        "background": "main_back",
+        "stage_background": "stage_back"
+    }
 }
