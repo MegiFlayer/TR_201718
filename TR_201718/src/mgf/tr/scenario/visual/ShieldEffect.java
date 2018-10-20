@@ -51,7 +51,7 @@ public final class ShieldEffect extends VisualObject<AnimatedSprite>
                 state = State.DISABLING;
         }
     }
-    public final boolean isEnabled() { return state == State.ENABLED; }
+    public final boolean isEnabled() { return state == State.ENABLED || state == State.ENABLING; }
     
     public final boolean isInFront() { return state != State.DISABLED && sprite != null && sprite.getCurrentFrame() < sprite.getFrameCount() / 2; }
     
