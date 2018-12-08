@@ -27,7 +27,7 @@ public class Main {
     public static void main(String[] args) {
         
         //System.out.println(DisplayMode.toStringAllDisplayModes());
-        Display ventana = Display.create("Práctica", DisplayMode.getDisplayMode(1280, 960));
+        Display ventana = Display.create("Space Invaders by FSanz", DisplayMode.getDisplayMode(1280, 960));
         enableDebugInfo(ventana);
         /*ventana.getDebugInfo().setEnabled(true);
         ventana.getDebugInfo().setExactFps(true);
